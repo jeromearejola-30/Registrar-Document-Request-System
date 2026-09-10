@@ -23,14 +23,14 @@ Partial Class frmMainMenu
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         pnlSidebar = New Panel()
+        btnReports = New Button()
+        btnDocumentRequests = New Button()
+        btnDocumentManagement = New Button()
         btnLogout = New Button()
         btnUserManagement = New Button()
         btnStudentRecords = New Button()
         lblRole = New Label()
         pnlContent = New Panel()
-        btnDocumentManagement = New Button()
-        btnDocumentRequests = New Button()
-        btnReports = New Button()
         pnlSidebar.SuspendLayout()
         SuspendLayout()
         ' 
@@ -46,8 +46,35 @@ Partial Class frmMainMenu
         pnlSidebar.Dock = DockStyle.Left
         pnlSidebar.Location = New Point(0, 0)
         pnlSidebar.Name = "pnlSidebar"
-        pnlSidebar.Size = New Size(162, 450)
+        pnlSidebar.Size = New Size(200, 450)
         pnlSidebar.TabIndex = 0
+        ' 
+        ' btnReports
+        ' 
+        btnReports.Location = New Point(12, 181)
+        btnReports.Name = "btnReports"
+        btnReports.Size = New Size(94, 29)
+        btnReports.TabIndex = 6
+        btnReports.Text = "Reports"
+        btnReports.UseVisualStyleBackColor = True
+        ' 
+        ' btnDocumentRequests
+        ' 
+        btnDocumentRequests.Location = New Point(12, 146)
+        btnDocumentRequests.Name = "btnDocumentRequests"
+        btnDocumentRequests.Size = New Size(141, 29)
+        btnDocumentRequests.TabIndex = 5
+        btnDocumentRequests.Text = "DocumentRequests"
+        btnDocumentRequests.UseVisualStyleBackColor = True
+        ' 
+        ' btnDocumentManagement
+        ' 
+        btnDocumentManagement.Location = New Point(12, 111)
+        btnDocumentManagement.Name = "btnDocumentManagement"
+        btnDocumentManagement.Size = New Size(182, 29)
+        btnDocumentManagement.TabIndex = 4
+        btnDocumentManagement.Text = "DocumentManagement"
+        btnDocumentManagement.UseVisualStyleBackColor = True
         ' 
         ' btnLogout
         ' 
@@ -88,37 +115,10 @@ Partial Class frmMainMenu
         ' pnlContent
         ' 
         pnlContent.Dock = DockStyle.Fill
-        pnlContent.Location = New Point(162, 0)
+        pnlContent.Location = New Point(200, 0)
         pnlContent.Name = "pnlContent"
-        pnlContent.Size = New Size(638, 450)
+        pnlContent.Size = New Size(600, 450)
         pnlContent.TabIndex = 1
-        ' 
-        ' btnDocumentManagement
-        ' 
-        btnDocumentManagement.Location = New Point(12, 111)
-        btnDocumentManagement.Name = "btnDocumentManagement"
-        btnDocumentManagement.Size = New Size(141, 29)
-        btnDocumentManagement.TabIndex = 4
-        btnDocumentManagement.Text = "DocumentManagement"
-        btnDocumentManagement.UseVisualStyleBackColor = True
-        ' 
-        ' btnDocumentRequests
-        ' 
-        btnDocumentRequests.Location = New Point(12, 146)
-        btnDocumentRequests.Name = "btnDocumentRequests"
-        btnDocumentRequests.Size = New Size(141, 29)
-        btnDocumentRequests.TabIndex = 5
-        btnDocumentRequests.Text = "DocumentRequests"
-        btnDocumentRequests.UseVisualStyleBackColor = True
-        ' 
-        ' btnReports
-        ' 
-        btnReports.Location = New Point(12, 181)
-        btnReports.Name = "btnReports"
-        btnReports.Size = New Size(94, 29)
-        btnReports.TabIndex = 6
-        btnReports.Text = "Reports"
-        btnReports.UseVisualStyleBackColor = True
         ' 
         ' frmMainMenu
         ' 
