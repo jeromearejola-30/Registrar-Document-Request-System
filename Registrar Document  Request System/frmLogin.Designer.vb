@@ -27,14 +27,22 @@ Partial Class frmLogin
         lblPassword = New Label()
         txtUsername = New TextBox()
         txtPassword = New TextBox()
+        rdoShowPassword = New RadioButton()
+        lblShowPassword = New Label()
+        lblClearAll = New Label()
+        Label1 = New Label()
+        Label2 = New Label()
+        PictureBox1 = New PictureBox()
+        CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' btnLogin
         ' 
         btnLogin.Cursor = Cursors.SizeAll
-        btnLogin.Location = New Point(241, 178)
+        btnLogin.Location = New Point(118, 453)
+        btnLogin.Margin = New Padding(3, 2, 3, 2)
         btnLogin.Name = "btnLogin"
-        btnLogin.Size = New Size(125, 29)
+        btnLogin.Size = New Size(280, 29)
         btnLogin.TabIndex = 2
         btnLogin.Text = "Login"
         btnLogin.UseVisualStyleBackColor = True
@@ -42,47 +50,115 @@ Partial Class frmLogin
         ' lblUsername
         ' 
         lblUsername.AutoSize = True
-        lblUsername.Location = New Point(241, 72)
+        lblUsername.Location = New Point(118, 311)
         lblUsername.Name = "lblUsername"
-        lblUsername.Size = New Size(75, 20)
+        lblUsername.Size = New Size(60, 15)
         lblUsername.TabIndex = 4
         lblUsername.Text = "Username"
         ' 
         ' lblPassword
         ' 
         lblPassword.AutoSize = True
-        lblPassword.Location = New Point(241, 125)
+        lblPassword.Location = New Point(118, 355)
         lblPassword.Name = "lblPassword"
-        lblPassword.Size = New Size(70, 20)
+        lblPassword.Size = New Size(57, 15)
         lblPassword.TabIndex = 5
         lblPassword.Text = "Password"
         ' 
         ' txtUsername
         ' 
-        txtUsername.Location = New Point(241, 95)
+        txtUsername.Location = New Point(118, 328)
+        txtUsername.Margin = New Padding(3, 2, 3, 2)
         txtUsername.Name = "txtUsername"
-        txtUsername.Size = New Size(125, 27)
+        txtUsername.Size = New Size(280, 23)
         txtUsername.TabIndex = 6
         ' 
         ' txtPassword
         ' 
-        txtPassword.Location = New Point(241, 145)
+        txtPassword.Location = New Point(118, 372)
+        txtPassword.Margin = New Padding(3, 2, 3, 2)
         txtPassword.Name = "txtPassword"
-        txtPassword.Size = New Size(125, 27)
+        txtPassword.Size = New Size(280, 23)
         txtPassword.TabIndex = 7
+        txtPassword.UseSystemPasswordChar = True
+        ' 
+        ' rdoShowPassword
+        ' 
+        rdoShowPassword.AutoSize = True
+        rdoShowPassword.Location = New Point(208, 415)
+        rdoShowPassword.Name = "rdoShowPassword"
+        rdoShowPassword.Size = New Size(14, 13)
+        rdoShowPassword.TabIndex = 8
+        rdoShowPassword.TabStop = True
+        rdoShowPassword.UseVisualStyleBackColor = True
+        ' 
+        ' lblShowPassword
+        ' 
+        lblShowPassword.AutoSize = True
+        lblShowPassword.Location = New Point(116, 414)
+        lblShowPassword.Name = "lblShowPassword"
+        lblShowPassword.Size = New Size(86, 15)
+        lblShowPassword.TabIndex = 9
+        lblShowPassword.Text = "ShowPassword"
+        ' 
+        ' lblClearAll
+        ' 
+        lblClearAll.AutoSize = True
+        lblClearAll.Location = New Point(347, 414)
+        lblClearAll.Name = "lblClearAll"
+        lblClearAll.Size = New Size(51, 15)
+        lblClearAll.TabIndex = 10
+        lblClearAll.Text = "Clear All"
+        ' 
+        ' Label1
+        ' 
+        Label1.AutoSize = True
+        Label1.Font = New Font("Segoe UI", 36F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label1.Location = New Point(134, 85)
+        Label1.Name = "Label1"
+        Label1.Size = New Size(430, 65)
+        Label1.TabIndex = 11
+        Label1.Text = "Lyceum of Alabang"
+        ' 
+        ' Label2
+        ' 
+        Label2.AutoSize = True
+        Label2.Font = New Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label2.Location = New Point(143, 150)
+        Label2.Name = "Label2"
+        Label2.Size = New Size(348, 30)
+        Label2.TabIndex = 12
+        Label2.Text = "Registrar Document Request System"
+        ' 
+        ' PictureBox1
+        ' 
+        PictureBox1.Location = New Point(23, 82)
+        PictureBox1.Name = "PictureBox1"
+        PictureBox1.Size = New Size(110, 110)
+        PictureBox1.TabIndex = 13
+        PictureBox1.TabStop = False
         ' 
         ' frmLogin
         ' 
-        AutoScaleDimensions = New SizeF(8.0F, 20.0F)
+        AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(800, 450)
+        ClientSize = New Size(1264, 761)
+        Controls.Add(PictureBox1)
+        Controls.Add(Label2)
+        Controls.Add(Label1)
+        Controls.Add(lblClearAll)
+        Controls.Add(lblShowPassword)
+        Controls.Add(rdoShowPassword)
         Controls.Add(txtPassword)
         Controls.Add(txtUsername)
         Controls.Add(lblPassword)
         Controls.Add(lblUsername)
         Controls.Add(btnLogin)
+        Margin = New Padding(3, 2, 3, 2)
+        MinimumSize = New Size(1280, 800)
         Name = "frmLogin"
-        Text = "Form1"
+        Text = "frmLogin"
+        CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -92,5 +168,11 @@ Partial Class frmLogin
     Friend WithEvents lblPassword As Label
     Friend WithEvents txtUsername As TextBox
     Friend WithEvents txtPassword As TextBox
+    Friend WithEvents rdoShowPassword As RadioButton
+    Friend WithEvents lblShowPassword As Label
+    Friend WithEvents lblClearAll As Label
+    Friend WithEvents Label1 As Label
+    Friend WithEvents Label2 As Label
+    Friend WithEvents PictureBox1 As PictureBox
 
 End Class

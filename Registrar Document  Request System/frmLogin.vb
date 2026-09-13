@@ -91,8 +91,29 @@ Public Class frmLogin
 
     End Sub
 
-    Private Sub frmLogin_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub rdoShowPassword_Click(sender As Object, e As EventArgs) Handles rdoShowPassword.Click
+        Dim rb As RadioButton = CType(sender, RadioButton)
+
+        ' Check if it was already checked prior to the click
+        If rb.Tag IsNot Nothing AndAlso CBool(rb.Tag) = True Then
+            rb.Checked = False
+            rb.Tag = False
+        Else
+            rb.Checked = True
+            rb.Tag = True
+        End If
+
+        ' Toggle password visibility based on the checked state
+        If rb.Checked Then
+            txtPassword.UseSystemPasswordChar = False
+        Else
+            txtPassword.UseSystemPasswordChar = True
+        End If
 
     End Sub
 
+    Private Sub lblClearAll_Click(sender As Object, e As EventArgs) Handles lblClearAll.Click
+        txtUsername.Clear()
+        txtPassword.Clear()
+    End Sub
 End Class

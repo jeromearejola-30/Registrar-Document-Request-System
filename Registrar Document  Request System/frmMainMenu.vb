@@ -37,23 +37,25 @@
         End If
     End Sub
 
-    Private Sub btnStudentRecords_Click(sender As Object, e As EventArgs) Handles btnStudentRecords.Click
-        StudentRecords.Show()
+    Private Sub btnStudentManagement_Click(sender As Object, e As EventArgs) Handles btnStudentManagement.Click
+        btnStudentManagement.Show()
     End Sub
 
     Private Sub btnUserManagement_Click(sender As Object, e As EventArgs) Handles btnUserManagement.Click
-        UserManagement.Show()
+        frmUserManagement.Show()
     End Sub
 
     Private Sub btnDocumentManagement_Click(sender As Object, e As EventArgs) Handles btnDocumentManagement.Click
-        DocumentManagement.Show()
+        frmDocumentManagement.Show()
     End Sub
 
     Private Sub btnDocumentRequests_Click(sender As Object, e As EventArgs) Handles btnDocumentRequests.Click
-        DocumentRequest.Show()
+        frmDocumentRequest.Show()
     End Sub
 
     Private Sub btnReports_Click(sender As Object, e As EventArgs) Handles btnReports.Click
-        Reports.Show()
+        frmReports.Show()
     End Sub
+
+
 End Class
