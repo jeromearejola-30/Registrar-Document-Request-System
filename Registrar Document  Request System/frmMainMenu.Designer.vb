@@ -28,7 +28,7 @@ Partial Class frmMainMenu
         btnDocumentManagement = New Button()
         btnLogout = New Button()
         btnUserManagement = New Button()
-        btnStudentRecords = New Button()
+        btnStudentManagement = New Button()
         lblRole = New Label()
         pnlContent = New Panel()
         pnlSidebar.SuspendLayout()
@@ -41,92 +41,102 @@ Partial Class frmMainMenu
         pnlSidebar.Controls.Add(btnDocumentManagement)
         pnlSidebar.Controls.Add(btnLogout)
         pnlSidebar.Controls.Add(btnUserManagement)
-        pnlSidebar.Controls.Add(btnStudentRecords)
+        pnlSidebar.Controls.Add(btnStudentManagement)
         pnlSidebar.Controls.Add(lblRole)
         pnlSidebar.Dock = DockStyle.Left
         pnlSidebar.Location = New Point(0, 0)
+        pnlSidebar.Margin = New Padding(3, 2, 3, 2)
         pnlSidebar.Name = "pnlSidebar"
-        pnlSidebar.Size = New Size(200, 450)
+        pnlSidebar.Size = New Size(320, 761)
         pnlSidebar.TabIndex = 0
         ' 
         ' btnReports
         ' 
-        btnReports.Location = New Point(12, 181)
+        btnReports.Location = New Point(30, 377)
+        btnReports.Margin = New Padding(3, 2, 3, 2)
         btnReports.Name = "btnReports"
-        btnReports.Size = New Size(94, 29)
+        btnReports.Size = New Size(252, 28)
         btnReports.TabIndex = 6
         btnReports.Text = "Reports"
         btnReports.UseVisualStyleBackColor = True
         ' 
         ' btnDocumentRequests
         ' 
-        btnDocumentRequests.Location = New Point(12, 146)
+        btnDocumentRequests.Location = New Point(30, 349)
+        btnDocumentRequests.Margin = New Padding(3, 2, 3, 2)
         btnDocumentRequests.Name = "btnDocumentRequests"
-        btnDocumentRequests.Size = New Size(141, 29)
+        btnDocumentRequests.Size = New Size(252, 28)
         btnDocumentRequests.TabIndex = 5
         btnDocumentRequests.Text = "DocumentRequests"
         btnDocumentRequests.UseVisualStyleBackColor = True
         ' 
         ' btnDocumentManagement
         ' 
-        btnDocumentManagement.Location = New Point(12, 111)
+        btnDocumentManagement.Location = New Point(30, 321)
+        btnDocumentManagement.Margin = New Padding(3, 2, 3, 2)
         btnDocumentManagement.Name = "btnDocumentManagement"
-        btnDocumentManagement.Size = New Size(182, 29)
+        btnDocumentManagement.Size = New Size(252, 28)
         btnDocumentManagement.TabIndex = 4
         btnDocumentManagement.Text = "DocumentManagement"
         btnDocumentManagement.UseVisualStyleBackColor = True
         ' 
         ' btnLogout
         ' 
-        btnLogout.Location = New Point(12, 216)
+        btnLogout.Location = New Point(30, 405)
+        btnLogout.Margin = New Padding(3, 2, 3, 2)
         btnLogout.Name = "btnLogout"
-        btnLogout.Size = New Size(94, 29)
+        btnLogout.Size = New Size(252, 28)
         btnLogout.TabIndex = 3
         btnLogout.Text = "Logout"
         btnLogout.UseVisualStyleBackColor = True
         ' 
         ' btnUserManagement
         ' 
-        btnUserManagement.Location = New Point(12, 76)
+        btnUserManagement.Location = New Point(30, 293)
+        btnUserManagement.Margin = New Padding(3, 2, 3, 2)
         btnUserManagement.Name = "btnUserManagement"
-        btnUserManagement.Size = New Size(141, 29)
+        btnUserManagement.Size = New Size(252, 28)
         btnUserManagement.TabIndex = 2
         btnUserManagement.Text = "UserManagement"
         btnUserManagement.UseVisualStyleBackColor = True
         ' 
-        ' btnStudentRecords
+        ' btnStudentManagement
         ' 
-        btnStudentRecords.Location = New Point(12, 41)
-        btnStudentRecords.Name = "btnStudentRecords"
-        btnStudentRecords.Size = New Size(141, 29)
-        btnStudentRecords.TabIndex = 1
-        btnStudentRecords.Text = "StudentRecords"
-        btnStudentRecords.UseVisualStyleBackColor = True
+        btnStudentManagement.Location = New Point(30, 265)
+        btnStudentManagement.Margin = New Padding(3, 2, 3, 2)
+        btnStudentManagement.Name = "btnStudentManagement"
+        btnStudentManagement.Size = New Size(252, 28)
+        btnStudentManagement.TabIndex = 1
+        btnStudentManagement.Text = "Student Management"
+        btnStudentManagement.UseVisualStyleBackColor = True
         ' 
         ' lblRole
         ' 
         lblRole.AutoSize = True
-        lblRole.Location = New Point(12, 9)
+        lblRole.Location = New Point(30, 241)
         lblRole.Name = "lblRole"
-        lblRole.Size = New Size(53, 20)
+        lblRole.Size = New Size(41, 15)
         lblRole.TabIndex = 0
         lblRole.Text = "Label1"
         ' 
         ' pnlContent
         ' 
         pnlContent.Dock = DockStyle.Fill
-        pnlContent.Location = New Point(200, 0)
+        pnlContent.Location = New Point(320, 0)
+        pnlContent.Margin = New Padding(3, 2, 3, 2)
         pnlContent.Name = "pnlContent"
-        pnlContent.Size = New Size(600, 450)
+        pnlContent.Size = New Size(944, 761)
         pnlContent.TabIndex = 1
         ' 
         ' frmMainMenu
         ' 
-        AutoScaleDimensions = New SizeF(8F, 20F)
+        AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(800, 450)
+        ClientSize = New Size(1264, 761)
         Controls.Add(pnlContent)
         Controls.Add(pnlSidebar)
+        Margin = New Padding(3, 2, 3, 2)
+        MinimumSize = New Size(1280, 800)
         Name = "frmMainMenu"
         Text = "frmMainMenu"
         pnlSidebar.ResumeLayout(False)
@@ -137,7 +147,7 @@ Partial Class frmMainMenu
     Friend WithEvents pnlSidebar As Panel
     Friend WithEvents btnLogout As Button
     Friend WithEvents btnUserManagement As Button
-    Friend WithEvents btnStudentRecords As Button
+    Friend WithEvents btnStudentManagement As Button
     Friend WithEvents lblRole As Label
     Friend WithEvents pnlContent As Panel
     Friend WithEvents btnReports As Button
