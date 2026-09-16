@@ -38,7 +38,7 @@
     End Sub
 
     Private Sub btnStudentManagement_Click(sender As Object, e As EventArgs) Handles btnStudentManagement.Click
-        btnStudentManagement.Show()
+        frmStudentManagement.Show()
     End Sub
 
     Private Sub btnUserManagement_Click(sender As Object, e As EventArgs) Handles btnUserManagement.Click
