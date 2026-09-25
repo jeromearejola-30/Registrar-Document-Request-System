@@ -31,7 +31,9 @@ Partial Class frmMainMenu
         btnStudentManagement = New Button()
         lblRole = New Label()
         pnlContent = New Panel()
+        Label1 = New Label()
         pnlSidebar.SuspendLayout()
+        pnlContent.SuspendLayout()
         SuspendLayout()
         ' 
         ' pnlSidebar
@@ -113,7 +115,7 @@ Partial Class frmMainMenu
         ' lblRole
         ' 
         lblRole.AutoSize = True
-        lblRole.Location = New Point(30, 241)
+        lblRole.Location = New Point(117, 113)
         lblRole.Name = "lblRole"
         lblRole.Size = New Size(41, 15)
         lblRole.TabIndex = 0
@@ -121,12 +123,22 @@ Partial Class frmMainMenu
         ' 
         ' pnlContent
         ' 
+        pnlContent.Controls.Add(Label1)
         pnlContent.Dock = DockStyle.Fill
         pnlContent.Location = New Point(320, 0)
         pnlContent.Margin = New Padding(3, 2, 3, 2)
         pnlContent.Name = "pnlContent"
         pnlContent.Size = New Size(944, 761)
         pnlContent.TabIndex = 1
+        ' 
+        ' Label1
+        ' 
+        Label1.AutoSize = True
+        Label1.Location = New Point(128, 217)
+        Label1.Name = "Label1"
+        Label1.Size = New Size(41, 15)
+        Label1.TabIndex = 0
+        Label1.Text = "Label1"
         ' 
         ' frmMainMenu
         ' 
@@ -141,6 +153,8 @@ Partial Class frmMainMenu
         Text = "frmMainMenu"
         pnlSidebar.ResumeLayout(False)
         pnlSidebar.PerformLayout()
+        pnlContent.ResumeLayout(False)
+        pnlContent.PerformLayout()
         ResumeLayout(False)
     End Sub
 
@@ -153,4 +167,5 @@ Partial Class frmMainMenu
     Friend WithEvents btnReports As Button
     Friend WithEvents btnDocumentRequests As Button
     Friend WithEvents btnDocumentManagement As Button
+    Friend WithEvents Label1 As Label
 End Class
