@@ -56,9 +56,12 @@ Partial Class frmStudentManagement
         ' 
         ' dgvStudents
         ' 
+        dgvStudents.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+        dgvStudents.BackgroundColor = SystemColors.Control
         dgvStudents.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         dgvStudents.Location = New Point(28, 125)
         dgvStudents.Name = "dgvStudents"
+        dgvStudents.RowHeadersVisible = False
         dgvStudents.RowHeadersWidth = 51
         dgvStudents.Size = New Size(989, 367)
         dgvStudents.TabIndex = 0

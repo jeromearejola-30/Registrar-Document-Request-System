@@ -22,9 +22,15 @@ Partial Class frmDocumentRequest
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        components = New System.ComponentModel.Container
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
-        Me.Text = "DocumentRequest"
+        SuspendLayout()
+        ' 
+        ' frmDocumentRequest
+        ' 
+        AutoScaleDimensions = New SizeF(8F, 20F)
+        AutoScaleMode = AutoScaleMode.Font
+        ClientSize = New Size(1445, 1015)
+        Name = "frmDocumentRequest"
+        Text = "DocumentRequest"
+        ResumeLayout(False)
     End Sub
 End Class
