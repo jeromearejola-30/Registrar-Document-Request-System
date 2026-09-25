@@ -67,6 +67,7 @@ Public Class frmLogin
 
             ' Retrieves the user role and passes it to the main menu
             Dim LoggedInRole As String = dbConnect.dr("Role").ToString()
+            Dim LoggedInUserName As String = dbConnect.dr("Username").ToString()
 
             dbConnect.dr.Close()
 
@@ -74,7 +75,9 @@ Public Class frmLogin
 
             If result = DialogResult.OK Then
                 Dim mainMenu As New frmMainMenu()
-                mainMenu.RoleProfile = LoggedInRole
+
+                mainMenu.UserName = LoggedInUserName
+                mainMenu.UserRole = LoggedInRole
 
                 Me.Hide()
                 mainMenu.Show() ' Use .Show() instead of .ShowDialog() to prevent app termination on logout
@@ -115,9 +118,5 @@ Public Class frmLogin
     Private Sub lblClearAll_Click(sender As Object, e As EventArgs) Handles lblClearAll.Click
         txtUsername.Clear()
         txtPassword.Clear()
-    End Sub
-
-    Private Sub frmLogin_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
     End Sub
 End Class
