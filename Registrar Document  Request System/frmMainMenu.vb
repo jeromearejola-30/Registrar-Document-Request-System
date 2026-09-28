@@ -13,11 +13,32 @@
         End If
     End Sub
 
+    ' Properties to hold the current user's role and name
     Public Property UserRole As String
     Public Property UserName As String
+    ' Timer to update the current date and time every second
+    Private WithEvents timer1 As New System.Windows.Forms.Timer()
 
     Private Sub frmMainMenu_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        ' Set the user profile label with the current user's name and role
         lblUserProfile.Text = $"Welcome, {UserName} - ({UserRole})"
+
+        timer1.Interval = 1000 ' Set the timer interval to 1 second (1000 milliseconds)
+        timer1.Start() ' Start the timer to update the time every second
+
+        UpdateTime_Tick() ' Initial call to display the current time immediately
+    End Sub
+
+    Private Sub timer1_Tick(sender As Object, e As EventArgs) Handles timer1.Tick
+        UpdateTime_Tick()
+    End Sub
+
+    Private Sub UpdateTime_Tick()
+        Dim currentTime As DateTime = DateTime.Now
+        ' Update the labels with the current date and time
+        lblDate.Text = currentTime.ToString("MMMM, dddd dd, yyyy")
+        lblTime.Text = currentTime.ToString("hh:mm tt")
 
     End Sub
 
@@ -59,19 +80,5 @@
         frmReports.Show()
     End Sub
 
-    Private Sub lblUserProfile_Click(sender As Object, e As EventArgs) Handles lblUserProfile.Click
 
-    End Sub
-
-    Private Sub lblDate_Click(sender As Object, e As EventArgs) Handles lblDate.Click
-
-    End Sub
-
-    Private Sub lblTime_Click(sender As Object, e As EventArgs) Handles lblTime.Click
-
-    End Sub
-
-    Private Sub Panel3_Paint(sender As Object, e As PaintEventArgs) Handles Panel3.Paint
-
-    End Sub
 End Class
