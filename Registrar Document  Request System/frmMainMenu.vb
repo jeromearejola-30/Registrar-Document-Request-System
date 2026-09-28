@@ -13,10 +13,12 @@
         End If
     End Sub
 
-    Public Property RoleProfile As String
+    Public Property UserRole As String
+    Public Property UserName As String
 
     Private Sub frmMainMenu_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        lblRole.Text = RoleProfile
+        lblUserProfile.Text = $"Welcome, {UserName} - ({UserRole})"
+
     End Sub
 
     Private Sub btnLogout_Click(sender As Object, e As EventArgs) Handles btnLogout.Click
@@ -28,8 +30,8 @@
     )
 
         If result = DialogResult.Yes Then
-            RoleProfile = String.Empty
-
+            UserRole = String.Empty
+            UserName = String.Empty
             Dim loginForm As New frmLogin()
             loginForm.Show()
 
@@ -57,5 +59,19 @@
         frmReports.Show()
     End Sub
 
+    Private Sub lblUserProfile_Click(sender As Object, e As EventArgs) Handles lblUserProfile.Click
 
+    End Sub
+
+    Private Sub lblDate_Click(sender As Object, e As EventArgs) Handles lblDate.Click
+
+    End Sub
+
+    Private Sub lblTime_Click(sender As Object, e As EventArgs) Handles lblTime.Click
+
+    End Sub
+
+    Private Sub Panel3_Paint(sender As Object, e As PaintEventArgs) Handles Panel3.Paint
+
+    End Sub
 End Class
