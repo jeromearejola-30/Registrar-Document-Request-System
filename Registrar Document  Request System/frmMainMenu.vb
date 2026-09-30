@@ -21,6 +21,8 @@
 
     Private Sub frmMainMenu_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+        ShowChildForm(frmDashboard) ' Display the dashboard form by default when the main menu loads
+
         ' Set the user profile label with the current user's name and role
         lblUserProfile.Text = $"Welcome, {UserName} - ({UserRole})"
 
@@ -60,25 +62,42 @@
         End If
     End Sub
 
+    Private Sub ShowChildForm(childForm As Form)
+        ' Close the current child form if it exists
+        If Me.pnlContentArea.Controls.Count > 0 Then
+            Me.pnlContentArea.Controls(0).Dispose() ' Safely dispose of the current child form to free resources
+        End If
+        ' Set the new child form properties and display it
+        childForm.TopLevel = False
+        childForm.FormBorderStyle = FormBorderStyle.None
+        childForm.Dock = DockStyle.Fill
+        Me.pnlContentArea.Controls.Add(childForm)
+        Me.pnlContentArea.Tag = childForm
+        childForm.BringToFront()
+        childForm.Show()
+    End Sub
+
+    Private Sub btnDashboard_Click(sender As Object, e As EventArgs) Handles btnDashboard.Click
+        ShowChildForm(frmDashboard)
+    End Sub
     Private Sub btnStudentManagement_Click(sender As Object, e As EventArgs) Handles btnStudentManagement.Click
-        frmStudentManagement.Show()
+        ShowChildForm(frmStudentManagement)
     End Sub
 
     Private Sub btnUserManagement_Click(sender As Object, e As EventArgs) Handles btnUserManagement.Click
-        frmUserManagement.Show()
+        ShowChildForm(frmUserManagement)
     End Sub
 
     Private Sub btnDocumentManagement_Click(sender As Object, e As EventArgs) Handles btnDocumentManagement.Click
-        frmDocumentManagement.Show()
+        ShowChildForm(frmDocumentManagement)
     End Sub
 
     Private Sub btnDocumentRequests_Click(sender As Object, e As EventArgs) Handles btnDocumentRequests.Click
-        frmDocumentRequest.Show()
+        ShowChildForm(frmDocumentRequest)
     End Sub
 
     Private Sub btnReports_Click(sender As Object, e As EventArgs) Handles btnReports.Click
-        frmReports.Show()
+        ShowChildForm(frmReports)
     End Sub
-
 
 End Class

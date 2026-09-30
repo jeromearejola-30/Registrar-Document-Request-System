@@ -59,172 +59,183 @@ Partial Class frmStudentManagement
         dgvStudents.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         dgvStudents.BackgroundColor = SystemColors.Control
         dgvStudents.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dgvStudents.Location = New Point(28, 125)
+        dgvStudents.Location = New Point(24, 94)
+        dgvStudents.Margin = New Padding(3, 2, 3, 2)
         dgvStudents.Name = "dgvStudents"
         dgvStudents.RowHeadersVisible = False
         dgvStudents.RowHeadersWidth = 51
-        dgvStudents.Size = New Size(989, 367)
+        dgvStudents.Size = New Size(865, 275)
         dgvStudents.TabIndex = 0
         ' 
         ' cboStatus
         ' 
         cboStatus.FormattingEnabled = True
         cboStatus.Items.AddRange(New Object() {"Active", "Inactive"})
-        cboStatus.Location = New Point(1148, 464)
+        cboStatus.Location = New Point(657, 664)
+        cboStatus.Margin = New Padding(3, 2, 3, 2)
         cboStatus.Name = "cboStatus"
-        cboStatus.Size = New Size(125, 28)
+        cboStatus.Size = New Size(110, 23)
         cboStatus.TabIndex = 1
         ' 
         ' txtContactNo
         ' 
-        txtContactNo.Location = New Point(1148, 431)
+        txtContactNo.Location = New Point(657, 639)
+        txtContactNo.Margin = New Padding(3, 2, 3, 2)
         txtContactNo.Name = "txtContactNo"
-        txtContactNo.Size = New Size(125, 27)
+        txtContactNo.Size = New Size(110, 23)
         txtContactNo.TabIndex = 2
         ' 
         ' txtStudentID
         ' 
-        txtStudentID.Location = New Point(1148, 166)
+        txtStudentID.Location = New Point(657, 440)
+        txtStudentID.Margin = New Padding(3, 2, 3, 2)
         txtStudentID.Name = "txtStudentID"
-        txtStudentID.Size = New Size(125, 27)
+        txtStudentID.Size = New Size(110, 23)
         txtStudentID.TabIndex = 3
         ' 
         ' txtLRN
         ' 
-        txtLRN.Location = New Point(1148, 200)
+        txtLRN.Location = New Point(657, 466)
+        txtLRN.Margin = New Padding(3, 2, 3, 2)
         txtLRN.Name = "txtLRN"
-        txtLRN.Size = New Size(125, 27)
+        txtLRN.Size = New Size(110, 23)
         txtLRN.TabIndex = 4
         ' 
         ' txtCourse
         ' 
-        txtCourse.Location = New Point(1148, 332)
+        txtCourse.Location = New Point(657, 565)
+        txtCourse.Margin = New Padding(3, 2, 3, 2)
         txtCourse.Name = "txtCourse"
-        txtCourse.Size = New Size(125, 27)
+        txtCourse.Size = New Size(110, 23)
         txtCourse.TabIndex = 5
         ' 
         ' txtSection
         ' 
-        txtSection.Location = New Point(1148, 398)
+        txtSection.Location = New Point(657, 614)
+        txtSection.Margin = New Padding(3, 2, 3, 2)
         txtSection.Name = "txtSection"
-        txtSection.Size = New Size(125, 27)
+        txtSection.Size = New Size(110, 23)
         txtSection.TabIndex = 6
         ' 
         ' txtYearLevel
         ' 
-        txtYearLevel.Location = New Point(1148, 365)
+        txtYearLevel.Location = New Point(657, 590)
+        txtYearLevel.Margin = New Padding(3, 2, 3, 2)
         txtYearLevel.Name = "txtYearLevel"
-        txtYearLevel.Size = New Size(125, 27)
+        txtYearLevel.Size = New Size(110, 23)
         txtYearLevel.TabIndex = 7
         ' 
         ' txtMiddleName
         ' 
-        txtMiddleName.Location = New Point(1148, 299)
+        txtMiddleName.Location = New Point(657, 540)
+        txtMiddleName.Margin = New Padding(3, 2, 3, 2)
         txtMiddleName.Name = "txtMiddleName"
-        txtMiddleName.Size = New Size(125, 27)
+        txtMiddleName.Size = New Size(110, 23)
         txtMiddleName.TabIndex = 8
         ' 
         ' txtLastName
         ' 
-        txtLastName.Location = New Point(1148, 233)
+        txtLastName.Location = New Point(657, 491)
+        txtLastName.Margin = New Padding(3, 2, 3, 2)
         txtLastName.Name = "txtLastName"
-        txtLastName.Size = New Size(125, 27)
+        txtLastName.Size = New Size(110, 23)
         txtLastName.TabIndex = 9
         ' 
         ' txtFirstName
         ' 
-        txtFirstName.Location = New Point(1148, 266)
+        txtFirstName.Location = New Point(657, 516)
+        txtFirstName.Margin = New Padding(3, 2, 3, 2)
         txtFirstName.Name = "txtFirstName"
-        txtFirstName.Size = New Size(125, 27)
+        txtFirstName.Size = New Size(110, 23)
         txtFirstName.TabIndex = 10
         ' 
         ' lblStudentID
         ' 
         lblStudentID.AutoSize = True
-        lblStudentID.Location = New Point(1045, 169)
+        lblStudentID.Location = New Point(567, 443)
         lblStudentID.Name = "lblStudentID"
-        lblStudentID.Size = New Size(79, 20)
+        lblStudentID.Size = New Size(62, 15)
         lblStudentID.TabIndex = 11
         lblStudentID.Text = "Student ID"
         ' 
         ' lblLRN
         ' 
         lblLRN.AutoSize = True
-        lblLRN.Location = New Point(1045, 203)
+        lblLRN.Location = New Point(567, 468)
         lblLRN.Name = "lblLRN"
-        lblLRN.Size = New Size(36, 20)
+        lblLRN.Size = New Size(29, 15)
         lblLRN.TabIndex = 12
         lblLRN.Text = "LRN"
         ' 
         ' lblLastName
         ' 
         lblLastName.AutoSize = True
-        lblLastName.Location = New Point(1045, 236)
+        lblLastName.Location = New Point(567, 493)
         lblLastName.Name = "lblLastName"
-        lblLastName.Size = New Size(75, 20)
+        lblLastName.Size = New Size(60, 15)
         lblLastName.TabIndex = 13
         lblLastName.Text = "LastName"
         ' 
         ' lblFirstName
         ' 
         lblFirstName.AutoSize = True
-        lblFirstName.Location = New Point(1045, 269)
+        lblFirstName.Location = New Point(567, 518)
         lblFirstName.Name = "lblFirstName"
-        lblFirstName.Size = New Size(76, 20)
+        lblFirstName.Size = New Size(61, 15)
         lblFirstName.TabIndex = 14
         lblFirstName.Text = "FirstName"
         ' 
         ' lblMiddleName
         ' 
         lblMiddleName.AutoSize = True
-        lblMiddleName.Location = New Point(1045, 302)
+        lblMiddleName.Location = New Point(567, 542)
         lblMiddleName.Name = "lblMiddleName"
-        lblMiddleName.Size = New Size(96, 20)
+        lblMiddleName.Size = New Size(76, 15)
         lblMiddleName.TabIndex = 15
         lblMiddleName.Text = "MiddleName"
         ' 
         ' lblCourse
         ' 
         lblCourse.AutoSize = True
-        lblCourse.Location = New Point(1045, 335)
+        lblCourse.Location = New Point(567, 567)
         lblCourse.Name = "lblCourse"
-        lblCourse.Size = New Size(54, 20)
+        lblCourse.Size = New Size(44, 15)
         lblCourse.TabIndex = 16
         lblCourse.Text = "Course"
         ' 
         ' lblYearLevel
         ' 
         lblYearLevel.AutoSize = True
-        lblYearLevel.Location = New Point(1045, 368)
+        lblYearLevel.Location = New Point(567, 592)
         lblYearLevel.Name = "lblYearLevel"
-        lblYearLevel.Size = New Size(71, 20)
+        lblYearLevel.Size = New Size(56, 15)
         lblYearLevel.TabIndex = 17
         lblYearLevel.Text = "YearLevel"
         ' 
         ' lblSection
         ' 
         lblSection.AutoSize = True
-        lblSection.Location = New Point(1045, 401)
+        lblSection.Location = New Point(567, 617)
         lblSection.Name = "lblSection"
-        lblSection.Size = New Size(58, 20)
+        lblSection.Size = New Size(46, 15)
         lblSection.TabIndex = 18
         lblSection.Text = "Section"
         ' 
         ' lblContactNo
         ' 
         lblContactNo.AutoSize = True
-        lblContactNo.Location = New Point(1045, 434)
+        lblContactNo.Location = New Point(567, 642)
         lblContactNo.Name = "lblContactNo"
-        lblContactNo.Size = New Size(80, 20)
+        lblContactNo.Size = New Size(65, 15)
         lblContactNo.TabIndex = 19
         lblContactNo.Text = "ContactNo"
         ' 
         ' lblStatus
         ' 
         lblStatus.AutoSize = True
-        lblStatus.Location = New Point(1045, 467)
+        lblStatus.Location = New Point(567, 666)
         lblStatus.Name = "lblStatus"
-        lblStatus.Size = New Size(49, 20)
+        lblStatus.Size = New Size(39, 15)
         lblStatus.TabIndex = 20
         lblStatus.Text = "Status"
         ' 
@@ -232,78 +243,84 @@ Partial Class frmStudentManagement
         ' 
         LblStudentInformation.AutoSize = True
         LblStudentInformation.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        LblStudentInformation.Location = New Point(1045, 125)
+        LblStudentInformation.Location = New Point(567, 410)
         LblStudentInformation.Name = "LblStudentInformation"
-        LblStudentInformation.Size = New Size(250, 28)
+        LblStudentInformation.Size = New Size(199, 21)
         LblStudentInformation.TabIndex = 21
         LblStudentInformation.Text = "STUDENT INFORMATION"
         ' 
         ' txtSearch
         ' 
-        txtSearch.Location = New Point(91, 92)
+        txtSearch.Location = New Point(197, 55)
+        txtSearch.Margin = New Padding(3, 2, 3, 2)
         txtSearch.Name = "txtSearch"
-        txtSearch.Size = New Size(162, 27)
+        txtSearch.Size = New Size(142, 23)
         txtSearch.TabIndex = 22
         ' 
         ' lblSearch
         ' 
         lblSearch.AutoSize = True
-        lblSearch.Location = New Point(32, 95)
+        lblSearch.Location = New Point(115, 63)
         lblSearch.Name = "lblSearch"
-        lblSearch.Size = New Size(53, 20)
+        lblSearch.Size = New Size(42, 15)
         lblSearch.TabIndex = 23
         lblSearch.Text = "Search"
         ' 
         ' btnAdd
         ' 
-        btnAdd.Location = New Point(26, 518)
+        btnAdd.Location = New Point(59, 411)
+        btnAdd.Margin = New Padding(3, 2, 3, 2)
         btnAdd.Name = "btnAdd"
-        btnAdd.Size = New Size(95, 30)
+        btnAdd.Size = New Size(83, 22)
         btnAdd.TabIndex = 24
         btnAdd.Text = "Add"
         btnAdd.UseVisualStyleBackColor = True
         ' 
         ' btnUpdate
         ' 
-        btnUpdate.Location = New Point(152, 518)
+        btnUpdate.Location = New Point(169, 411)
+        btnUpdate.Margin = New Padding(3, 2, 3, 2)
         btnUpdate.Name = "btnUpdate"
-        btnUpdate.Size = New Size(95, 30)
+        btnUpdate.Size = New Size(83, 22)
         btnUpdate.TabIndex = 25
         btnUpdate.Text = "Update"
         btnUpdate.UseVisualStyleBackColor = True
         ' 
         ' btnDeactivate
         ' 
-        btnDeactivate.Location = New Point(286, 518)
+        btnDeactivate.Location = New Point(286, 411)
+        btnDeactivate.Margin = New Padding(3, 2, 3, 2)
         btnDeactivate.Name = "btnDeactivate"
-        btnDeactivate.Size = New Size(95, 30)
+        btnDeactivate.Size = New Size(83, 22)
         btnDeactivate.TabIndex = 26
         btnDeactivate.Text = "Deactivate"
         btnDeactivate.UseVisualStyleBackColor = True
         ' 
         ' btnDelete
         ' 
-        btnDelete.Location = New Point(431, 518)
+        btnDelete.Location = New Point(413, 411)
+        btnDelete.Margin = New Padding(3, 2, 3, 2)
         btnDelete.Name = "btnDelete"
-        btnDelete.Size = New Size(95, 30)
+        btnDelete.Size = New Size(83, 22)
         btnDelete.TabIndex = 27
         btnDelete.Text = "Delete"
         btnDelete.UseVisualStyleBackColor = True
         ' 
         ' btnClear
         ' 
-        btnClear.Location = New Point(1178, 518)
+        btnClear.Location = New Point(684, 704)
+        btnClear.Margin = New Padding(3, 2, 3, 2)
         btnClear.Name = "btnClear"
-        btnClear.Size = New Size(95, 30)
+        btnClear.Size = New Size(83, 22)
         btnClear.TabIndex = 28
         btnClear.Text = "Clear"
         btnClear.UseVisualStyleBackColor = True
         ' 
         ' frmStudentManagement
         ' 
-        AutoScaleDimensions = New SizeF(8F, 20F)
+        AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(1445, 1015)
+        ClientSize = New Size(1189, 784)
         Controls.Add(btnClear)
         Controls.Add(btnDelete)
         Controls.Add(btnDeactivate)
@@ -333,7 +350,6 @@ Partial Class frmStudentManagement
         Controls.Add(txtContactNo)
         Controls.Add(cboStatus)
         Controls.Add(dgvStudents)
-        Margin = New Padding(3, 4, 3, 4)
         Name = "frmStudentManagement"
         Text = "StudentRecords"
         CType(dgvStudents, ComponentModel.ISupportInitialize).EndInit()
