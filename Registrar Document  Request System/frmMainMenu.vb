@@ -109,7 +109,7 @@
 
     Private Sub btnReports_Click(sender As Object, e As EventArgs) Handles btnReports.Click
         lblSection.Text = "Reports"
-        ShowChildForm(New frmReports())
+        ShowChildForm(New frmReport())
     End Sub
 
 End Class
