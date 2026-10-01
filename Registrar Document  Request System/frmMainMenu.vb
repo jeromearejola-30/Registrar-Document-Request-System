@@ -107,7 +107,4 @@
         ShowChildForm(frmReports)
     End Sub
 
-    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles lblRegistrar.Click
-
-    End Sub
 End Class

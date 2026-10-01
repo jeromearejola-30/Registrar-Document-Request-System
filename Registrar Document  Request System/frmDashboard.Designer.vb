@@ -161,8 +161,8 @@ Partial Class frmDashboard
         ' fplQuickActions
         ' 
         fplQuickActions.Controls.Add(lblQuickActions)
-        fplQuickActions.Dock = DockStyle.Bottom
-        fplQuickActions.Location = New Point(0, 471)
+        fplQuickActions.Dock = DockStyle.Top
+        fplQuickActions.Location = New Point(0, 472)
         fplQuickActions.Name = "fplQuickActions"
         fplQuickActions.Size = New Size(927, 38)
         fplQuickActions.TabIndex = 26
@@ -186,8 +186,8 @@ Partial Class frmDashboard
         fplQuickLinks.Controls.Add(Button3)
         fplQuickLinks.Controls.Add(Button6)
         fplQuickLinks.Controls.Add(Button4)
-        fplQuickLinks.Dock = DockStyle.Bottom
-        fplQuickLinks.Location = New Point(0, 509)
+        fplQuickLinks.Dock = DockStyle.Top
+        fplQuickLinks.Location = New Point(0, 510)
         fplQuickLinks.Name = "fplQuickLinks"
         fplQuickLinks.Size = New Size(927, 113)
         fplQuickLinks.TabIndex = 25
@@ -618,11 +618,11 @@ Partial Class frmDashboard
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(927, 622)
+        Controls.Add(fplQuickLinks)
+        Controls.Add(fplQuickActions)
         Controls.Add(fplListViewRecent)
         Controls.Add(fplRecentRequests)
         Controls.Add(fplStatus)
-        Controls.Add(fplQuickActions)
-        Controls.Add(fplQuickLinks)
         Controls.Add(fplRequestStatus)
         Controls.Add(fplTotals)
         Controls.Add(fplOverall)
