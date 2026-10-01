@@ -78,26 +78,36 @@
     End Sub
 
     Private Sub btnDashboard_Click(sender As Object, e As EventArgs) Handles btnDashboard.Click
+
+        lblSection.Text = "Dashboard"
         ShowChildForm(frmDashboard)
     End Sub
     Private Sub btnStudentManagement_Click(sender As Object, e As EventArgs) Handles btnStudentManagement.Click
+        lblSection.Text = "Student Management"
         ShowChildForm(frmStudentManagement)
     End Sub
 
     Private Sub btnUserManagement_Click(sender As Object, e As EventArgs) Handles btnUserManagement.Click
+        lblSection.Text = "User Management"
         ShowChildForm(frmUserManagement)
     End Sub
 
     Private Sub btnDocumentManagement_Click(sender As Object, e As EventArgs) Handles btnDocumentManagement.Click
+        lblSection.Text = "Document Management"
         ShowChildForm(frmDocumentManagement)
     End Sub
 
     Private Sub btnDocumentRequests_Click(sender As Object, e As EventArgs) Handles btnDocumentRequests.Click
+        lblSection.Text = "Document Requests"
         ShowChildForm(frmDocumentRequest)
     End Sub
 
     Private Sub btnReports_Click(sender As Object, e As EventArgs) Handles btnReports.Click
+        lblSection.Text = "Reports"
         ShowChildForm(frmReports)
     End Sub
 
+    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles lblRegistrar.Click
+
+    End Sub
 End Class

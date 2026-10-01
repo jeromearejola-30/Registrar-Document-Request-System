@@ -157,7 +157,7 @@ Partial Class frmLogin
         Margin = New Padding(3, 2, 3, 2)
         MinimumSize = New Size(1280, 798)
         Name = "frmLogin"
-        Text = "frmLogin"
+        Text = "Log in"
         CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
