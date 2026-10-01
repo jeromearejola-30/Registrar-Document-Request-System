@@ -48,15 +48,16 @@ Public Class frmDocumentRequest
         lblDocTypeDate.Text = docText
     End Sub
 
-    ' Filter Query using SQL JOINs to include Username from tblusers
+    ' Filter Query using SQL JOINs to search by RequestNo, StudentID, Student Name, Document, Username, and Dates
     Public Sub ApplyFilters()
         Try
             conn.Open()
 
-            ' Joined tblusers to fetch u.Username instead of raw r.CreatedBy ID
+            ' Joined tblstudents, tblrequestdetails, tbldocuments, and tblusers
             Dim query As String = "SELECT DISTINCT r.RequestID, r.RequestNo, r.StudentID, r.RequestDate, r.TotalAmount, " &
                                   "r.PaymentStatus, r.ORNo, r.ORDate, r.Status, u.Username AS CreatedBy " &
                                   "FROM tblrequest r " &
+                                  "LEFT JOIN tblstudents s ON r.StudentID = s.StudentID " &
                                   "LEFT JOIN tblrequestdetails rd ON r.RequestID = rd.RequestID " &
                                   "LEFT JOIN tbldocuments d ON rd.DocumentID = d.DocumentID " &
                                   "LEFT JOIN tblusers u ON r.CreatedBy = u.UserID WHERE 1=1"
@@ -71,10 +72,13 @@ Public Class frmDocumentRequest
                 query &= " AND d.DocumentName = @docType"
             End If
 
-            ' Search Box logic: matches RequestNo, StudentID, DocumentName, Username, Month Names, and Dates
+            ' Search Box logic: matches RequestNo, StudentID, Student Name (First/Last/Full), DocumentName, Username, and Dates
             If txtSearch.Text.Trim() <> "" Then
                 query &= " AND (r.RequestNo LIKE @search " &
                          " OR r.StudentID LIKE @search " &
+                         " OR s.FirstName LIKE @search " &
+                         " OR s.LastName LIKE @search " &
+                         " OR CONCAT(s.FirstName, ' ', s.LastName) LIKE @search " &
                          " OR d.DocumentName LIKE @search " &
                          " OR u.Username LIKE @search " &
                          " OR DATE_FORMAT(r.RequestDate, '%M') LIKE @search " &   ' e.g. "September"
