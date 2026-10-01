@@ -21,7 +21,7 @@
 
     Private Sub frmMainMenu_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        ShowChildForm(frmDashboard) ' Display the dashboard form by default when the main menu loads
+        ShowChildForm(New frmDashboard()) ' Display the dashboard form by default when the main menu loads
 
         ' Set the user profile label with the current user's name and role
         lblUserProfile.Text = $"Welcome, {UserName} - ({UserRole})"
@@ -75,36 +75,41 @@
         Me.pnlContentArea.Tag = childForm
         childForm.BringToFront()
         childForm.Show()
+
+
     End Sub
 
     Private Sub btnDashboard_Click(sender As Object, e As EventArgs) Handles btnDashboard.Click
 
         lblSection.Text = "Dashboard"
-        ShowChildForm(frmDashboard)
+        ShowChildForm(New frmDashboard())
+
+
     End Sub
     Private Sub btnStudentManagement_Click(sender As Object, e As EventArgs) Handles btnStudentManagement.Click
         lblSection.Text = "Student Management"
-        ShowChildForm(frmStudentManagement)
+        ShowChildForm(New frmStudentManagement())
     End Sub
 
     Private Sub btnUserManagement_Click(sender As Object, e As EventArgs) Handles btnUserManagement.Click
         lblSection.Text = "User Management"
-        ShowChildForm(frmUserManagement)
+        ShowChildForm(New frmUserManagement())
+
     End Sub
 
     Private Sub btnDocumentManagement_Click(sender As Object, e As EventArgs) Handles btnDocumentManagement.Click
         lblSection.Text = "Document Management"
-        ShowChildForm(frmDocumentManagement)
+        ShowChildForm(New frmDocumentManagement())
     End Sub
 
     Private Sub btnDocumentRequests_Click(sender As Object, e As EventArgs) Handles btnDocumentRequests.Click
         lblSection.Text = "Document Requests"
-        ShowChildForm(frmDocumentRequest)
+        ShowChildForm(New frmDocumentRequest())
     End Sub
 
     Private Sub btnReports_Click(sender As Object, e As EventArgs) Handles btnReports.Click
         lblSection.Text = "Reports"
-        ShowChildForm(frmReports)
+        ShowChildForm(New frmReports())
     End Sub
 
 End Class

@@ -10,6 +10,7 @@ Public Class frmDashboard
     Private Sub LoadRecentRequests()
         ' Load recent requests into the ListView
         Try
+
             lvRecentRequests.Items.Clear()
 
             sql = "SELECT 
