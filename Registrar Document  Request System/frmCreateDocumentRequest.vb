@@ -6,6 +6,9 @@ Public Class frmCreateDocumentRequest
     Dim connStr As String = "server=localhost;user=root;password=;database=registrar_db"
     Dim conn As New MySqlConnection(connStr)
 
+    ' Property to hold the current logged in user ID (Default set to 1 if not passed)
+    Public Property LoggedInUserID As Integer = 1
+
     Dim selectedStudentID As String = ""
     Dim docFeeMap As New Dictionary(Of String, Decimal)()
     Dim docIdMap As New Dictionary(Of String, Integer)()
@@ -69,26 +72,35 @@ Public Class frmCreateDocumentRequest
         End Try
     End Sub
 
-    ' Load student list into DataGridView
+    ' Load student list into DataGridView with fixed SQL WHERE clause
     Public Sub LoadStudents(keyword As String)
         Try
             conn.Open()
+
             Dim query As String = "SELECT StudentID, " &
                                  "CONCAT(FirstName, ' ', IF(MiddleName IS NULL OR MiddleName = '', '', CONCAT(LEFT(MiddleName, 1), '. ')), LastName) AS StudentName, " &
                                  "Course, YearLevel, Section FROM tblstudents"
 
-            If keyword <> "" Then
-                query &= " WHERE StudentName LIKE @k OR StudentID LIKE @k OR Course LIKE @k OR LastName LIKE @k OR FirstName LIKE @k"
+            If Not String.IsNullOrWhiteSpace(keyword) Then
+                query &= " WHERE StudentID LIKE @k " &
+                         "OR FirstName LIKE @k " &
+                         "OR LastName LIKE @k " &
+                         "OR Course LIKE @k " &
+                         "OR CONCAT(FirstName, ' ', LastName) LIKE @k"
             End If
 
             Dim cmd As New MySqlCommand(query, conn)
-            If keyword <> "" Then cmd.Parameters.AddWithValue("@k", "%" & keyword & "%")
+            If Not String.IsNullOrWhiteSpace(keyword) Then
+                cmd.Parameters.AddWithValue("@k", "%" & keyword.Trim() & "%")
+            End If
 
             Dim adapter As New MySqlDataAdapter(cmd)
             Dim dt As New DataTable()
             adapter.Fill(dt)
+
             dgvStudents.DataSource = dt
             conn.Close()
+
         Catch ex As Exception
             MessageBox.Show("Error loading students: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             If conn.State = ConnectionState.Open Then conn.Close()
@@ -170,9 +182,9 @@ Public Class frmCreateDocumentRequest
             Dim qty As Integer = Convert.ToInt32(numCopies.Value)
             Dim totalAmount As Decimal = currentUnitFee * qty
 
-            ' Insert record into tblrequest
+            ' Insert record into tblrequest using dynamic CreatedBy user ID
             Dim insertReqQuery As String = "INSERT INTO tblrequest (RequestNo, StudentID, RequestDate, TotalAmount, PaymentStatus, Status, CreatedBy) " &
-                                           "VALUES (@reqNo, @studentID, @reqDate, @totalAmount, @paymentStatus, 'Pending', 1); " &
+                                           "VALUES (@reqNo, @studentID, @reqDate, @totalAmount, @paymentStatus, 'Pending', @createdBy); " &
                                            "SELECT LAST_INSERT_ID();"
 
             Dim cmdReq As New MySqlCommand(insertReqQuery, conn)
@@ -181,6 +193,7 @@ Public Class frmCreateDocumentRequest
             cmdReq.Parameters.AddWithValue("@reqDate", dtpRequestDate.Value.ToString("yyyy-MM-dd HH:mm:ss"))
             cmdReq.Parameters.AddWithValue("@totalAmount", totalAmount)
             cmdReq.Parameters.AddWithValue("@paymentStatus", cboPaymentStatus.Text)
+            cmdReq.Parameters.AddWithValue("@createdBy", LoggedInUserID)
 
             Dim newRequestId As Long = Convert.ToInt64(cmdReq.ExecuteScalar())
 
