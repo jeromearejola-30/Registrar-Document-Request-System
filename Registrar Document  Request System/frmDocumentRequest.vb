@@ -48,14 +48,15 @@ Public Class frmDocumentRequest
         lblDocTypeDate.Text = docText
     End Sub
 
-    ' Filter Query using SQL JOINs to search by RequestNo, StudentID, Student Name, Document, Username, and Dates
+    ' Filter Query using SQL JOINs to fetch Student Name and Username into DataGridView
     Public Sub ApplyFilters()
         Try
             conn.Open()
 
-            ' Joined tblstudents, tblrequestdetails, tbldocuments, and tblusers
-            Dim query As String = "SELECT DISTINCT r.RequestID, r.RequestNo, r.StudentID, r.RequestDate, r.TotalAmount, " &
-                                  "r.PaymentStatus, r.ORNo, r.ORDate, r.Status, u.Username AS CreatedBy " &
+            ' Included CONCAT for StudentName right after StudentID
+            Dim query As String = "SELECT DISTINCT r.RequestID, r.RequestNo, r.StudentID, " &
+                                  "CONCAT(s.FirstName, ' ', IF(s.MiddleName IS NULL OR s.MiddleName = '', '', CONCAT(LEFT(s.MiddleName, 1), '. ')), s.LastName) AS StudentName, " &
+                                  "r.RequestDate, r.TotalAmount, r.PaymentStatus, r.ORNo, r.ORDate, r.Status, u.Username AS CreatedBy " &
                                   "FROM tblrequest r " &
                                   "LEFT JOIN tblstudents s ON r.StudentID = s.StudentID " &
                                   "LEFT JOIN tblrequestdetails rd ON r.RequestID = rd.RequestID " &
