@@ -43,19 +43,20 @@ Public Class frmDashboard
                 Using dr As MySqlDataReader = cmd.ExecuteReader()
 
                     While dr.Read()
+                        ' Start with RequestNo as the main item
+                        Dim item As New ListViewItem(dr("RequestNo").ToString())
 
-                        Dim item As New ListViewItem(dr("RequestID").ToString())
+                        ' Store RequestID in Tag for reference
+                        item.Tag = dr("RequestID")
 
-                        item.SubItems.Add(dr("RequestNo").ToString())
                         item.SubItems.Add(dr("LastName").ToString())
                         item.SubItems.Add(dr("FirstName").ToString())
                         item.SubItems.Add(dr("Course").ToString())
                         item.SubItems.Add(dr("DocumentName").ToString())
-                        item.SubItems.Add(dr("RequestDate").ToString())
+                        item.SubItems.Add(Convert.ToDateTime(dr("RequestDate")).ToString("MM/dd/yyyy"))
                         item.SubItems.Add(dr("Status").ToString())
 
                         lvRecentRequests.Items.Add(item)
-
                     End While
 
                 End Using
@@ -118,18 +119,13 @@ Public Class frmDashboard
 
 
             ' Payments Collected
-            sql = "SELECT COUNT(*) AS PaymentsCollected
-                   FROM tblrequest
-                   WHERE Status = 'Paid'"
+            sql = "SELECT IFNULL(SUM(TotalAmount), 0) FROM tblrequest WHERE PaymentStatus = 'Paid'" ' Or WHERE Status = 'Paid'
 
             Using cmd As New MySqlCommand(sql, cn)
+                Dim paymentsCollected As Decimal = Convert.ToDecimal(cmd.ExecuteScalar())
 
-                Dim paymentsCollected As Integer =
-                    Convert.ToInt32(cmd.ExecuteScalar())
-
-                lblNumberPaymentsCollected.Text =
-                    paymentsCollected.ToString()
-
+                ' Format as currency (e.g., ₱1,250.00 or $1,250.00)
+                lblNumberPaymentsCollected.Text = "₱ " & paymentsCollected.ToString("N2") ' or "C2"
             End Using
 
 
@@ -223,4 +219,23 @@ Public Class frmDashboard
 
     End Sub
 
+    Private Sub btnSearchRecords_Click(sender As Object, e As EventArgs) Handles btnSearchRecords.Click
+
+    End Sub
+
+    Private Sub btnCreateRequest_Click(sender As Object, e As EventArgs) Handles btnCreateRequest.Click
+
+    End Sub
+
+    Private Sub btnPaymentReport_Click(sender As Object, e As EventArgs) Handles btnPaymentReport.Click
+
+    End Sub
+
+    Private Sub btnAddStudent_Click(sender As Object, e As EventArgs) Handles btnAddStudent.Click
+
+    End Sub
+
+    Private Sub btnAddDocument_Click(sender As Object, e As EventArgs) Handles btnAddDocument.Click
+
+    End Sub
 End Class

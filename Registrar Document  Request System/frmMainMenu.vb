@@ -64,16 +64,16 @@
 
     Public Sub ShowChildForm(childForm As Form)
         ' Close the current child form if it exists
-        If Me.pnlContentArea.Controls.Count > 0 Then
-            Me.pnlContentArea.Controls(0).Dispose() ' Safely dispose of the current child form to free resources
+        If Me.tlpContentArea.Controls.Count > 0 Then
+            Me.tlpContentArea.Controls(0).Dispose() ' Safely dispose of the current child form to free resources
         End If
         ' Set the new child form properties and display it
         childForm.TopLevel = False
         childForm.FormBorderStyle = FormBorderStyle.None
         childForm.Dock = DockStyle.Fill
 
-        Me.pnlContentArea.Controls.Add(childForm)
-        Me.pnlContentArea.Tag = childForm
+        Me.tlpContentArea.Controls.Add(childForm)
+        Me.tlpContentArea.Tag = childForm
 
         childForm.BringToFront()
         childForm.Show()

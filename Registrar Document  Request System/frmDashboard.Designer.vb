@@ -22,7 +22,6 @@ Partial Class frmDashboard
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        fplListViewRecent = New FlowLayoutPanel()
         lvRecentRequests = New ListView()
         ColumnHeader1 = New ColumnHeader()
         ColumnHeader2 = New ColumnHeader()
@@ -33,16 +32,13 @@ Partial Class frmDashboard
         ColumnHeader7 = New ColumnHeader()
         fplQuickActions = New FlowLayoutPanel()
         lblQuickActions = New Label()
-        fplQuickLinks = New FlowLayoutPanel()
-        Button1 = New Button()
-        Button2 = New Button()
-        Button5 = New Button()
-        Button3 = New Button()
-        Button6 = New Button()
-        Button4 = New Button()
+        btnSearchRecords = New Button()
+        btnCreateRequest = New Button()
+        btnPaymentReport = New Button()
+        btnAddStudent = New Button()
+        btnAddDocument = New Button()
         fplRecentRequests = New FlowLayoutPanel()
         lblRecentRequests = New Label()
-        fplStatus = New FlowLayoutPanel()
         Panel7 = New Panel()
         lblNumberPending = New Label()
         lblPending = New Label()
@@ -60,7 +56,6 @@ Partial Class frmDashboard
         lblCancelled = New Label()
         fplRequestStatus = New FlowLayoutPanel()
         lblRequestStatus = New Label()
-        fplTotals = New FlowLayoutPanel()
         Panel3 = New Panel()
         lblNumberTotalStudents = New Label()
         lblTotalStudent = New Label()
@@ -75,44 +70,40 @@ Partial Class frmDashboard
         lblPaymentsCollected = New Label()
         fplOverall = New FlowLayoutPanel()
         lblOverall = New Label()
-        fplListViewRecent.SuspendLayout()
+        tlpQuickAction = New TableLayoutPanel()
+        tlpDashboard = New TableLayoutPanel()
+        tplRequestStatus = New TableLayoutPanel()
+        tlpOverall = New TableLayoutPanel()
         fplQuickActions.SuspendLayout()
-        fplQuickLinks.SuspendLayout()
         fplRecentRequests.SuspendLayout()
-        fplStatus.SuspendLayout()
         Panel7.SuspendLayout()
         Panel8.SuspendLayout()
         Panel9.SuspendLayout()
         Panel10.SuspendLayout()
         Panel11.SuspendLayout()
         fplRequestStatus.SuspendLayout()
-        fplTotals.SuspendLayout()
         Panel3.SuspendLayout()
         Panel6.SuspendLayout()
         Panel4.SuspendLayout()
         Panel5.SuspendLayout()
         fplOverall.SuspendLayout()
+        tlpQuickAction.SuspendLayout()
+        tlpDashboard.SuspendLayout()
+        tplRequestStatus.SuspendLayout()
+        tlpOverall.SuspendLayout()
         SuspendLayout()
-        ' 
-        ' fplListViewRecent
-        ' 
-        fplListViewRecent.Controls.Add(lvRecentRequests)
-        fplListViewRecent.Dock = DockStyle.Top
-        fplListViewRecent.Location = New Point(0, 295)
-        fplListViewRecent.Name = "fplListViewRecent"
-        fplListViewRecent.Size = New Size(927, 177)
-        fplListViewRecent.TabIndex = 27
         ' 
         ' lvRecentRequests
         ' 
         lvRecentRequests.Columns.AddRange(New ColumnHeader() {ColumnHeader1, ColumnHeader2, ColumnHeader3, ColumnHeader4, ColumnHeader5, ColumnHeader6, ColumnHeader7})
+        lvRecentRequests.Dock = DockStyle.Fill
         lvRecentRequests.Font = New Font("Tahoma", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         lvRecentRequests.FullRowSelect = True
         lvRecentRequests.GridLines = True
-        lvRecentRequests.Location = New Point(20, 8)
-        lvRecentRequests.Margin = New Padding(20, 8, 3, 3)
+        lvRecentRequests.Location = New Point(20, 325)
+        lvRecentRequests.Margin = New Padding(20, 8, 20, 8)
         lvRecentRequests.Name = "lvRecentRequests"
-        lvRecentRequests.Size = New Size(887, 160)
+        lvRecentRequests.Size = New Size(887, 123)
         lvRecentRequests.TabIndex = 0
         lvRecentRequests.UseCompatibleStateImageBehavior = False
         lvRecentRequests.View = View.Details
@@ -126,19 +117,19 @@ Partial Class frmDashboard
         ' 
         ColumnHeader2.Text = "Last Name"
         ColumnHeader2.TextAlign = HorizontalAlignment.Center
-        ColumnHeader2.Width = 135
+        ColumnHeader2.Width = 120
         ' 
         ' ColumnHeader3
         ' 
         ColumnHeader3.Text = "First Name"
         ColumnHeader3.TextAlign = HorizontalAlignment.Center
-        ColumnHeader3.Width = 135
+        ColumnHeader3.Width = 120
         ' 
         ' ColumnHeader4
         ' 
         ColumnHeader4.Text = "Course"
         ColumnHeader4.TextAlign = HorizontalAlignment.Center
-        ColumnHeader4.Width = 80
+        ColumnHeader4.Width = 70
         ' 
         ' ColumnHeader5
         ' 
@@ -161,110 +152,90 @@ Partial Class frmDashboard
         ' fplQuickActions
         ' 
         fplQuickActions.Controls.Add(lblQuickActions)
-        fplQuickActions.Dock = DockStyle.Top
-        fplQuickActions.Location = New Point(0, 472)
+        fplQuickActions.Dock = DockStyle.Bottom
+        fplQuickActions.Location = New Point(3, 459)
         fplQuickActions.Name = "fplQuickActions"
-        fplQuickActions.Size = New Size(927, 38)
+        fplQuickActions.Size = New Size(921, 43)
         fplQuickActions.TabIndex = 26
         ' 
         ' lblQuickActions
         ' 
         lblQuickActions.AutoSize = True
         lblQuickActions.Font = New Font("Tahoma", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        lblQuickActions.Location = New Point(20, 10)
-        lblQuickActions.Margin = New Padding(20, 10, 3, 0)
+        lblQuickActions.Location = New Point(20, 15)
+        lblQuickActions.Margin = New Padding(20, 15, 3, 0)
         lblQuickActions.Name = "lblQuickActions"
         lblQuickActions.Size = New Size(138, 25)
         lblQuickActions.TabIndex = 4
         lblQuickActions.Text = "Quick Actions"
         ' 
-        ' fplQuickLinks
+        ' btnSearchRecords
         ' 
-        fplQuickLinks.Controls.Add(Button1)
-        fplQuickLinks.Controls.Add(Button2)
-        fplQuickLinks.Controls.Add(Button5)
-        fplQuickLinks.Controls.Add(Button3)
-        fplQuickLinks.Controls.Add(Button6)
-        fplQuickLinks.Controls.Add(Button4)
-        fplQuickLinks.Dock = DockStyle.Top
-        fplQuickLinks.Location = New Point(0, 510)
-        fplQuickLinks.Name = "fplQuickLinks"
-        fplQuickLinks.Size = New Size(927, 113)
-        fplQuickLinks.TabIndex = 25
+        btnSearchRecords.Dock = DockStyle.Fill
+        btnSearchRecords.Location = New Point(10, 5)
+        btnSearchRecords.Margin = New Padding(10, 5, 10, 15)
+        btnSearchRecords.Name = "btnSearchRecords"
+        btnSearchRecords.Size = New Size(164, 91)
+        btnSearchRecords.TabIndex = 13
+        btnSearchRecords.Text = "Search Records"
+        btnSearchRecords.TextAlign = ContentAlignment.BottomCenter
+        btnSearchRecords.UseVisualStyleBackColor = True
         ' 
-        ' Button1
+        ' btnCreateRequest
         ' 
-        Button1.Location = New Point(25, 10)
-        Button1.Margin = New Padding(25, 10, 3, 3)
-        Button1.Name = "Button1"
-        Button1.Size = New Size(140, 90)
-        Button1.TabIndex = 13
-        Button1.Text = "Search Records"
-        Button1.TextAlign = ContentAlignment.BottomCenter
-        Button1.UseVisualStyleBackColor = True
+        btnCreateRequest.Dock = DockStyle.Fill
+        btnCreateRequest.Location = New Point(194, 5)
+        btnCreateRequest.Margin = New Padding(10, 5, 10, 15)
+        btnCreateRequest.Name = "btnCreateRequest"
+        btnCreateRequest.Size = New Size(164, 91)
+        btnCreateRequest.TabIndex = 14
+        btnCreateRequest.Text = "Create Request"
+        btnCreateRequest.TextAlign = ContentAlignment.BottomCenter
+        btnCreateRequest.UseVisualStyleBackColor = True
         ' 
-        ' Button2
+        ' btnPaymentReport
         ' 
-        Button2.Location = New Point(171, 10)
-        Button2.Margin = New Padding(3, 10, 3, 3)
-        Button2.Name = "Button2"
-        Button2.Size = New Size(140, 90)
-        Button2.TabIndex = 14
-        Button2.Text = "Create Request"
-        Button2.TextAlign = ContentAlignment.BottomCenter
-        Button2.UseVisualStyleBackColor = True
+        btnPaymentReport.Dock = DockStyle.Fill
+        btnPaymentReport.Location = New Point(378, 5)
+        btnPaymentReport.Margin = New Padding(10, 5, 10, 15)
+        btnPaymentReport.Name = "btnPaymentReport"
+        btnPaymentReport.Size = New Size(164, 91)
+        btnPaymentReport.TabIndex = 17
+        btnPaymentReport.Text = "Payment Report"
+        btnPaymentReport.TextAlign = ContentAlignment.BottomCenter
+        btnPaymentReport.UseVisualStyleBackColor = True
         ' 
-        ' Button5
+        ' btnAddStudent
         ' 
-        Button5.Location = New Point(317, 10)
-        Button5.Margin = New Padding(3, 10, 3, 3)
-        Button5.Name = "Button5"
-        Button5.Size = New Size(140, 90)
-        Button5.TabIndex = 17
-        Button5.Text = "Payment Report"
-        Button5.TextAlign = ContentAlignment.BottomCenter
-        Button5.UseVisualStyleBackColor = True
+        btnAddStudent.Dock = DockStyle.Fill
+        btnAddStudent.Location = New Point(562, 5)
+        btnAddStudent.Margin = New Padding(10, 5, 10, 15)
+        btnAddStudent.Name = "btnAddStudent"
+        btnAddStudent.Size = New Size(164, 91)
+        btnAddStudent.TabIndex = 15
+        btnAddStudent.Text = "Add Student"
+        btnAddStudent.TextAlign = ContentAlignment.BottomCenter
+        btnAddStudent.UseVisualStyleBackColor = True
         ' 
-        ' Button3
+        ' btnAddDocument
         ' 
-        Button3.Location = New Point(463, 10)
-        Button3.Margin = New Padding(3, 10, 3, 3)
-        Button3.Name = "Button3"
-        Button3.Size = New Size(140, 90)
-        Button3.TabIndex = 15
-        Button3.Text = "Add Student"
-        Button3.TextAlign = ContentAlignment.BottomCenter
-        Button3.UseVisualStyleBackColor = True
-        ' 
-        ' Button6
-        ' 
-        Button6.Location = New Point(609, 10)
-        Button6.Margin = New Padding(3, 10, 3, 3)
-        Button6.Name = "Button6"
-        Button6.Size = New Size(140, 90)
-        Button6.TabIndex = 18
-        Button6.Text = "Add Document"
-        Button6.TextAlign = ContentAlignment.BottomCenter
-        Button6.UseVisualStyleBackColor = True
-        ' 
-        ' Button4
-        ' 
-        Button4.Location = New Point(755, 10)
-        Button4.Margin = New Padding(3, 10, 3, 3)
-        Button4.Name = "Button4"
-        Button4.Size = New Size(140, 90)
-        Button4.TabIndex = 16
-        Button4.Text = "Requests by Date"
-        Button4.TextAlign = ContentAlignment.BottomCenter
-        Button4.UseVisualStyleBackColor = True
+        btnAddDocument.Dock = DockStyle.Fill
+        btnAddDocument.Location = New Point(746, 5)
+        btnAddDocument.Margin = New Padding(10, 5, 10, 15)
+        btnAddDocument.Name = "btnAddDocument"
+        btnAddDocument.Size = New Size(165, 91)
+        btnAddDocument.TabIndex = 18
+        btnAddDocument.Text = "Add Document"
+        btnAddDocument.TextAlign = ContentAlignment.BottomCenter
+        btnAddDocument.UseVisualStyleBackColor = True
         ' 
         ' fplRecentRequests
         ' 
         fplRecentRequests.Controls.Add(lblRecentRequests)
-        fplRecentRequests.Dock = DockStyle.Top
-        fplRecentRequests.Location = New Point(0, 261)
+        fplRecentRequests.Dock = DockStyle.Bottom
+        fplRecentRequests.Location = New Point(3, 280)
         fplRecentRequests.Name = "fplRecentRequests"
-        fplRecentRequests.Size = New Size(927, 34)
+        fplRecentRequests.Size = New Size(921, 34)
         fplRecentRequests.TabIndex = 24
         ' 
         ' lblRecentRequests
@@ -278,27 +249,14 @@ Partial Class frmDashboard
         lblRecentRequests.TabIndex = 3
         lblRecentRequests.Text = "Recent Requests"
         ' 
-        ' fplStatus
-        ' 
-        fplStatus.Controls.Add(Panel7)
-        fplStatus.Controls.Add(Panel8)
-        fplStatus.Controls.Add(Panel9)
-        fplStatus.Controls.Add(Panel10)
-        fplStatus.Controls.Add(Panel11)
-        fplStatus.Dock = DockStyle.Top
-        fplStatus.Location = New Point(0, 168)
-        fplStatus.Name = "fplStatus"
-        fplStatus.Size = New Size(927, 93)
-        fplStatus.TabIndex = 23
-        ' 
         ' Panel7
         ' 
         Panel7.Controls.Add(lblNumberPending)
         Panel7.Controls.Add(lblPending)
-        Panel7.Location = New Point(20, 5)
-        Panel7.Margin = New Padding(20, 5, 0, 0)
+        Panel7.Location = New Point(15, 5)
+        Panel7.Margin = New Padding(15, 5, 0, 0)
         Panel7.Name = "Panel7"
-        Panel7.Size = New Size(154, 82)
+        Panel7.Size = New Size(148, 82)
         Panel7.TabIndex = 2
         ' 
         ' lblNumberPending
@@ -325,8 +283,8 @@ Partial Class frmDashboard
         ' 
         Panel8.Controls.Add(lblNumberProcessing)
         Panel8.Controls.Add(lblProcessing)
-        Panel8.Location = New Point(189, 5)
-        Panel8.Margin = New Padding(15, 5, 3, 3)
+        Panel8.Location = New Point(194, 5)
+        Panel8.Margin = New Padding(10, 5, 3, 3)
         Panel8.Name = "Panel8"
         Panel8.Size = New Size(154, 82)
         Panel8.TabIndex = 15
@@ -355,10 +313,10 @@ Partial Class frmDashboard
         ' 
         Panel9.Controls.Add(lblNumberReadyforRelease)
         Panel9.Controls.Add(lblReadyforRelease)
-        Panel9.Location = New Point(361, 5)
-        Panel9.Margin = New Padding(15, 5, 3, 3)
+        Panel9.Location = New Point(374, 5)
+        Panel9.Margin = New Padding(6, 5, 3, 3)
         Panel9.Name = "Panel9"
-        Panel9.Size = New Size(202, 82)
+        Panel9.Size = New Size(175, 82)
         Panel9.TabIndex = 16
         ' 
         ' lblNumberReadyforRelease
@@ -385,10 +343,10 @@ Partial Class frmDashboard
         ' 
         Panel10.Controls.Add(lblNumberReleased)
         Panel10.Controls.Add(lblReleased)
-        Panel10.Location = New Point(581, 5)
-        Panel10.Margin = New Padding(15, 5, 3, 3)
+        Panel10.Location = New Point(562, 5)
+        Panel10.Margin = New Padding(10, 5, 3, 3)
         Panel10.Name = "Panel10"
-        Panel10.Size = New Size(154, 82)
+        Panel10.Size = New Size(162, 82)
         Panel10.TabIndex = 17
         ' 
         ' lblNumberReleased
@@ -415,8 +373,8 @@ Partial Class frmDashboard
         ' 
         Panel11.Controls.Add(lblNumberCancelled)
         Panel11.Controls.Add(lblCancelled)
-        Panel11.Location = New Point(753, 5)
-        Panel11.Margin = New Padding(15, 5, 3, 3)
+        Panel11.Location = New Point(746, 5)
+        Panel11.Margin = New Padding(10, 5, 3, 3)
         Panel11.Name = "Panel11"
         Panel11.Size = New Size(154, 82)
         Panel11.TabIndex = 18
@@ -444,10 +402,10 @@ Partial Class frmDashboard
         ' fplRequestStatus
         ' 
         fplRequestStatus.Controls.Add(lblRequestStatus)
-        fplRequestStatus.Dock = DockStyle.Top
-        fplRequestStatus.Location = New Point(0, 134)
+        fplRequestStatus.Dock = DockStyle.Bottom
+        fplRequestStatus.Location = New Point(3, 139)
         fplRequestStatus.Name = "fplRequestStatus"
-        fplRequestStatus.Size = New Size(927, 34)
+        fplRequestStatus.Size = New Size(921, 34)
         fplRequestStatus.TabIndex = 22
         ' 
         ' lblRequestStatus
@@ -461,26 +419,15 @@ Partial Class frmDashboard
         lblRequestStatus.TabIndex = 2
         lblRequestStatus.Text = "Request Status"
         ' 
-        ' fplTotals
-        ' 
-        fplTotals.Controls.Add(Panel3)
-        fplTotals.Controls.Add(Panel6)
-        fplTotals.Controls.Add(Panel4)
-        fplTotals.Controls.Add(Panel5)
-        fplTotals.Dock = DockStyle.Top
-        fplTotals.Location = New Point(0, 35)
-        fplTotals.Name = "fplTotals"
-        fplTotals.Size = New Size(927, 99)
-        fplTotals.TabIndex = 21
-        ' 
         ' Panel3
         ' 
         Panel3.Controls.Add(lblNumberTotalStudents)
         Panel3.Controls.Add(lblTotalStudent)
+        Panel3.Dock = DockStyle.Fill
         Panel3.Location = New Point(15, 5)
-        Panel3.Margin = New Padding(15, 5, 3, 3)
+        Panel3.Margin = New Padding(15, 5, 15, 3)
         Panel3.Name = "Panel3"
-        Panel3.Size = New Size(200, 87)
+        Panel3.Size = New Size(200, 82)
         Panel3.TabIndex = 0
         ' 
         ' lblNumberTotalStudents
@@ -507,10 +454,11 @@ Partial Class frmDashboard
         ' 
         Panel6.Controls.Add(lblNumberTotalRequest)
         Panel6.Controls.Add(lblTotalRequest)
-        Panel6.Location = New Point(228, 5)
-        Panel6.Margin = New Padding(10, 5, 3, 3)
+        Panel6.Dock = DockStyle.Fill
+        Panel6.Location = New Point(245, 5)
+        Panel6.Margin = New Padding(15, 5, 15, 3)
         Panel6.Name = "Panel6"
-        Panel6.Size = New Size(200, 87)
+        Panel6.Size = New Size(200, 82)
         Panel6.TabIndex = 14
         ' 
         ' lblNumberTotalRequest
@@ -537,10 +485,11 @@ Partial Class frmDashboard
         ' 
         Panel4.Controls.Add(lblNumberRequestThisMonth)
         Panel4.Controls.Add(lblRequestThisMonth)
-        Panel4.Location = New Point(441, 5)
-        Panel4.Margin = New Padding(10, 5, 3, 3)
+        Panel4.Dock = DockStyle.Fill
+        Panel4.Location = New Point(475, 5)
+        Panel4.Margin = New Padding(15, 5, 15, 3)
         Panel4.Name = "Panel4"
-        Panel4.Size = New Size(228, 87)
+        Panel4.Size = New Size(200, 82)
         Panel4.TabIndex = 1
         ' 
         ' lblNumberRequestThisMonth
@@ -567,10 +516,11 @@ Partial Class frmDashboard
         ' 
         Panel5.Controls.Add(lblNumberPaymentsCollected)
         Panel5.Controls.Add(lblPaymentsCollected)
-        Panel5.Location = New Point(682, 5)
-        Panel5.Margin = New Padding(10, 5, 3, 3)
+        Panel5.Dock = DockStyle.Fill
+        Panel5.Location = New Point(705, 5)
+        Panel5.Margin = New Padding(15, 5, 15, 3)
         Panel5.Name = "Panel5"
-        Panel5.Size = New Size(228, 87)
+        Panel5.Size = New Size(201, 82)
         Panel5.TabIndex = 2
         ' 
         ' lblNumberPaymentsCollected
@@ -596,10 +546,10 @@ Partial Class frmDashboard
         ' fplOverall
         ' 
         fplOverall.Controls.Add(lblOverall)
-        fplOverall.Dock = DockStyle.Top
-        fplOverall.Location = New Point(0, 0)
+        fplOverall.Dock = DockStyle.Bottom
+        fplOverall.Location = New Point(3, 3)
         fplOverall.Name = "fplOverall"
-        fplOverall.Size = New Size(927, 35)
+        fplOverall.Size = New Size(921, 32)
         fplOverall.TabIndex = 20
         ' 
         ' lblOverall
@@ -613,29 +563,108 @@ Partial Class frmDashboard
         lblOverall.TabIndex = 1
         lblOverall.Text = "Overall"
         ' 
+        ' tlpQuickAction
+        ' 
+        tlpQuickAction.ColumnCount = 5
+        tlpQuickAction.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 20F))
+        tlpQuickAction.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 20F))
+        tlpQuickAction.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 20F))
+        tlpQuickAction.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 20F))
+        tlpQuickAction.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 20F))
+        tlpQuickAction.Controls.Add(btnAddDocument, 4, 0)
+        tlpQuickAction.Controls.Add(btnAddStudent, 3, 0)
+        tlpQuickAction.Controls.Add(btnPaymentReport, 2, 0)
+        tlpQuickAction.Controls.Add(btnSearchRecords, 0, 0)
+        tlpQuickAction.Controls.Add(btnCreateRequest, 1, 0)
+        tlpQuickAction.Dock = DockStyle.Fill
+        tlpQuickAction.Location = New Point(3, 508)
+        tlpQuickAction.Name = "tlpQuickAction"
+        tlpQuickAction.RowCount = 1
+        tlpQuickAction.RowStyles.Add(New RowStyle(SizeType.Percent, 100F))
+        tlpQuickAction.Size = New Size(921, 111)
+        tlpQuickAction.TabIndex = 28
+        ' 
+        ' tlpDashboard
+        ' 
+        tlpDashboard.ColumnCount = 1
+        tlpDashboard.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100F))
+        tlpDashboard.ColumnStyles.Add(New ColumnStyle(SizeType.Absolute, 20F))
+        tlpDashboard.Controls.Add(lvRecentRequests, 0, 5)
+        tlpDashboard.Controls.Add(tlpQuickAction, 0, 7)
+        tlpDashboard.Controls.Add(tplRequestStatus, 0, 3)
+        tlpDashboard.Controls.Add(fplQuickActions, 0, 6)
+        tlpDashboard.Controls.Add(fplOverall, 0, 0)
+        tlpDashboard.Controls.Add(tlpOverall, 0, 1)
+        tlpDashboard.Controls.Add(fplRequestStatus, 0, 2)
+        tlpDashboard.Controls.Add(fplRecentRequests, 0, 4)
+        tlpDashboard.Dock = DockStyle.Fill
+        tlpDashboard.Location = New Point(0, 0)
+        tlpDashboard.Name = "tlpDashboard"
+        tlpDashboard.RowCount = 8
+        tlpDashboard.RowStyles.Add(New RowStyle(SizeType.Percent, 6.109325F))
+        tlpDashboard.RowStyles.Add(New RowStyle(SizeType.Percent, 15.4340839F))
+        tlpDashboard.RowStyles.Add(New RowStyle(SizeType.Percent, 6.75241137F))
+        tlpDashboard.RowStyles.Add(New RowStyle(SizeType.Percent, 16.0771713F))
+        tlpDashboard.RowStyles.Add(New RowStyle(SizeType.Percent, 6.59164F))
+        tlpDashboard.RowStyles.Add(New RowStyle(SizeType.Percent, 22.3472672F))
+        tlpDashboard.RowStyles.Add(New RowStyle(SizeType.Percent, 7.87781334F))
+        tlpDashboard.RowStyles.Add(New RowStyle(SizeType.Percent, 18.167202F))
+        tlpDashboard.Size = New Size(927, 622)
+        tlpDashboard.TabIndex = 29
+        ' 
+        ' tplRequestStatus
+        ' 
+        tplRequestStatus.ColumnCount = 5
+        tplRequestStatus.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 20F))
+        tplRequestStatus.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 20F))
+        tplRequestStatus.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 20F))
+        tplRequestStatus.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 20F))
+        tplRequestStatus.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 20F))
+        tplRequestStatus.Controls.Add(Panel11, 4, 0)
+        tplRequestStatus.Controls.Add(Panel10, 3, 0)
+        tplRequestStatus.Controls.Add(Panel9, 2, 0)
+        tplRequestStatus.Controls.Add(Panel8, 1, 0)
+        tplRequestStatus.Controls.Add(Panel7, 0, 0)
+        tplRequestStatus.Dock = DockStyle.Fill
+        tplRequestStatus.Location = New Point(3, 179)
+        tplRequestStatus.Name = "tplRequestStatus"
+        tplRequestStatus.RowCount = 1
+        tplRequestStatus.RowStyles.Add(New RowStyle(SizeType.Percent, 100F))
+        tplRequestStatus.Size = New Size(921, 94)
+        tplRequestStatus.TabIndex = 31
+        ' 
+        ' tlpOverall
+        ' 
+        tlpOverall.ColumnCount = 4
+        tlpOverall.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 25F))
+        tlpOverall.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 25F))
+        tlpOverall.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 25F))
+        tlpOverall.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 25F))
+        tlpOverall.Controls.Add(Panel5, 3, 0)
+        tlpOverall.Controls.Add(Panel4, 2, 0)
+        tlpOverall.Controls.Add(Panel6, 1, 0)
+        tlpOverall.Controls.Add(Panel3, 0, 0)
+        tlpOverall.Dock = DockStyle.Fill
+        tlpOverall.Location = New Point(3, 41)
+        tlpOverall.Name = "tlpOverall"
+        tlpOverall.RowCount = 1
+        tlpOverall.RowStyles.Add(New RowStyle(SizeType.Percent, 100F))
+        tlpOverall.Size = New Size(921, 90)
+        tlpOverall.TabIndex = 30
+        ' 
         ' frmDashboard
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(927, 622)
-        Controls.Add(fplQuickLinks)
-        Controls.Add(fplQuickActions)
-        Controls.Add(fplListViewRecent)
-        Controls.Add(fplRecentRequests)
-        Controls.Add(fplStatus)
-        Controls.Add(fplRequestStatus)
-        Controls.Add(fplTotals)
-        Controls.Add(fplOverall)
+        Controls.Add(tlpDashboard)
         MinimumSize = New Size(943, 661)
         Name = "frmDashboard"
         Text = "frmDashboard"
-        fplListViewRecent.ResumeLayout(False)
         fplQuickActions.ResumeLayout(False)
         fplQuickActions.PerformLayout()
-        fplQuickLinks.ResumeLayout(False)
         fplRecentRequests.ResumeLayout(False)
         fplRecentRequests.PerformLayout()
-        fplStatus.ResumeLayout(False)
         Panel7.ResumeLayout(False)
         Panel7.PerformLayout()
         Panel8.ResumeLayout(False)
@@ -648,7 +677,6 @@ Partial Class frmDashboard
         Panel11.PerformLayout()
         fplRequestStatus.ResumeLayout(False)
         fplRequestStatus.PerformLayout()
-        fplTotals.ResumeLayout(False)
         Panel3.ResumeLayout(False)
         Panel3.PerformLayout()
         Panel6.ResumeLayout(False)
@@ -659,16 +687,17 @@ Partial Class frmDashboard
         Panel5.PerformLayout()
         fplOverall.ResumeLayout(False)
         fplOverall.PerformLayout()
+        tlpQuickAction.ResumeLayout(False)
+        tlpDashboard.ResumeLayout(False)
+        tplRequestStatus.ResumeLayout(False)
+        tlpOverall.ResumeLayout(False)
         ResumeLayout(False)
     End Sub
-    Friend WithEvents fplListViewRecent As FlowLayoutPanel
     Friend WithEvents lvRecentRequests As ListView
     Friend WithEvents fplQuickActions As FlowLayoutPanel
     Friend WithEvents lblQuickActions As Label
-    Friend WithEvents fplQuickLinks As FlowLayoutPanel
     Friend WithEvents fplRecentRequests As FlowLayoutPanel
     Friend WithEvents lblRecentRequests As Label
-    Friend WithEvents fplStatus As FlowLayoutPanel
     Friend WithEvents Panel7 As Panel
     Friend WithEvents lblNumberPending As Label
     Friend WithEvents lblPending As Label
@@ -686,13 +715,11 @@ Partial Class frmDashboard
     Friend WithEvents lblCancelled As Label
     Friend WithEvents fplRequestStatus As FlowLayoutPanel
     Friend WithEvents lblRequestStatus As Label
-    Friend WithEvents fplTotals As FlowLayoutPanel
     Friend WithEvents Panel3 As Panel
     Friend WithEvents lblNumberTotalStudents As Label
     Friend WithEvents lblTotalStudent As Label
     Friend WithEvents Panel6 As Panel
     Friend WithEvents lblNumberTotalRequest As Label
-    Friend WithEvents lblTotalRequest As Label
     Friend WithEvents Panel4 As Panel
     Friend WithEvents lblNumberRequestThisMonth As Label
     Friend WithEvents lblRequestThisMonth As Label
@@ -701,12 +728,11 @@ Partial Class frmDashboard
     Friend WithEvents lblPaymentsCollected As Label
     Friend WithEvents fplOverall As FlowLayoutPanel
     Friend WithEvents lblOverall As Label
-    Friend WithEvents Button1 As Button
-    Friend WithEvents Button2 As Button
-    Friend WithEvents Button3 As Button
-    Friend WithEvents Button4 As Button
-    Friend WithEvents Button5 As Button
-    Friend WithEvents Button6 As Button
+    Friend WithEvents btnSearchRecords As Button
+    Friend WithEvents btnCreateRequest As Button
+    Friend WithEvents btnAddStudent As Button
+    Friend WithEvents btnPaymentReport As Button
+    Friend WithEvents btnAddDocument As Button
     Friend WithEvents ColumnHeader1 As ColumnHeader
     Friend WithEvents ColumnHeader2 As ColumnHeader
     Friend WithEvents ColumnHeader3 As ColumnHeader
@@ -714,4 +740,9 @@ Partial Class frmDashboard
     Friend WithEvents ColumnHeader5 As ColumnHeader
     Friend WithEvents ColumnHeader6 As ColumnHeader
     Friend WithEvents ColumnHeader7 As ColumnHeader
+    Friend WithEvents tlpQuickAction As TableLayoutPanel
+    Friend WithEvents tlpDashboard As TableLayoutPanel
+    Friend WithEvents tlpOverall As TableLayoutPanel
+    Friend WithEvents tplRequestStatus As TableLayoutPanel
+    Friend WithEvents lblTotalRequest As Label
 End Class

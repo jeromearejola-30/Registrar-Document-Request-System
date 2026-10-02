@@ -10,7 +10,6 @@ Public Class frmUserManagement
         dgvUsers.AutoGenerateColumns = False
 
         ' Map database column names to your DataGridView designer columns
-        ' (Matches your UI headers: User ID, Username, Full Name, User Role, User Status)
         MapGridColumns()
 
         LoadUsers()
@@ -22,27 +21,8 @@ Public Class frmUserManagement
         txtSearchBox.ForeColor = Color.Gray
     End Sub
 
-
-    Private Sub ShowChildForm(childForm As Form)
-        If Me.fplContentArea.Controls.Count > 0 Then
-            Me.fplContentArea.Controls(0).Dispose()
-        End If
-
-        childForm.TopLevel = False
-        childForm.FormBorderStyle = FormBorderStyle.None
-        childForm.Dock = DockStyle.Fill
-
-        Me.fplContentArea.Controls.Add(childForm)
-        Me.fplContentArea.Tag = childForm
-
-        childForm.BringToFront()
-        childForm.Show()
-    End Sub
-
-
     ' Map DataGridView columns to match SQL SELECT fields
     Private Sub MapGridColumns()
-        ' Change these string names if your column DataPropertyName differs in designer
         If dgvUsers.Columns.Contains("colUserID") Then dgvUsers.Columns("colUserID").DataPropertyName = "UserID"
         If dgvUsers.Columns.Contains("colUsername") Then dgvUsers.Columns("colUsername").DataPropertyName = "Username"
         If dgvUsers.Columns.Contains("colFullName") Then dgvUsers.Columns("colFullName").DataPropertyName = "FullName"
@@ -51,11 +31,10 @@ Public Class frmUserManagement
     End Sub
 
     ' Load all users into the DataGridView
-    Private Sub LoadUsers()
+    Public Sub LoadUsers()
         Try
             If cn.State <> ConnectionState.Open Then cn.Open()
 
-            ' Make sure column aliases match the DataPropertyName mappings
             Dim sql As String = "SELECT UserID, Username, FullName, Role, Status FROM tblUsers"
 
             Using cmd As New MySqlCommand(sql, cn)
@@ -65,6 +44,12 @@ Public Class frmUserManagement
                     dgvUsers.DataSource = dt
                 End Using
             End Using
+
+            ' Clear selection state upon reload
+            selectedUserId = String.Empty
+            lblUsername.Text = String.Empty
+            lblRole.Text = String.Empty
+
         Catch ex As Exception
             MessageBox.Show("Error loading users: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
@@ -130,7 +115,6 @@ Public Class frmUserManagement
 
         Dim selectedRow As DataGridViewRow = dgvUsers.Rows(e.RowIndex)
 
-        ' Read directly from bound DataRowView
         If TypeOf selectedRow.DataBoundItem Is DataRowView Then
             Dim drv = DirectCast(selectedRow.DataBoundItem, DataRowView)
 
@@ -145,7 +129,6 @@ Public Class frmUserManagement
             If drv.Row.Table.Columns.Contains("UserID") AndAlso drv("UserID") IsNot DBNull.Value Then
                 selectedUserId = drv("UserID").ToString()
             End If
-
         End If
     End Sub
 
@@ -156,19 +139,15 @@ Public Class frmUserManagement
             Return
         End If
 
-        ' Create instance and set User ID
         Dim viewForm As New frmViewUser()
         viewForm.SelectedUserId = selectedUserId
 
-        ' Find the parent form (main panel container) and display frmViewUser there
-        Dim parentMainForm = TryCast(Me.ParentForm, frmMainMenu) ' Replace frmMain with your main form's class name
+        Dim parentMainForm = TryCast(Me.ParentForm, frmMainMenu)
         If parentMainForm IsNot Nothing Then
             parentMainForm.ShowChildForm(viewForm)
         Else
-            ' Fallback: open as a standalone modal dialog window
             viewForm.ShowDialog()
         End If
-
     End Sub
 
     Private Sub btnAddUser_Click(sender As Object, e As EventArgs) Handles btnAddUser.Click
@@ -207,7 +186,5 @@ Public Class frmUserManagement
         Me.ActiveControl = Nothing
         LoadUsers()
     End Sub
-
-
 
 End Class

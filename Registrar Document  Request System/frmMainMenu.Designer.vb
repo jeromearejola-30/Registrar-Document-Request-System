@@ -29,12 +29,10 @@ Partial Class frmMainMenu
         btnLogout = New Button()
         btnUserManagement = New Button()
         btnStudentManagement = New Button()
-        flpSideBar = New FlowLayoutPanel()
         btnDashboard = New Button()
         lblSystemTitle1 = New Label()
         lblSystemTitle2 = New Label()
         pbSchoolLogo = New PictureBox()
-        fplHead = New FlowLayoutPanel()
         fplSystemTitle = New FlowLayoutPanel()
         fplSystemLabel = New FlowLayoutPanel()
         lblRegistrar = New Label()
@@ -45,15 +43,21 @@ Partial Class frmMainMenu
         fplDateTime = New FlowLayoutPanel()
         lblDate = New Label()
         lblTime = New Label()
-        pnlContentArea = New Panel()
-        flpSideBar.SuspendLayout()
+        TableLayoutPanel1 = New TableLayoutPanel()
+        FlowLayoutPanel1 = New FlowLayoutPanel()
+        TableLayoutPanel2 = New TableLayoutPanel()
+        FlowLayoutPanel2 = New FlowLayoutPanel()
+        tlpContentArea = New TableLayoutPanel()
         CType(pbSchoolLogo, ComponentModel.ISupportInitialize).BeginInit()
-        fplHead.SuspendLayout()
         fplSystemTitle.SuspendLayout()
         fplSystemLabel.SuspendLayout()
         fplTitle.SuspendLayout()
         CType(pbCelendar, ComponentModel.ISupportInitialize).BeginInit()
         fplDateTime.SuspendLayout()
+        TableLayoutPanel1.SuspendLayout()
+        FlowLayoutPanel1.SuspendLayout()
+        TableLayoutPanel2.SuspendLayout()
+        FlowLayoutPanel2.SuspendLayout()
         SuspendLayout()
         ' 
         ' lblUserProfile
@@ -71,8 +75,8 @@ Partial Class frmMainMenu
         ' btnReports
         ' 
         btnReports.Font = New Font("Tahoma", 14.25F)
-        btnReports.Location = New Point(15, 352)
-        btnReports.Margin = New Padding(15, 3, 3, 15)
+        btnReports.Location = New Point(15, 340)
+        btnReports.Margin = New Padding(15, 20, 3, 3)
         btnReports.Name = "btnReports"
         btnReports.Padding = New Padding(50, 0, 0, 0)
         btnReports.Size = New Size(310, 50)
@@ -84,8 +88,8 @@ Partial Class frmMainMenu
         ' btnDocumentRequests
         ' 
         btnDocumentRequests.Font = New Font("Tahoma", 14.25F)
-        btnDocumentRequests.Location = New Point(15, 284)
-        btnDocumentRequests.Margin = New Padding(15, 3, 3, 15)
+        btnDocumentRequests.Location = New Point(15, 267)
+        btnDocumentRequests.Margin = New Padding(15, 20, 3, 3)
         btnDocumentRequests.Name = "btnDocumentRequests"
         btnDocumentRequests.Padding = New Padding(50, 0, 0, 0)
         btnDocumentRequests.Size = New Size(310, 50)
@@ -97,8 +101,8 @@ Partial Class frmMainMenu
         ' btnDocumentManagement
         ' 
         btnDocumentManagement.Font = New Font("Tahoma", 14.25F)
-        btnDocumentManagement.Location = New Point(15, 216)
-        btnDocumentManagement.Margin = New Padding(15, 3, 3, 15)
+        btnDocumentManagement.Location = New Point(15, 194)
+        btnDocumentManagement.Margin = New Padding(15, 20, 3, 3)
         btnDocumentManagement.Name = "btnDocumentManagement"
         btnDocumentManagement.Padding = New Padding(50, 0, 0, 0)
         btnDocumentManagement.Size = New Size(310, 50)
@@ -109,12 +113,13 @@ Partial Class frmMainMenu
         ' 
         ' btnLogout
         ' 
+        btnLogout.Dock = DockStyle.Bottom
         btnLogout.Font = New Font("Tahoma", 14.25F)
-        btnLogout.Location = New Point(15, 585)
-        btnLogout.Margin = New Padding(15, 100, 3, 2)
+        btnLogout.Location = New Point(15, 704)
+        btnLogout.Margin = New Padding(15, 25, 20, 15)
         btnLogout.Name = "btnLogout"
         btnLogout.Padding = New Padding(50, 0, 0, 0)
-        btnLogout.Size = New Size(310, 50)
+        btnLogout.Size = New Size(305, 42)
         btnLogout.TabIndex = 3
         btnLogout.Text = "Logout"
         btnLogout.TextAlign = ContentAlignment.MiddleLeft
@@ -123,8 +128,8 @@ Partial Class frmMainMenu
         ' btnUserManagement
         ' 
         btnUserManagement.Font = New Font("Tahoma", 14.25F)
-        btnUserManagement.Location = New Point(15, 420)
-        btnUserManagement.Margin = New Padding(15, 3, 3, 15)
+        btnUserManagement.Location = New Point(15, 413)
+        btnUserManagement.Margin = New Padding(15, 20, 3, 3)
         btnUserManagement.Name = "btnUserManagement"
         btnUserManagement.Padding = New Padding(50, 0, 0, 0)
         btnUserManagement.Size = New Size(310, 50)
@@ -136,8 +141,8 @@ Partial Class frmMainMenu
         ' btnStudentManagement
         ' 
         btnStudentManagement.Font = New Font("Tahoma", 14.25F)
-        btnStudentManagement.Location = New Point(15, 148)
-        btnStudentManagement.Margin = New Padding(15, 3, 3, 15)
+        btnStudentManagement.Location = New Point(15, 121)
+        btnStudentManagement.Margin = New Padding(15, 20, 3, 3)
         btnStudentManagement.Name = "btnStudentManagement"
         btnStudentManagement.Padding = New Padding(50, 0, 0, 0)
         btnStudentManagement.Size = New Size(310, 50)
@@ -146,32 +151,15 @@ Partial Class frmMainMenu
         btnStudentManagement.TextAlign = ContentAlignment.MiddleLeft
         btnStudentManagement.UseVisualStyleBackColor = True
         ' 
-        ' flpSideBar
-        ' 
-        flpSideBar.Controls.Add(btnDashboard)
-        flpSideBar.Controls.Add(btnStudentManagement)
-        flpSideBar.Controls.Add(btnDocumentManagement)
-        flpSideBar.Controls.Add(btnDocumentRequests)
-        flpSideBar.Controls.Add(btnReports)
-        flpSideBar.Controls.Add(btnUserManagement)
-        flpSideBar.Controls.Add(btnLogout)
-        flpSideBar.Dock = DockStyle.Left
-        flpSideBar.FlowDirection = FlowDirection.TopDown
-        flpSideBar.Location = New Point(0, 100)
-        flpSideBar.Margin = New Padding(0, 3, 3, 3)
-        flpSideBar.Name = "flpSideBar"
-        flpSideBar.Size = New Size(342, 661)
-        flpSideBar.TabIndex = 7
-        ' 
         ' btnDashboard
         ' 
         btnDashboard.BackColor = Color.Transparent
         btnDashboard.Font = New Font("Tahoma", 14.25F)
-        btnDashboard.Location = New Point(15, 80)
-        btnDashboard.Margin = New Padding(15, 80, 3, 15)
+        btnDashboard.Location = New Point(15, 50)
+        btnDashboard.Margin = New Padding(15, 50, 3, 3)
         btnDashboard.Name = "btnDashboard"
         btnDashboard.Padding = New Padding(50, 0, 0, 0)
-        btnDashboard.Size = New Size(310, 50)
+        btnDashboard.Size = New Size(310, 48)
         btnDashboard.TabIndex = 2
         btnDashboard.Text = "Dashboard"
         btnDashboard.TextAlign = ContentAlignment.MiddleLeft
@@ -210,26 +198,15 @@ Partial Class frmMainMenu
         pbSchoolLogo.TabIndex = 9
         pbSchoolLogo.TabStop = False
         ' 
-        ' fplHead
-        ' 
-        fplHead.Controls.Add(fplSystemTitle)
-        fplHead.Controls.Add(fplTitle)
-        fplHead.Controls.Add(pbCelendar)
-        fplHead.Controls.Add(fplDateTime)
-        fplHead.Dock = DockStyle.Top
-        fplHead.Location = New Point(0, 0)
-        fplHead.Name = "fplHead"
-        fplHead.Size = New Size(1264, 100)
-        fplHead.TabIndex = 2
-        ' 
         ' fplSystemTitle
         ' 
         fplSystemTitle.Controls.Add(pbSchoolLogo)
         fplSystemTitle.Controls.Add(fplSystemLabel)
+        fplSystemTitle.Dock = DockStyle.Fill
         fplSystemTitle.Location = New Point(0, 0)
         fplSystemTitle.Margin = New Padding(0, 0, 3, 0)
         fplSystemTitle.Name = "fplSystemTitle"
-        fplSystemTitle.Size = New Size(342, 100)
+        fplSystemTitle.Size = New Size(337, 100)
         fplSystemTitle.TabIndex = 10
         ' 
         ' fplSystemLabel
@@ -269,11 +246,12 @@ Partial Class frmMainMenu
         ' 
         fplTitle.Controls.Add(lblSection)
         fplTitle.Controls.Add(lblUserProfile)
+        fplTitle.Dock = DockStyle.Left
         fplTitle.FlowDirection = FlowDirection.TopDown
-        fplTitle.Location = New Point(365, 15)
-        fplTitle.Margin = New Padding(20, 15, 3, 3)
+        fplTitle.Location = New Point(15, 15)
+        fplTitle.Margin = New Padding(15, 15, 3, 3)
         fplTitle.Name = "fplTitle"
-        fplTitle.Size = New Size(478, 70)
+        fplTitle.Size = New Size(436, 82)
         fplTitle.TabIndex = 1
         ' 
         ' lblSection
@@ -291,8 +269,8 @@ Partial Class frmMainMenu
         ' pbCelendar
         ' 
         pbCelendar.BackColor = Color.Transparent
-        pbCelendar.Location = New Point(881, 20)
-        pbCelendar.Margin = New Padding(35, 20, 3, 3)
+        pbCelendar.Location = New Point(15, 5)
+        pbCelendar.Margin = New Padding(15, 5, 3, 20)
         pbCelendar.Name = "pbCelendar"
         pbCelendar.Size = New Size(60, 60)
         pbCelendar.TabIndex = 10
@@ -303,8 +281,8 @@ Partial Class frmMainMenu
         fplDateTime.Controls.Add(lblDate)
         fplDateTime.Controls.Add(lblTime)
         fplDateTime.FlowDirection = FlowDirection.TopDown
-        fplDateTime.Location = New Point(947, 20)
-        fplDateTime.Margin = New Padding(3, 20, 10, 3)
+        fplDateTime.Location = New Point(81, 5)
+        fplDateTime.Margin = New Padding(3, 5, 10, 3)
         fplDateTime.Name = "fplDateTime"
         fplDateTime.Size = New Size(304, 60)
         fplDateTime.TabIndex = 11
@@ -313,7 +291,8 @@ Partial Class frmMainMenu
         ' 
         lblDate.AutoSize = True
         lblDate.Font = New Font("Tahoma", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        lblDate.Location = New Point(3, 0)
+        lblDate.Location = New Point(3, 6)
+        lblDate.Margin = New Padding(3, 6, 3, 0)
         lblDate.Name = "lblDate"
         lblDate.Size = New Size(293, 25)
         lblDate.TabIndex = 2
@@ -324,38 +303,102 @@ Partial Class frmMainMenu
         ' 
         lblTime.AutoSize = True
         lblTime.Font = New Font("Tahoma", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        lblTime.Location = New Point(3, 25)
+        lblTime.Location = New Point(3, 31)
         lblTime.Name = "lblTime"
         lblTime.Size = New Size(98, 25)
         lblTime.TabIndex = 3
         lblTime.Text = "09:41 PM"
         lblTime.TextAlign = ContentAlignment.MiddleLeft
         ' 
-        ' pnlContentArea
+        ' TableLayoutPanel1
         ' 
-        pnlContentArea.Dock = DockStyle.Fill
-        pnlContentArea.Location = New Point(342, 100)
-        pnlContentArea.Margin = New Padding(0, 3, 0, 3)
-        pnlContentArea.Name = "pnlContentArea"
-        pnlContentArea.RightToLeft = RightToLeft.No
-        pnlContentArea.Size = New Size(922, 661)
-        pnlContentArea.TabIndex = 1
+        TableLayoutPanel1.ColumnCount = 2
+        TableLayoutPanel1.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 51.3771172F))
+        TableLayoutPanel1.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 48.6228828F))
+        TableLayoutPanel1.Controls.Add(FlowLayoutPanel1, 1, 0)
+        TableLayoutPanel1.Controls.Add(fplTitle, 0, 0)
+        TableLayoutPanel1.Dock = DockStyle.Top
+        TableLayoutPanel1.Location = New Point(340, 0)
+        TableLayoutPanel1.Name = "TableLayoutPanel1"
+        TableLayoutPanel1.RowCount = 1
+        TableLayoutPanel1.RowStyles.Add(New RowStyle(SizeType.Percent, 50F))
+        TableLayoutPanel1.RowStyles.Add(New RowStyle(SizeType.Absolute, 20F))
+        TableLayoutPanel1.Size = New Size(944, 100)
+        TableLayoutPanel1.TabIndex = 12
+        ' 
+        ' FlowLayoutPanel1
+        ' 
+        FlowLayoutPanel1.Controls.Add(pbCelendar)
+        FlowLayoutPanel1.Controls.Add(fplDateTime)
+        FlowLayoutPanel1.Dock = DockStyle.Right
+        FlowLayoutPanel1.Location = New Point(544, 15)
+        FlowLayoutPanel1.Margin = New Padding(50, 15, 3, 3)
+        FlowLayoutPanel1.Name = "FlowLayoutPanel1"
+        FlowLayoutPanel1.Size = New Size(397, 82)
+        FlowLayoutPanel1.TabIndex = 14
+        ' 
+        ' TableLayoutPanel2
+        ' 
+        TableLayoutPanel2.ColumnCount = 1
+        TableLayoutPanel2.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100F))
+        TableLayoutPanel2.Controls.Add(FlowLayoutPanel2, 0, 1)
+        TableLayoutPanel2.Controls.Add(fplSystemTitle, 0, 0)
+        TableLayoutPanel2.Controls.Add(btnLogout, 0, 2)
+        TableLayoutPanel2.Dock = DockStyle.Left
+        TableLayoutPanel2.Location = New Point(0, 0)
+        TableLayoutPanel2.Name = "TableLayoutPanel2"
+        TableLayoutPanel2.RowCount = 3
+        TableLayoutPanel2.RowStyles.Add(New RowStyle(SizeType.Percent, 13.140604F))
+        TableLayoutPanel2.RowStyles.Add(New RowStyle(SizeType.Percent, 76.0841F))
+        TableLayoutPanel2.RowStyles.Add(New RowStyle(SizeType.Percent, 10.7752953F))
+        TableLayoutPanel2.RowStyles.Add(New RowStyle(SizeType.Absolute, 20F))
+        TableLayoutPanel2.RowStyles.Add(New RowStyle(SizeType.Absolute, 20F))
+        TableLayoutPanel2.RowStyles.Add(New RowStyle(SizeType.Absolute, 20F))
+        TableLayoutPanel2.RowStyles.Add(New RowStyle(SizeType.Absolute, 20F))
+        TableLayoutPanel2.RowStyles.Add(New RowStyle(SizeType.Absolute, 20F))
+        TableLayoutPanel2.Size = New Size(340, 761)
+        TableLayoutPanel2.TabIndex = 13
+        ' 
+        ' FlowLayoutPanel2
+        ' 
+        FlowLayoutPanel2.Controls.Add(btnDashboard)
+        FlowLayoutPanel2.Controls.Add(btnStudentManagement)
+        FlowLayoutPanel2.Controls.Add(btnDocumentManagement)
+        FlowLayoutPanel2.Controls.Add(btnDocumentRequests)
+        FlowLayoutPanel2.Controls.Add(btnReports)
+        FlowLayoutPanel2.Controls.Add(btnUserManagement)
+        FlowLayoutPanel2.Dock = DockStyle.Fill
+        FlowLayoutPanel2.FlowDirection = FlowDirection.TopDown
+        FlowLayoutPanel2.Location = New Point(3, 103)
+        FlowLayoutPanel2.Name = "FlowLayoutPanel2"
+        FlowLayoutPanel2.Size = New Size(334, 573)
+        FlowLayoutPanel2.TabIndex = 15
+        ' 
+        ' tlpContentArea
+        ' 
+        tlpContentArea.ColumnCount = 1
+        tlpContentArea.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
+        tlpContentArea.Dock = DockStyle.Fill
+        tlpContentArea.Location = New Point(340, 100)
+        tlpContentArea.Name = "tlpContentArea"
+        tlpContentArea.RowCount = 1
+        tlpContentArea.RowStyles.Add(New RowStyle(SizeType.Percent, 50F))
+        tlpContentArea.Size = New Size(944, 661)
+        tlpContentArea.TabIndex = 14
         ' 
         ' frmMainMenu
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(1264, 761)
-        Controls.Add(pnlContentArea)
-        Controls.Add(flpSideBar)
-        Controls.Add(fplHead)
+        ClientSize = New Size(1284, 761)
+        Controls.Add(tlpContentArea)
+        Controls.Add(TableLayoutPanel1)
+        Controls.Add(TableLayoutPanel2)
         Margin = New Padding(3, 2, 3, 2)
         MinimumSize = New Size(1280, 800)
         Name = "frmMainMenu"
         Text = "Main menu"
-        flpSideBar.ResumeLayout(False)
         CType(pbSchoolLogo, ComponentModel.ISupportInitialize).EndInit()
-        fplHead.ResumeLayout(False)
         fplSystemTitle.ResumeLayout(False)
         fplSystemLabel.ResumeLayout(False)
         fplSystemLabel.PerformLayout()
@@ -364,6 +407,10 @@ Partial Class frmMainMenu
         CType(pbCelendar, ComponentModel.ISupportInitialize).EndInit()
         fplDateTime.ResumeLayout(False)
         fplDateTime.PerformLayout()
+        TableLayoutPanel1.ResumeLayout(False)
+        FlowLayoutPanel1.ResumeLayout(False)
+        TableLayoutPanel2.ResumeLayout(False)
+        FlowLayoutPanel2.ResumeLayout(False)
         ResumeLayout(False)
     End Sub
     Friend WithEvents btnLogout As Button
@@ -373,7 +420,6 @@ Partial Class frmMainMenu
     Friend WithEvents btnReports As Button
     Friend WithEvents btnDocumentRequests As Button
     Friend WithEvents btnDocumentManagement As Button
-    Friend WithEvents flpSideBar As FlowLayoutPanel
     Friend WithEvents lblSystemTitle1 As Label
     Friend WithEvents pbSchoolLogo As PictureBox
     Friend WithEvents lblSystemTitle2 As Label
@@ -384,10 +430,13 @@ Partial Class frmMainMenu
     Friend WithEvents pbCelendar As PictureBox
     Friend WithEvents fplDateTime As FlowLayoutPanel
     Friend WithEvents fplTitle As FlowLayoutPanel
-    Friend WithEvents pnlContentArea As Panel
-    Friend WithEvents fplHead As FlowLayoutPanel
     Friend WithEvents fplSystemTitle As FlowLayoutPanel
     Friend WithEvents fplSystemLabel As FlowLayoutPanel
     Friend WithEvents lblRegistrar As Label
     Friend WithEvents lblDocumentRequestSystem As Label
+    Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
+    Friend WithEvents TableLayoutPanel2 As TableLayoutPanel
+    Friend WithEvents FlowLayoutPanel1 As FlowLayoutPanel
+    Friend WithEvents tlpContentArea As TableLayoutPanel
+    Friend WithEvents FlowLayoutPanel2 As FlowLayoutPanel
 End Class

@@ -88,7 +88,7 @@ Partial Class frmUserManagement
         dgvUsers.Name = "dgvUsers"
         dgvUsers.RowHeadersVisible = False
         dgvUsers.RowHeadersWidth = 51
-        dgvUsers.Size = New Size(870, 180)
+        dgvUsers.Size = New Size(870, 215)
         dgvUsers.TabIndex = 4
         ' 
         ' ColUserID
@@ -120,7 +120,7 @@ Partial Class frmUserManagement
         ' 
         fplSearchbox.Controls.Add(txtSearchBox)
         fplSearchbox.Controls.Add(btnClearSearch)
-        fplSearchbox.Dock = DockStyle.Top
+        fplSearchbox.Dock = DockStyle.Fill
         fplSearchbox.Location = New Point(3, 3)
         fplSearchbox.Name = "fplSearchbox"
         fplSearchbox.Size = New Size(925, 64)
@@ -150,7 +150,7 @@ Partial Class frmUserManagement
         ' fplAllUsers
         ' 
         fplAllUsers.Controls.Add(lblAllUsers)
-        fplAllUsers.Dock = DockStyle.Top
+        fplAllUsers.Dock = DockStyle.Bottom
         fplAllUsers.Location = New Point(3, 73)
         fplAllUsers.Name = "fplAllUsers"
         fplAllUsers.Size = New Size(925, 35)
@@ -181,11 +181,12 @@ Partial Class frmUserManagement
         FlowLayoutPanel1.Controls.Add(FlowLayoutPanel3)
         FlowLayoutPanel1.Controls.Add(FlowLayoutPanel4)
         FlowLayoutPanel1.Controls.Add(btnViewUser)
+        FlowLayoutPanel1.Dock = DockStyle.Fill
         FlowLayoutPanel1.FlowDirection = FlowDirection.TopDown
         FlowLayoutPanel1.Location = New Point(10, 15)
-        FlowLayoutPanel1.Margin = New Padding(10, 15, 10, 3)
+        FlowLayoutPanel1.Margin = New Padding(10, 15, 15, 15)
         FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        FlowLayoutPanel1.Size = New Size(439, 202)
+        FlowLayoutPanel1.Size = New Size(437, 207)
         FlowLayoutPanel1.TabIndex = 0
         ' 
         ' lblUserInformation
@@ -284,11 +285,12 @@ Partial Class frmUserManagement
         FlowLayoutPanel2.Controls.Add(FlowLayoutPanel6)
         FlowLayoutPanel2.Controls.Add(FlowLayoutPanel7)
         FlowLayoutPanel2.Controls.Add(btnAddUser)
+        FlowLayoutPanel2.Dock = DockStyle.Fill
         FlowLayoutPanel2.FlowDirection = FlowDirection.TopDown
         FlowLayoutPanel2.Location = New Point(477, 15)
-        FlowLayoutPanel2.Margin = New Padding(15, 15, 3, 3)
+        FlowLayoutPanel2.Margin = New Padding(15)
         FlowLayoutPanel2.Name = "FlowLayoutPanel2"
-        FlowLayoutPanel2.Size = New Size(437, 202)
+        FlowLayoutPanel2.Size = New Size(433, 207)
         FlowLayoutPanel2.TabIndex = 1
         ' 
         ' lblUserStatusSummary
