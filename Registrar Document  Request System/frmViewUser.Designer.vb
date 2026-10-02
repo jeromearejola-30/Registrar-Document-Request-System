@@ -134,6 +134,7 @@ Partial Class frmViewUser
         ' 
         ' cboUserRole
         ' 
+        cboUserRole.DropDownStyle = ComboBoxStyle.DropDownList
         cboUserRole.Font = New Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         cboUserRole.FormattingEnabled = True
         cboUserRole.Location = New Point(12, 436)
@@ -143,6 +144,7 @@ Partial Class frmViewUser
         ' 
         ' cboUserStatus
         ' 
+        cboUserStatus.DropDownStyle = ComboBoxStyle.DropDownList
         cboUserStatus.Font = New Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         cboUserStatus.FormattingEnabled = True
         cboUserStatus.Location = New Point(459, 436)

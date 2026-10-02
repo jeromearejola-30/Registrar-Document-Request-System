@@ -156,13 +156,29 @@ Public Class frmUserManagement
             Return
         End If
 
+        ' Create instance and set User ID
         Dim viewForm As New frmViewUser()
         viewForm.SelectedUserId = selectedUserId
-        ShowChildForm(viewForm)
+
+        ' Find the parent form (main panel container) and display frmViewUser there
+        Dim parentMainForm = TryCast(Me.ParentForm, frmMainMenu) ' Replace frmMain with your main form's class name
+        If parentMainForm IsNot Nothing Then
+            parentMainForm.ShowChildForm(viewForm)
+        Else
+            ' Fallback: open as a standalone modal dialog window
+            viewForm.ShowDialog()
+        End If
+
     End Sub
 
     Private Sub btnAddUser_Click(sender As Object, e As EventArgs) Handles btnAddUser.Click
-        ' Add user code here
+        Dim parentMainForm = TryCast(Me.ParentForm, frmMainMenu)
+        If parentMainForm IsNot Nothing Then
+            parentMainForm.ShowChildForm(New frmAddUser())
+        Else
+            Dim addForm As New frmAddUser()
+            addForm.ShowDialog()
+        End If
     End Sub
 
     Private Sub txtSearchBox_Enter(sender As Object, e As EventArgs) Handles txtSearchBox.Enter
