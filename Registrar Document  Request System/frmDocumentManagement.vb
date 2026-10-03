@@ -31,11 +31,11 @@ Public Class frmDocumentManagement
 
 
             Dim cmdActive As New MySqlCommand("SELECT COUNT(*) FROM tbldocuments WHERE Status='Active'", conn)
-            lblActiveCount.Text = "Active Documents: " & cmdActive.ExecuteScalar().ToString()
+            lblActiveCount.Text = cmdActive.ExecuteScalar().ToString()
 
 
             Dim cmdInactive As New MySqlCommand("SELECT COUNT(*) FROM tbldocuments WHERE Status='Inactive'", conn)
-            lblInactiveCount.Text = "Inactive Documents: " & cmdInactive.ExecuteScalar().ToString()
+            lblInactiveCount.Text = cmdInactive.ExecuteScalar().ToString()
 
             conn.Close()
         Catch ex As Exception
@@ -45,9 +45,9 @@ Public Class frmDocumentManagement
 
     Sub ClearFields()
         selectedDocID = ""
-        txtDocName.Clear()
-        cboDocStatus.SelectedIndex = -1
-        txtDocFee.Clear()
+        lblDocName.Text = ""
+        lblDocStatus.Text = ""
+        lblDocFee.Text = ""
         rtbDescription.Clear()
     End Sub
 
@@ -76,9 +76,9 @@ Public Class frmDocumentManagement
             Dim row As DataGridViewRow = dgvDocuments.Rows(e.RowIndex)
 
             selectedDocID = row.Cells("DocumentID").Value.ToString()
-            txtDocName.Text = row.Cells("DocumentName").Value.ToString()
-            txtDocFee.Text = row.Cells("Fee").Value.ToString()
-            cboDocStatus.Text = row.Cells("Status").Value.ToString()
+            lblDocName.Text = row.Cells("DocumentName").Value.ToString()
+            lblDocFee.Text = row.Cells("Fee").Value.ToString()
+            lblDocStatus.Text = row.Cells("Status").Value.ToString()
             rtbDescription.Text = row.Cells("Description").Value.ToString()
         End If
     End Sub
@@ -97,16 +97,20 @@ Public Class frmDocumentManagement
             Exit Sub
         End If
 
-        Dim editForm As New frmEditDocument()
+        Dim editForm As New frmEditDocument
 
         editForm.DocumentID = selectedDocID
-        editForm.DocumentName = txtDocName.Text
-        editForm.DocumentFee = txtDocFee.Text
-        editForm.DocumentStatus = cboDocStatus.Text
+        editForm.DocumentName = lblDocName.Text
+        editForm.DocumentFee = lblDocFee.Text
+        editForm.DocumentStatus = lblDocStatus.Text
 
-        If editForm.ShowDialog() = DialogResult.OK Then
+        If editForm.ShowDialog = DialogResult.OK Then
             LoadData()
         End If
     End Sub
+
+
+
+
 
 End Class
