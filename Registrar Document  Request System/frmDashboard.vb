@@ -4,6 +4,9 @@ Public Class frmDashboard
 
     Private Sub frmDashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+        ' Column weights = how the table's width is shared; the last number is the Status (pill) column
+        Theme.StyleListView(lvRecentRequests, {18, 14, 14, 8, 20, 12, 16}, 6)
+
         LoadRecentRequests()
         LoadStatistics()
 
@@ -87,7 +90,7 @@ Public Class frmDashboard
 
             Using cmd As New MySqlCommand(sql, cn)
 
-                lblNumberTotalStudents.Text =
+                cardTotalStudents.Value =
                     Convert.ToInt32(cmd.ExecuteScalar()).ToString()
 
             End Using
@@ -98,7 +101,7 @@ Public Class frmDashboard
 
             Using cmd As New MySqlCommand(sql, cn)
 
-                lblNumberTotalRequest.Text =
+                cardTotalRequests.Value =
                     Convert.ToInt32(cmd.ExecuteScalar()).ToString()
 
             End Using
@@ -112,7 +115,7 @@ Public Class frmDashboard
 
             Using cmd As New MySqlCommand(sql, cn)
 
-                lblNumberRequestThisMonth.Text =
+                cardRequestsThisMonth.Value =
                     Convert.ToInt32(cmd.ExecuteScalar()).ToString()
 
             End Using
@@ -125,7 +128,7 @@ Public Class frmDashboard
                 Dim paymentsCollected As Decimal = Convert.ToDecimal(cmd.ExecuteScalar())
 
                 ' Format as currency (e.g., ₱1,250.00 or $1,250.00)
-                lblNumberPaymentsCollected.Text = "₱ " & paymentsCollected.ToString("N2") ' or "C2"
+                cardPaymentsCollected.Value = "₱ " & paymentsCollected.ToString("N2") ' or "C2"
             End Using
 
 
@@ -139,7 +142,7 @@ Public Class frmDashboard
                 Dim pendingRequests As Integer =
                     Convert.ToInt32(cmd.ExecuteScalar())
 
-                lblNumberPending.Text =
+                cardPending.Value =
                     pendingRequests.ToString()
 
             End Using
@@ -155,7 +158,7 @@ Public Class frmDashboard
                 Dim processingRequests As Integer =
                     Convert.ToInt32(cmd.ExecuteScalar())
 
-                lblNumberProcessing.Text =
+                cardProcessing.Value =
                     processingRequests.ToString()
 
             End Using
@@ -171,7 +174,7 @@ Public Class frmDashboard
                 Dim readyForReleaseRequests As Integer =
                     Convert.ToInt32(cmd.ExecuteScalar())
 
-                lblNumberReadyforRelease.Text =
+                cardReadyForRelease.Value =
                     readyForReleaseRequests.ToString()
 
             End Using
@@ -187,7 +190,7 @@ Public Class frmDashboard
                 Dim completedRequests As Integer =
                     Convert.ToInt32(cmd.ExecuteScalar())
 
-                lblNumberReleased.Text =
+                cardReleased.Value =
                     completedRequests.ToString()
 
             End Using
@@ -203,7 +206,7 @@ Public Class frmDashboard
                 Dim cancelledRequests As Integer =
                     Convert.ToInt32(cmd.ExecuteScalar())
 
-                lblNumberCancelled.Text =
+                cardCancelled.Value =
                     cancelledRequests.ToString()
 
             End Using
@@ -219,6 +222,9 @@ Public Class frmDashboard
 
     End Sub
 
+    ' ---- Quick actions ----
+    ' Search Records, Create Request and Add Document are wired up when their pages are converted.
+
     Private Sub btnSearchRecords_Click(sender As Object, e As EventArgs) Handles btnSearchRecords.Click
 
     End Sub
@@ -228,11 +234,17 @@ Public Class frmDashboard
     End Sub
 
     Private Sub btnPaymentReport_Click(sender As Object, e As EventArgs) Handles btnPaymentReport.Click
-
+        Dim parentMainForm = TryCast(Me.ParentForm, frmMainMenu)
+        If parentMainForm IsNot Nothing Then
+            parentMainForm.ShowChildForm(New frmReport())
+        End If
     End Sub
 
     Private Sub btnAddStudent_Click(sender As Object, e As EventArgs) Handles btnAddStudent.Click
-
+        Dim parentMainForm = TryCast(Me.ParentForm, frmMainMenu)
+        If parentMainForm IsNot Nothing Then
+            parentMainForm.ShowChildForm(New frmAddStudent())
+        End If
     End Sub
 
     Private Sub btnAddDocument_Click(sender As Object, e As EventArgs) Handles btnAddDocument.Click
