@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmDocumentManagement
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -17,547 +17,579 @@ Partial Class frmDocumentManagement
     'Required by the Windows Form Designer
     Private components As System.ComponentModel.IContainer
 
-    'NOTE: The following procedure is required by the Windows Form Designer
-    'It can be modified using the Windows Form Designer.  
-    'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As DataGridViewCellStyle = New DataGridViewCellStyle()
-        lblGridTitle = New Label()
         txtSearch = New TextBox()
         btnClearSearch = New Button()
-        dgvDocuments = New DataGridView()
-        rtbDescription = New RichTextBox()
-        lblDescTitle = New Label()
         btnAddDocument = New Button()
-        lblInactiveCount = New Label()
-        FlowLayoutPanel1 = New FlowLayoutPanel()
+        tlpToolbar = New TableLayoutPanel()
+        lblGridTitle = New Label()
+        dgvDocuments = New DataGridView()
+        pnlGridBorder = New Panel()
+        lblDescTitle = New Label()
+        rtbDescription = New RichTextBox()
+        tlpDesc = New TableLayoutPanel()
+        cardDesc = New CardPanel()
+        tlpCenter = New TableLayoutPanel()
         lblDocInfo = New Label()
-        FlowLayoutPanel3 = New FlowLayoutPanel()
-        Label1 = New Label()
+        lblCapDocName = New Label()
         lblDocName = New Label()
-        FlowLayoutPanel4 = New FlowLayoutPanel()
-        Label3 = New Label()
+        lblCapDocStatus = New Label()
         lblDocStatus = New Label()
-        FlowLayoutPanel5 = New FlowLayoutPanel()
-        Label2 = New Label()
+        lblCapDocFee = New Label()
         lblDocFee = New Label()
         btnEditDocument = New Button()
-        FlowLayoutPanel2 = New FlowLayoutPanel()
-        Label6 = New Label()
-        FlowLayoutPanel6 = New FlowLayoutPanel()
-        Label7 = New Label()
+        tlpInfo = New TableLayoutPanel()
+        cardInfo = New CardPanel()
+        lblDocStatusSummary = New Label()
+        lblCapActive = New Label()
         lblActiveCount = New Label()
-        FlowLayoutPanel7 = New FlowLayoutPanel()
-        Label9 = New Label()
-        FlowLayoutPanel8 = New FlowLayoutPanel()
-        FlowLayoutPanel9 = New FlowLayoutPanel()
-        FlowLayoutPanel10 = New FlowLayoutPanel()
-        FlowLayoutPanel11 = New FlowLayoutPanel()
-        FlowLayoutPanel12 = New FlowLayoutPanel()
-        TableLayoutPanel1 = New TableLayoutPanel()
-        TableLayoutPanel2 = New TableLayoutPanel()
-        TableLayoutPanel3 = New TableLayoutPanel()
+        lblCapInactive = New Label()
+        lblInactiveCount = New Label()
+        tlpStatus = New TableLayoutPanel()
+        cardStatus = New CardPanel()
+        tlpSummary = New TableLayoutPanel()
+        tlpMain = New TableLayoutPanel()
+        tlpToolbar.SuspendLayout()
         CType(dgvDocuments, ComponentModel.ISupportInitialize).BeginInit()
-        FlowLayoutPanel1.SuspendLayout()
-        FlowLayoutPanel3.SuspendLayout()
-        FlowLayoutPanel4.SuspendLayout()
-        FlowLayoutPanel5.SuspendLayout()
-        FlowLayoutPanel2.SuspendLayout()
-        FlowLayoutPanel6.SuspendLayout()
-        FlowLayoutPanel7.SuspendLayout()
-        FlowLayoutPanel8.SuspendLayout()
-        FlowLayoutPanel9.SuspendLayout()
-        FlowLayoutPanel10.SuspendLayout()
-        FlowLayoutPanel11.SuspendLayout()
-        FlowLayoutPanel12.SuspendLayout()
-        TableLayoutPanel1.SuspendLayout()
-        TableLayoutPanel2.SuspendLayout()
-        TableLayoutPanel3.SuspendLayout()
+        pnlGridBorder.SuspendLayout()
+        tlpDesc.SuspendLayout()
+        cardDesc.SuspendLayout()
+        tlpCenter.SuspendLayout()
+        tlpInfo.SuspendLayout()
+        cardInfo.SuspendLayout()
+        tlpStatus.SuspendLayout()
+        cardStatus.SuspendLayout()
+        tlpSummary.SuspendLayout()
+        tlpMain.SuspendLayout()
         SuspendLayout()
+        ' 
+        ' txtSearch
+        ' 
+        txtSearch.Anchor = AnchorStyles.Left Or AnchorStyles.Right
+        txtSearch.BorderStyle = BorderStyle.FixedSingle
+        txtSearch.Font = New Font("Segoe UI", 11F)
+        txtSearch.ForeColor = Color.FromArgb(CByte(31), CByte(41), CByte(55))
+        txtSearch.Location = New Point(0, 6)
+        txtSearch.Margin = New Padding(0)
+        txtSearch.MaximumSize = New Size(520, 0)
+        txtSearch.Name = "txtSearch"
+        txtSearch.PlaceholderText = "Search by document name..."
+        txtSearch.Size = New Size(520, 27)
+        txtSearch.TabIndex = 0
+        ' 
+        ' btnClearSearch
+        ' 
+        btnClearSearch.AutoSize = True
+        btnClearSearch.AutoSizeMode = AutoSizeMode.GrowAndShrink
+        btnClearSearch.BackColor = Color.White
+        btnClearSearch.Cursor = Cursors.Hand
+        btnClearSearch.FlatAppearance.BorderColor = Color.FromArgb(CByte(27), CByte(67), CByte(50))
+        btnClearSearch.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(207), CByte(227), CByte(214))
+        btnClearSearch.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(234), CByte(242), CByte(237))
+        btnClearSearch.FlatStyle = FlatStyle.Flat
+        btnClearSearch.Font = New Font("Segoe UI Semibold", 10F)
+        btnClearSearch.ForeColor = Color.FromArgb(CByte(27), CByte(67), CByte(50))
+        btnClearSearch.Location = New Point(671, 0)
+        btnClearSearch.Margin = New Padding(8, 0, 0, 0)
+        btnClearSearch.MinimumSize = New Size(0, 40)
+        btnClearSearch.Name = "btnClearSearch"
+        btnClearSearch.Padding = New Padding(14, 0, 14, 0)
+        btnClearSearch.Size = New Size(127, 40)
+        btnClearSearch.TabIndex = 1
+        btnClearSearch.Text = "Clear Search"
+        btnClearSearch.UseVisualStyleBackColor = False
+        ' 
+        ' btnAddDocument
+        ' 
+        btnAddDocument.AutoSize = True
+        btnAddDocument.AutoSizeMode = AutoSizeMode.GrowAndShrink
+        btnAddDocument.BackColor = Color.FromArgb(CByte(27), CByte(67), CByte(50))
+        btnAddDocument.Cursor = Cursors.Hand
+        btnAddDocument.FlatAppearance.BorderSize = 0
+        btnAddDocument.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(36), CByte(90), CByte(65))
+        btnAddDocument.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(45), CByte(106), CByte(79))
+        btnAddDocument.FlatStyle = FlatStyle.Flat
+        btnAddDocument.Font = New Font("Segoe UI Semibold", 10F)
+        btnAddDocument.ForeColor = Color.White
+        btnAddDocument.Location = New Point(806, 0)
+        btnAddDocument.Margin = New Padding(8, 0, 0, 0)
+        btnAddDocument.MinimumSize = New Size(0, 40)
+        btnAddDocument.Name = "btnAddDocument"
+        btnAddDocument.Padding = New Padding(14, 0, 14, 0)
+        btnAddDocument.Size = New Size(141, 40)
+        btnAddDocument.TabIndex = 2
+        btnAddDocument.Text = "Add Document"
+        btnAddDocument.UseVisualStyleBackColor = False
+        ' 
+        ' tlpToolbar
+        ' 
+        tlpToolbar.AutoSize = True
+        tlpToolbar.AutoSizeMode = AutoSizeMode.GrowAndShrink
+        tlpToolbar.ColumnCount = 3
+        tlpToolbar.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100F))
+        tlpToolbar.ColumnStyles.Add(New ColumnStyle())
+        tlpToolbar.ColumnStyles.Add(New ColumnStyle())
+        tlpToolbar.Controls.Add(txtSearch, 0, 0)
+        tlpToolbar.Controls.Add(btnClearSearch, 1, 0)
+        tlpToolbar.Controls.Add(btnAddDocument, 2, 0)
+        tlpToolbar.Dock = DockStyle.Fill
+        tlpToolbar.Location = New Point(28, 20)
+        tlpToolbar.Margin = New Padding(0)
+        tlpToolbar.Name = "tlpToolbar"
+        tlpToolbar.RowCount = 1
+        tlpToolbar.RowStyles.Add(New RowStyle())
+        tlpToolbar.Size = New Size(947, 40)
+        tlpToolbar.TabIndex = 0
         ' 
         ' lblGridTitle
         ' 
         lblGridTitle.AutoSize = True
-        lblGridTitle.Font = New Font("Tahoma", 15.75F)
-        lblGridTitle.Location = New Point(15, 10)
-        lblGridTitle.Margin = New Padding(15, 10, 3, 0)
+        lblGridTitle.Font = New Font("Segoe UI Semibold", 12F)
+        lblGridTitle.ForeColor = Color.FromArgb(CByte(31), CByte(41), CByte(55))
+        lblGridTitle.Location = New Point(28, 76)
+        lblGridTitle.Margin = New Padding(0, 16, 0, 8)
         lblGridTitle.Name = "lblGridTitle"
-        lblGridTitle.Size = New Size(146, 25)
-        lblGridTitle.TabIndex = 2
+        lblGridTitle.Size = New Size(116, 21)
+        lblGridTitle.TabIndex = 1
         lblGridTitle.Text = "All Documents"
-        ' 
-        ' txtSearch
-        ' 
-        txtSearch.Font = New Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        txtSearch.Location = New Point(150, 20)
-        txtSearch.Margin = New Padding(150, 20, 3, 2)
-        txtSearch.Multiline = True
-        txtSearch.Name = "txtSearch"
-        txtSearch.Size = New Size(474, 26)
-        txtSearch.TabIndex = 1
-        ' 
-        ' btnClearSearch
-        ' 
-        btnClearSearch.Font = New Font("Tahoma", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        btnClearSearch.Location = New Point(630, 20)
-        btnClearSearch.Margin = New Padding(3, 20, 3, 2)
-        btnClearSearch.Name = "btnClearSearch"
-        btnClearSearch.Size = New Size(117, 26)
-        btnClearSearch.TabIndex = 2
-        btnClearSearch.Text = "Clear Search"
-        btnClearSearch.UseVisualStyleBackColor = True
         ' 
         ' dgvDocuments
         ' 
-        dgvDocuments.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
-        dgvDocuments.BackgroundColor = SystemColors.Control
-        DataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = SystemColors.Control
-        DataGridViewCellStyle1.Font = New Font("Tahoma", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        DataGridViewCellStyle1.ForeColor = SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = DataGridViewTriState.True
-        dgvDocuments.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
-        dgvDocuments.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dgvDocuments.Location = New Point(10, 59)
-        dgvDocuments.Margin = New Padding(10, 2, 3, 2)
+        dgvDocuments.Dock = DockStyle.Fill
+        dgvDocuments.Location = New Point(1, 1)
         dgvDocuments.Name = "dgvDocuments"
-        dgvDocuments.RowHeadersVisible = False
-        dgvDocuments.RowHeadersWidth = 51
-        dgvDocuments.Size = New Size(481, 191)
-        dgvDocuments.TabIndex = 3
+        dgvDocuments.Size = New Size(585, 353)
+        dgvDocuments.TabIndex = 0
         ' 
-        ' rtbDescription
+        ' pnlGridBorder
         ' 
-        rtbDescription.Font = New Font("Tahoma", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        rtbDescription.Location = New Point(10, 59)
-        rtbDescription.Margin = New Padding(10, 2, 10, 2)
-        rtbDescription.Name = "rtbDescription"
-        rtbDescription.Size = New Size(384, 192)
-        rtbDescription.TabIndex = 5
-        rtbDescription.Text = ""
+        pnlGridBorder.BackColor = Color.FromArgb(CByte(229), CByte(231), CByte(235))
+        pnlGridBorder.Controls.Add(dgvDocuments)
+        pnlGridBorder.Dock = DockStyle.Fill
+        pnlGridBorder.Location = New Point(0, 0)
+        pnlGridBorder.Margin = New Padding(0)
+        pnlGridBorder.Name = "pnlGridBorder"
+        pnlGridBorder.Padding = New Padding(1)
+        pnlGridBorder.Size = New Size(587, 355)
+        pnlGridBorder.TabIndex = 0
         ' 
         ' lblDescTitle
         ' 
         lblDescTitle.AutoSize = True
-        lblDescTitle.Font = New Font("Tahoma", 15.75F)
-        lblDescTitle.Location = New Point(15, 10)
-        lblDescTitle.Margin = New Padding(15, 10, 3, 0)
+        lblDescTitle.Font = New Font("Segoe UI Semibold", 11F)
+        lblDescTitle.ForeColor = Color.FromArgb(CByte(27), CByte(67), CByte(50))
+        lblDescTitle.Location = New Point(0, 0)
+        lblDescTitle.Margin = New Padding(0, 0, 0, 8)
         lblDescTitle.Name = "lblDescTitle"
-        lblDescTitle.Size = New Size(218, 25)
-        lblDescTitle.TabIndex = 4
+        lblDescTitle.Size = New Size(162, 20)
+        lblDescTitle.TabIndex = 0
         lblDescTitle.Text = "Document Description"
         ' 
-        ' btnAddDocument
+        ' rtbDescription
         ' 
-        btnAddDocument.Font = New Font("Tahoma", 9.75F, FontStyle.Bold)
-        btnAddDocument.Location = New Point(25, 178)
-        btnAddDocument.Margin = New Padding(25, 3, 3, 3)
-        btnAddDocument.Name = "btnAddDocument"
-        btnAddDocument.Size = New Size(152, 31)
-        btnAddDocument.TabIndex = 10
-        btnAddDocument.Text = "Add New Document"
-        btnAddDocument.UseVisualStyleBackColor = True
+        rtbDescription.BackColor = Color.White
+        rtbDescription.BorderStyle = BorderStyle.None
+        rtbDescription.Dock = DockStyle.Fill
+        rtbDescription.Font = New Font("Segoe UI", 10.5F)
+        rtbDescription.ForeColor = Color.FromArgb(CByte(31), CByte(41), CByte(55))
+        rtbDescription.Location = New Point(0, 28)
+        rtbDescription.Margin = New Padding(0)
+        rtbDescription.Name = "rtbDescription"
+        rtbDescription.ReadOnly = True
+        rtbDescription.Size = New Size(304, 299)
+        rtbDescription.TabIndex = 1
+        rtbDescription.TabStop = False
+        rtbDescription.Text = ""
         ' 
-        ' lblInactiveCount
+        ' tlpDesc
         ' 
-        lblInactiveCount.AutoSize = True
-        lblInactiveCount.Font = New Font("Tahoma", 14.25F)
-        lblInactiveCount.Location = New Point(326, 8)
-        lblInactiveCount.Margin = New Padding(130, 8, 3, 0)
-        lblInactiveCount.Name = "lblInactiveCount"
-        lblInactiveCount.Size = New Size(30, 23)
-        lblInactiveCount.TabIndex = 6
-        lblInactiveCount.Text = "00"
+        tlpDesc.ColumnCount = 1
+        tlpDesc.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100F))
+        tlpDesc.Controls.Add(lblDescTitle, 0, 0)
+        tlpDesc.Controls.Add(rtbDescription, 0, 1)
+        tlpDesc.Dock = DockStyle.Fill
+        tlpDesc.Location = New Point(20, 14)
+        tlpDesc.Margin = New Padding(0)
+        tlpDesc.Name = "tlpDesc"
+        tlpDesc.RowCount = 2
+        tlpDesc.RowStyles.Add(New RowStyle())
+        tlpDesc.RowStyles.Add(New RowStyle(SizeType.Percent, 100F))
+        tlpDesc.Size = New Size(304, 327)
+        tlpDesc.TabIndex = 0
         ' 
-        ' FlowLayoutPanel1
+        ' cardDesc
         ' 
-        FlowLayoutPanel1.Controls.Add(lblDocInfo)
-        FlowLayoutPanel1.Controls.Add(FlowLayoutPanel3)
-        FlowLayoutPanel1.Controls.Add(FlowLayoutPanel4)
-        FlowLayoutPanel1.Controls.Add(FlowLayoutPanel5)
-        FlowLayoutPanel1.Controls.Add(btnEditDocument)
-        FlowLayoutPanel1.Dock = DockStyle.Fill
-        FlowLayoutPanel1.FlowDirection = FlowDirection.TopDown
-        FlowLayoutPanel1.Location = New Point(13, 10)
-        FlowLayoutPanel1.Margin = New Padding(13, 10, 15, 10)
-        FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        FlowLayoutPanel1.Size = New Size(432, 241)
-        FlowLayoutPanel1.TabIndex = 25
+        cardDesc.BackColor = Color.White
+        cardDesc.Controls.Add(tlpDesc)
+        cardDesc.Dock = DockStyle.Fill
+        cardDesc.Location = New Point(603, 0)
+        cardDesc.Margin = New Padding(16, 0, 0, 0)
+        cardDesc.Name = "cardDesc"
+        cardDesc.Padding = New Padding(20, 14, 20, 14)
+        cardDesc.Size = New Size(344, 355)
+        cardDesc.TabIndex = 1
+        ' 
+        ' tlpCenter
+        ' 
+        tlpCenter.ColumnCount = 2
+        tlpCenter.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 62F))
+        tlpCenter.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 38F))
+        tlpCenter.Controls.Add(pnlGridBorder, 0, 0)
+        tlpCenter.Controls.Add(cardDesc, 1, 0)
+        tlpCenter.Dock = DockStyle.Fill
+        tlpCenter.Location = New Point(28, 105)
+        tlpCenter.Margin = New Padding(0)
+        tlpCenter.Name = "tlpCenter"
+        tlpCenter.RowCount = 1
+        tlpCenter.RowStyles.Add(New RowStyle(SizeType.Percent, 100F))
+        tlpCenter.Size = New Size(947, 355)
+        tlpCenter.TabIndex = 2
         ' 
         ' lblDocInfo
         ' 
         lblDocInfo.AutoSize = True
-        lblDocInfo.Font = New Font("Tahoma", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        lblDocInfo.Location = New Point(25, 15)
-        lblDocInfo.Margin = New Padding(25, 15, 3, 8)
+        tlpInfo.SetColumnSpan(lblDocInfo, 2)
+        lblDocInfo.Font = New Font("Segoe UI Semibold", 11F)
+        lblDocInfo.ForeColor = Color.FromArgb(CByte(27), CByte(67), CByte(50))
+        lblDocInfo.Location = New Point(0, 0)
+        lblDocInfo.Margin = New Padding(0, 0, 0, 8)
         lblDocInfo.Name = "lblDocInfo"
-        lblDocInfo.Size = New Size(224, 25)
+        lblDocInfo.Size = New Size(165, 20)
         lblDocInfo.TabIndex = 0
         lblDocInfo.Text = "Document Information"
         ' 
-        ' FlowLayoutPanel3
+        ' lblCapDocName
         ' 
-        FlowLayoutPanel3.Controls.Add(Label1)
-        FlowLayoutPanel3.Controls.Add(lblDocName)
-        FlowLayoutPanel3.Location = New Point(25, 51)
-        FlowLayoutPanel3.Margin = New Padding(25, 3, 3, 8)
-        FlowLayoutPanel3.Name = "FlowLayoutPanel3"
-        FlowLayoutPanel3.Size = New Size(389, 39)
-        FlowLayoutPanel3.TabIndex = 1
-        ' 
-        ' Label1
-        ' 
-        Label1.AutoSize = True
-        Label1.Font = New Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Label1.Location = New Point(10, 8)
-        Label1.Margin = New Padding(10, 8, 3, 0)
-        Label1.Name = "Label1"
-        Label1.Size = New Size(158, 23)
-        Label1.TabIndex = 0
-        Label1.Text = "Document Name:"
-        Label1.TextAlign = ContentAlignment.MiddleLeft
+        lblCapDocName.AutoSize = True
+        lblCapDocName.Font = New Font("Segoe UI", 10F)
+        lblCapDocName.ForeColor = Color.FromArgb(CByte(107), CByte(114), CByte(128))
+        lblCapDocName.Location = New Point(0, 31)
+        lblCapDocName.Margin = New Padding(0, 3, 0, 3)
+        lblCapDocName.Name = "lblCapDocName"
+        lblCapDocName.Size = New Size(113, 19)
+        lblCapDocName.TabIndex = 1
+        lblCapDocName.Text = "Document Name"
         ' 
         ' lblDocName
         ' 
-        lblDocName.AutoSize = True
-        lblDocName.Font = New Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        lblDocName.Location = New Point(201, 8)
-        lblDocName.Margin = New Padding(30, 8, 3, 0)
+        lblDocName.Anchor = AnchorStyles.Left Or AnchorStyles.Right
+        lblDocName.AutoEllipsis = True
+        lblDocName.Font = New Font("Segoe UI Semibold", 10.5F)
+        lblDocName.ForeColor = Color.FromArgb(CByte(31), CByte(41), CByte(55))
+        lblDocName.Location = New Point(130, 31)
+        lblDocName.Margin = New Padding(0, 3, 0, 3)
         lblDocName.Name = "lblDocName"
-        lblDocName.Size = New Size(159, 23)
-        lblDocName.TabIndex = 1
-        lblDocName.Text = "[DocumentName]"
-        lblDocName.TextAlign = ContentAlignment.MiddleCenter
+        lblDocName.Size = New Size(295, 22)
+        lblDocName.TabIndex = 2
+        lblDocName.Text = "-"
         ' 
-        ' FlowLayoutPanel4
+        ' lblCapDocStatus
         ' 
-        FlowLayoutPanel4.Controls.Add(Label3)
-        FlowLayoutPanel4.Controls.Add(lblDocStatus)
-        FlowLayoutPanel4.Location = New Point(25, 101)
-        FlowLayoutPanel4.Margin = New Padding(25, 3, 3, 8)
-        FlowLayoutPanel4.Name = "FlowLayoutPanel4"
-        FlowLayoutPanel4.Size = New Size(389, 39)
-        FlowLayoutPanel4.TabIndex = 2
-        ' 
-        ' Label3
-        ' 
-        Label3.AutoSize = True
-        Label3.Font = New Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Label3.Location = New Point(10, 8)
-        Label3.Margin = New Padding(10, 8, 3, 0)
-        Label3.Name = "Label3"
-        Label3.Size = New Size(161, 23)
-        Label3.TabIndex = 1
-        Label3.Text = "Document Status:"
-        Label3.TextAlign = ContentAlignment.MiddleLeft
+        lblCapDocStatus.AutoSize = True
+        lblCapDocStatus.Font = New Font("Segoe UI", 10F)
+        lblCapDocStatus.ForeColor = Color.FromArgb(CByte(107), CByte(114), CByte(128))
+        lblCapDocStatus.Location = New Point(0, 59)
+        lblCapDocStatus.Margin = New Padding(0, 3, 0, 3)
+        lblCapDocStatus.Name = "lblCapDocStatus"
+        lblCapDocStatus.Size = New Size(47, 19)
+        lblCapDocStatus.TabIndex = 3
+        lblCapDocStatus.Text = "Status"
         ' 
         ' lblDocStatus
         ' 
-        lblDocStatus.AutoSize = True
-        lblDocStatus.Font = New Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        lblDocStatus.Location = New Point(204, 8)
-        lblDocStatus.Margin = New Padding(30, 8, 3, 0)
+        lblDocStatus.Anchor = AnchorStyles.Left Or AnchorStyles.Right
+        lblDocStatus.AutoEllipsis = True
+        lblDocStatus.Font = New Font("Segoe UI Semibold", 10.5F)
+        lblDocStatus.ForeColor = Color.FromArgb(CByte(31), CByte(41), CByte(55))
+        lblDocStatus.Location = New Point(130, 59)
+        lblDocStatus.Margin = New Padding(0, 3, 0, 3)
         lblDocStatus.Name = "lblDocStatus"
-        lblDocStatus.Size = New Size(76, 23)
-        lblDocStatus.TabIndex = 2
-        lblDocStatus.Text = "[Status]"
-        lblDocStatus.TextAlign = ContentAlignment.MiddleLeft
+        lblDocStatus.Size = New Size(295, 22)
+        lblDocStatus.TabIndex = 4
+        lblDocStatus.Text = "-"
         ' 
-        ' FlowLayoutPanel5
+        ' lblCapDocFee
         ' 
-        FlowLayoutPanel5.Controls.Add(Label2)
-        FlowLayoutPanel5.Controls.Add(lblDocFee)
-        FlowLayoutPanel5.Location = New Point(25, 151)
-        FlowLayoutPanel5.Margin = New Padding(25, 3, 3, 8)
-        FlowLayoutPanel5.Name = "FlowLayoutPanel5"
-        FlowLayoutPanel5.Size = New Size(389, 39)
-        FlowLayoutPanel5.TabIndex = 5
-        ' 
-        ' Label2
-        ' 
-        Label2.AutoSize = True
-        Label2.Font = New Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Label2.Location = New Point(10, 8)
-        Label2.Margin = New Padding(10, 8, 3, 0)
-        Label2.Name = "Label2"
-        Label2.Size = New Size(139, 23)
-        Label2.TabIndex = 1
-        Label2.Text = "Document Fee:"
-        Label2.TextAlign = ContentAlignment.MiddleLeft
+        lblCapDocFee.AutoSize = True
+        lblCapDocFee.Font = New Font("Segoe UI", 10F)
+        lblCapDocFee.ForeColor = Color.FromArgb(CByte(107), CByte(114), CByte(128))
+        lblCapDocFee.Location = New Point(0, 87)
+        lblCapDocFee.Margin = New Padding(0, 3, 0, 3)
+        lblCapDocFee.Name = "lblCapDocFee"
+        lblCapDocFee.Size = New Size(30, 19)
+        lblCapDocFee.TabIndex = 5
+        lblCapDocFee.Text = "Fee"
         ' 
         ' lblDocFee
         ' 
-        lblDocFee.AutoSize = True
-        lblDocFee.Font = New Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        lblDocFee.Location = New Point(207, 8)
-        lblDocFee.Margin = New Padding(55, 8, 3, 0)
+        lblDocFee.Anchor = AnchorStyles.Left Or AnchorStyles.Right
+        lblDocFee.AutoEllipsis = True
+        lblDocFee.Font = New Font("Segoe UI Semibold", 10.5F)
+        lblDocFee.ForeColor = Color.FromArgb(CByte(31), CByte(41), CByte(55))
+        lblDocFee.Location = New Point(130, 87)
+        lblDocFee.Margin = New Padding(0, 3, 0, 3)
         lblDocFee.Name = "lblDocFee"
-        lblDocFee.Size = New Size(70, 23)
-        lblDocFee.TabIndex = 2
-        lblDocFee.Text = "[00.00]"
-        lblDocFee.TextAlign = ContentAlignment.MiddleLeft
+        lblDocFee.Size = New Size(295, 22)
+        lblDocFee.TabIndex = 6
+        lblDocFee.Text = "-"
         ' 
         ' btnEditDocument
         ' 
-        btnEditDocument.Font = New Font("Tahoma", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        btnEditDocument.Location = New Point(25, 201)
-        btnEditDocument.Margin = New Padding(25, 3, 3, 3)
+        btnEditDocument.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
+        btnEditDocument.AutoSize = True
+        btnEditDocument.AutoSizeMode = AutoSizeMode.GrowAndShrink
+        btnEditDocument.BackColor = Color.White
+        tlpInfo.SetColumnSpan(btnEditDocument, 2)
+        btnEditDocument.Cursor = Cursors.Hand
+        btnEditDocument.FlatAppearance.BorderColor = Color.FromArgb(CByte(27), CByte(67), CByte(50))
+        btnEditDocument.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(207), CByte(227), CByte(214))
+        btnEditDocument.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(234), CByte(242), CByte(237))
+        btnEditDocument.FlatStyle = FlatStyle.Flat
+        btnEditDocument.Font = New Font("Segoe UI Semibold", 10F)
+        btnEditDocument.ForeColor = Color.FromArgb(CByte(27), CByte(67), CByte(50))
+        btnEditDocument.Location = New Point(0, 120)
+        btnEditDocument.Margin = New Padding(0, 8, 0, 0)
+        btnEditDocument.MinimumSize = New Size(0, 40)
         btnEditDocument.Name = "btnEditDocument"
-        btnEditDocument.Size = New Size(117, 28)
-        btnEditDocument.TabIndex = 4
+        btnEditDocument.Padding = New Padding(14, 0, 14, 0)
+        btnEditDocument.Size = New Size(142, 40)
+        btnEditDocument.TabIndex = 7
         btnEditDocument.Text = "Edit Document"
-        btnEditDocument.UseVisualStyleBackColor = True
+        btnEditDocument.UseVisualStyleBackColor = False
         ' 
-        ' FlowLayoutPanel2
+        ' tlpInfo
         ' 
-        FlowLayoutPanel2.Controls.Add(Label6)
-        FlowLayoutPanel2.Controls.Add(FlowLayoutPanel6)
-        FlowLayoutPanel2.Controls.Add(FlowLayoutPanel7)
-        FlowLayoutPanel2.Controls.Add(btnAddDocument)
-        FlowLayoutPanel2.Dock = DockStyle.Fill
-        FlowLayoutPanel2.FlowDirection = FlowDirection.TopDown
-        FlowLayoutPanel2.Location = New Point(473, 10)
-        FlowLayoutPanel2.Margin = New Padding(13, 10, 15, 10)
-        FlowLayoutPanel2.Name = "FlowLayoutPanel2"
-        FlowLayoutPanel2.Size = New Size(433, 241)
-        FlowLayoutPanel2.TabIndex = 26
+        tlpInfo.ColumnCount = 2
+        tlpInfo.ColumnStyles.Add(New ColumnStyle(SizeType.Absolute, 130F))
+        tlpInfo.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100F))
+        tlpInfo.Controls.Add(lblDocInfo, 0, 0)
+        tlpInfo.Controls.Add(lblCapDocName, 0, 1)
+        tlpInfo.Controls.Add(lblDocName, 1, 1)
+        tlpInfo.Controls.Add(lblCapDocStatus, 0, 2)
+        tlpInfo.Controls.Add(lblDocStatus, 1, 2)
+        tlpInfo.Controls.Add(lblCapDocFee, 0, 3)
+        tlpInfo.Controls.Add(lblDocFee, 1, 3)
+        tlpInfo.Controls.Add(btnEditDocument, 0, 4)
+        tlpInfo.Dock = DockStyle.Fill
+        tlpInfo.Location = New Point(20, 14)
+        tlpInfo.Margin = New Padding(0)
+        tlpInfo.Name = "tlpInfo"
+        tlpInfo.RowCount = 5
+        tlpInfo.RowStyles.Add(New RowStyle())
+        tlpInfo.RowStyles.Add(New RowStyle())
+        tlpInfo.RowStyles.Add(New RowStyle())
+        tlpInfo.RowStyles.Add(New RowStyle())
+        tlpInfo.RowStyles.Add(New RowStyle(SizeType.Percent, 100F))
+        tlpInfo.Size = New Size(425, 152)
+        tlpInfo.TabIndex = 0
         ' 
-        ' Label6
+        ' cardInfo
         ' 
-        Label6.AutoSize = True
-        Label6.Font = New Font("Tahoma", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Label6.Location = New Point(25, 15)
-        Label6.Margin = New Padding(25, 15, 3, 8)
-        Label6.Name = "Label6"
-        Label6.Size = New Size(268, 25)
-        Label6.TabIndex = 0
-        Label6.Text = "Document Status Summary"
+        cardInfo.BackColor = Color.White
+        cardInfo.Controls.Add(tlpInfo)
+        cardInfo.Dock = DockStyle.Fill
+        cardInfo.Location = New Point(0, 0)
+        cardInfo.Margin = New Padding(0, 0, 8, 0)
+        cardInfo.Name = "cardInfo"
+        cardInfo.Padding = New Padding(20, 14, 20, 14)
+        cardInfo.Size = New Size(465, 180)
+        cardInfo.TabIndex = 0
         ' 
-        ' FlowLayoutPanel6
+        ' lblDocStatusSummary
         ' 
-        FlowLayoutPanel6.Controls.Add(Label7)
-        FlowLayoutPanel6.Controls.Add(lblActiveCount)
-        FlowLayoutPanel6.Location = New Point(25, 78)
-        FlowLayoutPanel6.Margin = New Padding(25, 30, 3, 8)
-        FlowLayoutPanel6.Name = "FlowLayoutPanel6"
-        FlowLayoutPanel6.Size = New Size(389, 39)
-        FlowLayoutPanel6.TabIndex = 1
+        lblDocStatusSummary.AutoSize = True
+        tlpStatus.SetColumnSpan(lblDocStatusSummary, 2)
+        lblDocStatusSummary.Font = New Font("Segoe UI Semibold", 11F)
+        lblDocStatusSummary.ForeColor = Color.FromArgb(CByte(27), CByte(67), CByte(50))
+        lblDocStatusSummary.Location = New Point(0, 0)
+        lblDocStatusSummary.Margin = New Padding(0, 0, 0, 8)
+        lblDocStatusSummary.Name = "lblDocStatusSummary"
+        lblDocStatusSummary.Size = New Size(195, 20)
+        lblDocStatusSummary.TabIndex = 0
+        lblDocStatusSummary.Text = "Document Status Summary"
         ' 
-        ' Label7
+        ' lblCapActive
         ' 
-        Label7.AutoSize = True
-        Label7.Font = New Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Label7.Location = New Point(10, 8)
-        Label7.Margin = New Padding(10, 8, 3, 0)
-        Label7.Name = "Label7"
-        Label7.Size = New Size(166, 23)
-        Label7.TabIndex = 0
-        Label7.Text = "Active Documents:"
-        Label7.TextAlign = ContentAlignment.MiddleCenter
+        lblCapActive.AutoSize = True
+        lblCapActive.Font = New Font("Segoe UI", 10F)
+        lblCapActive.ForeColor = Color.FromArgb(CByte(107), CByte(114), CByte(128))
+        lblCapActive.Location = New Point(0, 31)
+        lblCapActive.Margin = New Padding(0, 3, 0, 3)
+        lblCapActive.Name = "lblCapActive"
+        lblCapActive.Size = New Size(120, 19)
+        lblCapActive.TabIndex = 1
+        lblCapActive.Text = "Active Documents"
         ' 
         ' lblActiveCount
         ' 
+        lblActiveCount.Anchor = AnchorStyles.Right
         lblActiveCount.AutoSize = True
-        lblActiveCount.Font = New Font("Tahoma", 14.25F)
-        lblActiveCount.Location = New Point(329, 8)
-        lblActiveCount.Margin = New Padding(150, 8, 3, 0)
+        lblActiveCount.Font = New Font("Segoe UI Semibold", 10.5F)
+        lblActiveCount.ForeColor = Color.FromArgb(CByte(31), CByte(41), CByte(55))
+        lblActiveCount.Location = New Point(409, 31)
+        lblActiveCount.Margin = New Padding(0, 3, 0, 3)
         lblActiveCount.Name = "lblActiveCount"
-        lblActiveCount.Size = New Size(30, 23)
-        lblActiveCount.TabIndex = 5
-        lblActiveCount.Text = "00"
+        lblActiveCount.Size = New Size(17, 19)
+        lblActiveCount.TabIndex = 2
+        lblActiveCount.Text = "0"
         ' 
-        ' FlowLayoutPanel7
+        ' lblCapInactive
         ' 
-        FlowLayoutPanel7.Controls.Add(Label9)
-        FlowLayoutPanel7.Controls.Add(lblInactiveCount)
-        FlowLayoutPanel7.Location = New Point(25, 128)
-        FlowLayoutPanel7.Margin = New Padding(25, 3, 3, 8)
-        FlowLayoutPanel7.Name = "FlowLayoutPanel7"
-        FlowLayoutPanel7.Size = New Size(389, 39)
-        FlowLayoutPanel7.TabIndex = 2
+        lblCapInactive.AutoSize = True
+        lblCapInactive.Font = New Font("Segoe UI", 10F)
+        lblCapInactive.ForeColor = Color.FromArgb(CByte(107), CByte(114), CByte(128))
+        lblCapInactive.Location = New Point(0, 56)
+        lblCapInactive.Margin = New Padding(0, 3, 0, 3)
+        lblCapInactive.Name = "lblCapInactive"
+        lblCapInactive.Size = New Size(130, 19)
+        lblCapInactive.TabIndex = 3
+        lblCapInactive.Text = "Inactive Documents"
         ' 
-        ' Label9
+        ' lblInactiveCount
         ' 
-        Label9.AutoSize = True
-        Label9.Font = New Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Label9.Location = New Point(10, 8)
-        Label9.Margin = New Padding(10, 8, 3, 0)
-        Label9.Name = "Label9"
-        Label9.Size = New Size(183, 23)
-        Label9.TabIndex = 1
-        Label9.Text = "Inactive Documents:"
-        Label9.TextAlign = ContentAlignment.MiddleLeft
+        lblInactiveCount.Anchor = AnchorStyles.Right
+        lblInactiveCount.AutoSize = True
+        lblInactiveCount.Font = New Font("Segoe UI Semibold", 10.5F)
+        lblInactiveCount.ForeColor = Color.FromArgb(CByte(31), CByte(41), CByte(55))
+        lblInactiveCount.Location = New Point(409, 56)
+        lblInactiveCount.Margin = New Padding(0, 3, 0, 3)
+        lblInactiveCount.Name = "lblInactiveCount"
+        lblInactiveCount.Size = New Size(17, 19)
+        lblInactiveCount.TabIndex = 4
+        lblInactiveCount.Text = "0"
         ' 
-        ' FlowLayoutPanel8
+        ' tlpStatus
         ' 
-        FlowLayoutPanel8.Controls.Add(txtSearch)
-        FlowLayoutPanel8.Controls.Add(btnClearSearch)
-        FlowLayoutPanel8.Dock = DockStyle.Fill
-        FlowLayoutPanel8.Location = New Point(3, 3)
-        FlowLayoutPanel8.Name = "FlowLayoutPanel8"
-        FlowLayoutPanel8.Size = New Size(921, 58)
-        FlowLayoutPanel8.TabIndex = 27
+        tlpStatus.ColumnCount = 2
+        tlpStatus.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100F))
+        tlpStatus.ColumnStyles.Add(New ColumnStyle())
+        tlpStatus.Controls.Add(lblDocStatusSummary, 0, 0)
+        tlpStatus.Controls.Add(lblCapActive, 0, 1)
+        tlpStatus.Controls.Add(lblActiveCount, 1, 1)
+        tlpStatus.Controls.Add(lblCapInactive, 0, 2)
+        tlpStatus.Controls.Add(lblInactiveCount, 1, 2)
+        tlpStatus.Dock = DockStyle.Fill
+        tlpStatus.Location = New Point(20, 14)
+        tlpStatus.Margin = New Padding(0)
+        tlpStatus.Name = "tlpStatus"
+        tlpStatus.RowCount = 4
+        tlpStatus.RowStyles.Add(New RowStyle())
+        tlpStatus.RowStyles.Add(New RowStyle())
+        tlpStatus.RowStyles.Add(New RowStyle())
+        tlpStatus.RowStyles.Add(New RowStyle(SizeType.Percent, 100F))
+        tlpStatus.Size = New Size(426, 152)
+        tlpStatus.TabIndex = 0
         ' 
-        ' FlowLayoutPanel9
+        ' cardStatus
         ' 
-        FlowLayoutPanel9.Controls.Add(lblDescTitle)
-        FlowLayoutPanel9.Location = New Point(10, 10)
-        FlowLayoutPanel9.Margin = New Padding(10, 10, 3, 3)
-        FlowLayoutPanel9.Name = "FlowLayoutPanel9"
-        FlowLayoutPanel9.Size = New Size(278, 44)
-        FlowLayoutPanel9.TabIndex = 28
+        cardStatus.BackColor = Color.White
+        cardStatus.Controls.Add(tlpStatus)
+        cardStatus.Dock = DockStyle.Fill
+        cardStatus.Location = New Point(481, 0)
+        cardStatus.Margin = New Padding(8, 0, 0, 0)
+        cardStatus.Name = "cardStatus"
+        cardStatus.Padding = New Padding(20, 14, 20, 14)
+        cardStatus.Size = New Size(466, 180)
+        cardStatus.TabIndex = 1
         ' 
-        ' FlowLayoutPanel10
+        ' tlpSummary
         ' 
-        FlowLayoutPanel10.Controls.Add(lblGridTitle)
-        FlowLayoutPanel10.Location = New Point(10, 10)
-        FlowLayoutPanel10.Margin = New Padding(10, 10, 3, 3)
-        FlowLayoutPanel10.Name = "FlowLayoutPanel10"
-        FlowLayoutPanel10.Size = New Size(278, 44)
-        FlowLayoutPanel10.TabIndex = 29
+        tlpSummary.ColumnCount = 2
+        tlpSummary.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
+        tlpSummary.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
+        tlpSummary.Controls.Add(cardInfo, 0, 0)
+        tlpSummary.Controls.Add(cardStatus, 1, 0)
+        tlpSummary.Dock = DockStyle.Fill
+        tlpSummary.Location = New Point(28, 476)
+        tlpSummary.Margin = New Padding(0, 16, 0, 0)
+        tlpSummary.Name = "tlpSummary"
+        tlpSummary.RowCount = 1
+        tlpSummary.RowStyles.Add(New RowStyle(SizeType.Percent, 100F))
+        tlpSummary.Size = New Size(947, 180)
+        tlpSummary.TabIndex = 3
         ' 
-        ' FlowLayoutPanel11
+        ' tlpMain
         ' 
-        FlowLayoutPanel11.Controls.Add(FlowLayoutPanel9)
-        FlowLayoutPanel11.Controls.Add(rtbDescription)
-        FlowLayoutPanel11.Dock = DockStyle.Fill
-        FlowLayoutPanel11.FlowDirection = FlowDirection.TopDown
-        FlowLayoutPanel11.Location = New Point(511, 3)
-        FlowLayoutPanel11.Name = "FlowLayoutPanel11"
-        FlowLayoutPanel11.Size = New Size(407, 279)
-        FlowLayoutPanel11.TabIndex = 30
-        ' 
-        ' FlowLayoutPanel12
-        ' 
-        FlowLayoutPanel12.Controls.Add(FlowLayoutPanel10)
-        FlowLayoutPanel12.Controls.Add(dgvDocuments)
-        FlowLayoutPanel12.Dock = DockStyle.Fill
-        FlowLayoutPanel12.FlowDirection = FlowDirection.TopDown
-        FlowLayoutPanel12.Location = New Point(3, 3)
-        FlowLayoutPanel12.Name = "FlowLayoutPanel12"
-        FlowLayoutPanel12.Size = New Size(502, 279)
-        FlowLayoutPanel12.TabIndex = 31
-        ' 
-        ' TableLayoutPanel1
-        ' 
-        TableLayoutPanel1.ColumnCount = 2
-        TableLayoutPanel1.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
-        TableLayoutPanel1.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
-        TableLayoutPanel1.Controls.Add(FlowLayoutPanel1, 0, 0)
-        TableLayoutPanel1.Controls.Add(FlowLayoutPanel2, 1, 0)
-        TableLayoutPanel1.Dock = DockStyle.Fill
-        TableLayoutPanel1.Location = New Point(3, 358)
-        TableLayoutPanel1.Name = "TableLayoutPanel1"
-        TableLayoutPanel1.RowCount = 1
-        TableLayoutPanel1.RowStyles.Add(New RowStyle(SizeType.Percent, 50F))
-        TableLayoutPanel1.Size = New Size(921, 261)
-        TableLayoutPanel1.TabIndex = 32
-        ' 
-        ' TableLayoutPanel2
-        ' 
-        TableLayoutPanel2.ColumnCount = 2
-        TableLayoutPanel2.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 55.2546043F))
-        TableLayoutPanel2.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 44.7453957F))
-        TableLayoutPanel2.Controls.Add(FlowLayoutPanel12, 0, 0)
-        TableLayoutPanel2.Controls.Add(FlowLayoutPanel11, 1, 0)
-        TableLayoutPanel2.Dock = DockStyle.Fill
-        TableLayoutPanel2.Location = New Point(3, 67)
-        TableLayoutPanel2.Name = "TableLayoutPanel2"
-        TableLayoutPanel2.RowCount = 1
-        TableLayoutPanel2.RowStyles.Add(New RowStyle(SizeType.Percent, 50F))
-        TableLayoutPanel2.Size = New Size(921, 285)
-        TableLayoutPanel2.TabIndex = 33
-        ' 
-        ' TableLayoutPanel3
-        ' 
-        TableLayoutPanel3.ColumnCount = 1
-        TableLayoutPanel3.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
-        TableLayoutPanel3.Controls.Add(FlowLayoutPanel8, 0, 0)
-        TableLayoutPanel3.Controls.Add(TableLayoutPanel1, 0, 2)
-        TableLayoutPanel3.Controls.Add(TableLayoutPanel2, 0, 1)
-        TableLayoutPanel3.Dock = DockStyle.Fill
-        TableLayoutPanel3.Location = New Point(0, 0)
-        TableLayoutPanel3.Name = "TableLayoutPanel3"
-        TableLayoutPanel3.RowCount = 3
-        TableLayoutPanel3.RowStyles.Add(New RowStyle(SizeType.Percent, 18.1318684F))
-        TableLayoutPanel3.RowStyles.Add(New RowStyle(SizeType.Percent, 81.86813F))
-        TableLayoutPanel3.RowStyles.Add(New RowStyle(SizeType.Absolute, 266F))
-        TableLayoutPanel3.Size = New Size(927, 622)
-        TableLayoutPanel3.TabIndex = 34
+        tlpMain.ColumnCount = 1
+        tlpMain.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100F))
+        tlpMain.Controls.Add(tlpToolbar, 0, 0)
+        tlpMain.Controls.Add(lblGridTitle, 0, 1)
+        tlpMain.Controls.Add(tlpCenter, 0, 2)
+        tlpMain.Controls.Add(tlpSummary, 0, 3)
+        tlpMain.Dock = DockStyle.Fill
+        tlpMain.Location = New Point(0, 0)
+        tlpMain.Name = "tlpMain"
+        tlpMain.Padding = New Padding(28, 20, 28, 24)
+        tlpMain.RowCount = 4
+        tlpMain.RowStyles.Add(New RowStyle())
+        tlpMain.RowStyles.Add(New RowStyle())
+        tlpMain.RowStyles.Add(New RowStyle(SizeType.Percent, 100F))
+        tlpMain.RowStyles.Add(New RowStyle(SizeType.Absolute, 196F))
+        tlpMain.Size = New Size(1003, 680)
+        tlpMain.TabIndex = 0
         ' 
         ' frmDocumentManagement
         ' 
-        AutoScaleDimensions = New SizeF(7F, 15F)
-        AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(927, 622)
-        Controls.Add(TableLayoutPanel3)
-        Margin = New Padding(3, 2, 3, 2)
+        AutoScaleDimensions = New SizeF(96F, 96F)
+        AutoScaleMode = AutoScaleMode.Dpi
+        AutoScroll = True
+        AutoScrollMinSize = New Size(860, 680)
+        BackColor = Color.FromArgb(CByte(245), CByte(247), CByte(244))
+        ClientSize = New Size(1020, 640)
+        Controls.Add(tlpMain)
+        FormBorderStyle = FormBorderStyle.None
         Name = "frmDocumentManagement"
-        Text = "DocumentManager"
+        Text = "Document Management"
+        tlpToolbar.ResumeLayout(False)
+        tlpToolbar.PerformLayout()
         CType(dgvDocuments, ComponentModel.ISupportInitialize).EndInit()
-        FlowLayoutPanel1.ResumeLayout(False)
-        FlowLayoutPanel1.PerformLayout()
-        FlowLayoutPanel3.ResumeLayout(False)
-        FlowLayoutPanel3.PerformLayout()
-        FlowLayoutPanel4.ResumeLayout(False)
-        FlowLayoutPanel4.PerformLayout()
-        FlowLayoutPanel5.ResumeLayout(False)
-        FlowLayoutPanel5.PerformLayout()
-        FlowLayoutPanel2.ResumeLayout(False)
-        FlowLayoutPanel2.PerformLayout()
-        FlowLayoutPanel6.ResumeLayout(False)
-        FlowLayoutPanel6.PerformLayout()
-        FlowLayoutPanel7.ResumeLayout(False)
-        FlowLayoutPanel7.PerformLayout()
-        FlowLayoutPanel8.ResumeLayout(False)
-        FlowLayoutPanel8.PerformLayout()
-        FlowLayoutPanel9.ResumeLayout(False)
-        FlowLayoutPanel9.PerformLayout()
-        FlowLayoutPanel10.ResumeLayout(False)
-        FlowLayoutPanel10.PerformLayout()
-        FlowLayoutPanel11.ResumeLayout(False)
-        FlowLayoutPanel12.ResumeLayout(False)
-        TableLayoutPanel1.ResumeLayout(False)
-        TableLayoutPanel2.ResumeLayout(False)
-        TableLayoutPanel3.ResumeLayout(False)
+        pnlGridBorder.ResumeLayout(False)
+        tlpDesc.ResumeLayout(False)
+        tlpDesc.PerformLayout()
+        cardDesc.ResumeLayout(False)
+        tlpCenter.ResumeLayout(False)
+        tlpInfo.ResumeLayout(False)
+        tlpInfo.PerformLayout()
+        cardInfo.ResumeLayout(False)
+        tlpStatus.ResumeLayout(False)
+        tlpStatus.PerformLayout()
+        cardStatus.ResumeLayout(False)
+        tlpSummary.ResumeLayout(False)
+        tlpMain.ResumeLayout(False)
+        tlpMain.PerformLayout()
         ResumeLayout(False)
     End Sub
+
     Friend WithEvents txtSearch As TextBox
     Friend WithEvents btnClearSearch As Button
+    Friend WithEvents btnAddDocument As Button
+    Friend WithEvents tlpToolbar As TableLayoutPanel
     Friend WithEvents lblGridTitle As Label
     Friend WithEvents dgvDocuments As DataGridView
-    Friend WithEvents rtbDescription As RichTextBox
+    Friend WithEvents pnlGridBorder As Panel
     Friend WithEvents lblDescTitle As Label
-    Friend WithEvents btnAddDocument As Button
-    Friend WithEvents lblInactiveCount As Label
+    Friend WithEvents rtbDescription As RichTextBox
+    Friend WithEvents tlpDesc As TableLayoutPanel
+    Friend WithEvents cardDesc As CardPanel
+    Friend WithEvents tlpCenter As TableLayoutPanel
     Friend WithEvents lblDocInfo As Label
-    Friend WithEvents lblDocFee As Label
-    Friend WithEvents lblDocStatus As Label
+    Friend WithEvents lblCapDocName As Label
     Friend WithEvents lblDocName As Label
-    Friend WithEvents Label1 As Label
-    Friend WithEvents Label2 As Label
-    Friend WithEvents Label3 As Label
-    Friend WithEvents FlowLayoutPanel1 As FlowLayoutPanel
-    Friend WithEvents FlowLayoutPanel3 As FlowLayoutPanel
-    Friend WithEvents FlowLayoutPanel4 As FlowLayoutPanel
-    Friend WithEvents FlowLayoutPanel5 As FlowLayoutPanel
+    Friend WithEvents lblCapDocStatus As Label
+    Friend WithEvents lblDocStatus As Label
+    Friend WithEvents lblCapDocFee As Label
+    Friend WithEvents lblDocFee As Label
     Friend WithEvents btnEditDocument As Button
-    Friend WithEvents FlowLayoutPanel2 As FlowLayoutPanel
-    Friend WithEvents Label6 As Label
-    Friend WithEvents FlowLayoutPanel6 As FlowLayoutPanel
-    Friend WithEvents Label7 As Label
-    Friend WithEvents FlowLayoutPanel7 As FlowLayoutPanel
-    Friend WithEvents Label9 As Label
+    Friend WithEvents tlpInfo As TableLayoutPanel
+    Friend WithEvents cardInfo As CardPanel
+    Friend WithEvents lblDocStatusSummary As Label
+    Friend WithEvents lblCapActive As Label
     Friend WithEvents lblActiveCount As Label
-    Friend WithEvents FlowLayoutPanel8 As FlowLayoutPanel
-    Friend WithEvents FlowLayoutPanel9 As FlowLayoutPanel
-    Friend WithEvents FlowLayoutPanel10 As FlowLayoutPanel
-    Friend WithEvents FlowLayoutPanel11 As FlowLayoutPanel
-    Friend WithEvents FlowLayoutPanel12 As FlowLayoutPanel
-    Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
-    Friend WithEvents TableLayoutPanel2 As TableLayoutPanel
-    Friend WithEvents TableLayoutPanel3 As TableLayoutPanel
+    Friend WithEvents lblCapInactive As Label
+    Friend WithEvents lblInactiveCount As Label
+    Friend WithEvents tlpStatus As TableLayoutPanel
+    Friend WithEvents cardStatus As CardPanel
+    Friend WithEvents tlpSummary As TableLayoutPanel
+    Friend WithEvents tlpMain As TableLayoutPanel
 End Class

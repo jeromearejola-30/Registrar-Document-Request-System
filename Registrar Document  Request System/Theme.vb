@@ -1,4 +1,4 @@
-Imports System.Drawing.Drawing2D
+﻿Imports System.Drawing.Drawing2D
 Imports System.IO
 Imports System.Reflection
 
@@ -235,8 +235,12 @@ Public Module Theme
         cell.Padding = New Padding(8, 0, 0, 0)
         dgv.DefaultCellStyle = cell
 
-        Dim alt As New DataGridViewCellStyle(cell)
+        ' Only the colors are set here. If Alignment/Padding were copied from the cell style, every other row would
+        ' ignore a column's own alignment (alternating-row style outranks the column style), e.g. a right-aligned Amount.
+        Dim alt As New DataGridViewCellStyle()
         alt.BackColor = SurfaceAlt
+        alt.SelectionBackColor = SelectionBack
+        alt.SelectionForeColor = TextMain
         dgv.AlternatingRowsDefaultCellStyle = alt
 
         ' When there are many columns, scroll sideways instead of crushing them
@@ -247,11 +251,16 @@ Public Module Theme
                                             End Sub
 
         If Not String.IsNullOrEmpty(statusColumn) Then
+            ' statusColumn may list several columns separated by commas, e.g. "Status,PaymentStatus"
+            Dim pillColumns As String() = statusColumn.Split(New Char() {","c}, StringSplitOptions.RemoveEmptyEntries)
+            For i As Integer = 0 To pillColumns.Length - 1
+                pillColumns(i) = pillColumns(i).Trim()
+            Next
             Dim pillFont As Font = UiFont(8.5F, FontStyle.Bold)
             AddHandler dgv.Disposed, Sub(s, e) pillFont.Dispose()
             AddHandler dgv.CellPainting, Sub(s, e)
                                              If e.RowIndex < 0 OrElse e.ColumnIndex < 0 Then Return
-                                             If dgv.Columns(e.ColumnIndex).Name <> statusColumn Then Return
+                                             If Array.IndexOf(pillColumns, dgv.Columns(e.ColumnIndex).Name) < 0 Then Return
                                              ' Paint everything except the text, then draw the pill on top
                                              e.Paint(e.CellBounds, DataGridViewPaintParts.All And Not DataGridViewPaintParts.ContentForeground)
                                              DrawStatusPill(e.Graphics, e.CellBounds, Convert.ToString(e.FormattedValue), pillFont)

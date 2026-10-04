@@ -1,18 +1,19 @@
 ﻿Imports MySql.Data.MySqlClient
 
 Module dbConnect
-    Public cn As New MySql.Data.MySqlClient.MySqlConnection
-    Public cmd As MySql.Data.MySqlClient.MySqlCommand
-    Public dr As MySql.Data.MySqlClient.MySqlDataReader
+    Public Const ConnectionText As String = "server=localhost;user=root;password=;port=3306;database=registrar_db"
+
+    ' The shared connection already knows where the database is. frmDashboard, frmAddStudent and
+    ' frmEditStudent use it directly, so it must never depend on the login form having opened it first.
+    Public cn As New MySqlConnection(ConnectionText)
+    Public cmd As MySqlCommand
+    Public dr As MySqlDataReader
     Public sql As String
 
+    ''' <summary>Makes sure the shared connection is open. Silent: no pop-up on success.</summary>
     Public Sub Connection()
-        If cn.State = ConnectionState.Open Then
-            cn.Close()
-        End If
-
-        cn.ConnectionString = "server=localhost;user=root;password=;port=3306;database=registrar_db"
+        If cn.State = ConnectionState.Open Then Return
+        If String.IsNullOrEmpty(cn.ConnectionString) Then cn.ConnectionString = ConnectionText
         cn.Open()
-        MessageBox.Show("Database Connected Successfully.", "Database", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 End Module

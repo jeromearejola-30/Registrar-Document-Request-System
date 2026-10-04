@@ -2,137 +2,114 @@
 
 Public Class frmUserManagement
 
-    Private ReadOnly PlaceholderText As String = "   Search user..."
+    Private ReadOnly connStr As String = "server=localhost;user=root;password=;database=registrar_db"
     Private selectedUserId As String = String.Empty
+    Private _loading As Boolean = False
 
     Private Sub frmUserManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ' Prevent DataGridView from generating new auto columns on the right
-        dgvUsers.AutoGenerateColumns = False
-
-        ' Map database column names to your DataGridView designer columns
-        MapGridColumns()
+        ' "Status" is drawn as a colored pill; every other column is plain text
+        Theme.StyleGrid(dgvUsers, "Status")
 
         LoadUsers()
         LoadActiveInactiveUsers()
-
-        lblUsername.Text = String.Empty
-        lblRole.Text = String.Empty
-        txtSearchBox.Text = PlaceholderText
-        txtSearchBox.ForeColor = Color.Gray
     End Sub
 
-    ' Map DataGridView columns to match SQL SELECT fields
-    Private Sub MapGridColumns()
-        If dgvUsers.Columns.Contains("colUserID") Then dgvUsers.Columns("colUserID").DataPropertyName = "UserID"
-        If dgvUsers.Columns.Contains("colUsername") Then dgvUsers.Columns("colUsername").DataPropertyName = "Username"
-        If dgvUsers.Columns.Contains("colFullName") Then dgvUsers.Columns("colFullName").DataPropertyName = "FullName"
-        If dgvUsers.Columns.Contains("colRole") Then dgvUsers.Columns("colRole").DataPropertyName = "Role"
-        If dgvUsers.Columns.Contains("colUserStatus") Then dgvUsers.Columns("colUserStatus").DataPropertyName = "Status"
-    End Sub
-
-    ' Load all users into the DataGridView
-    Public Sub LoadUsers()
+    ' Load (or search) the user list. The password column is never selected.
+    Public Sub LoadUsers(Optional searchTerm As String = "")
         Try
-            If cn.State <> ConnectionState.Open Then cn.Open()
-
             Dim sql As String = "SELECT UserID, Username, FullName, Role, Status FROM tblUsers"
+            If Not String.IsNullOrWhiteSpace(searchTerm) Then
+                sql &= " WHERE Username LIKE @search OR FullName LIKE @search OR Role LIKE @search OR UserID LIKE @search"
+            End If
+            sql &= " ORDER BY UserID"
 
-            Using cmd As New MySqlCommand(sql, cn)
-                Using adapter As New MySqlDataAdapter(cmd)
-                    Dim dt As New DataTable()
-                    adapter.Fill(dt)
-                    dgvUsers.DataSource = dt
+            Dim dt As New DataTable()
+            Using c As New MySqlConnection(connStr)
+                Using cmd As New MySqlCommand(sql, c)
+                    If Not String.IsNullOrWhiteSpace(searchTerm) Then
+                        cmd.Parameters.AddWithValue("@search", "%" & searchTerm.Trim() & "%")
+                    End If
+                    Using adapter As New MySqlDataAdapter(cmd)
+                        adapter.Fill(dt)
+                    End Using
                 End Using
             End Using
 
-            ' Clear selection state upon reload
-            selectedUserId = String.Empty
-            lblUsername.Text = String.Empty
-            lblRole.Text = String.Empty
-
+            _loading = True
+            dgvUsers.DataSource = dt
+            FormatColumns()
+            _loading = False
+            ShowSelected()
         Catch ex As Exception
+            _loading = False
             MessageBox.Show("Error loading users: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If cn.State = ConnectionState.Open Then cn.Close()
         End Try
+    End Sub
+
+    Private Sub FormatColumns()
+        With dgvUsers
+            If Not .Columns.Contains("UserID") Then Return
+            .Columns("UserID").HeaderText = "ID"
+            .Columns("UserID").FillWeight = 10
+            .Columns("Username").HeaderText = "Username"
+            .Columns("Username").FillWeight = 25
+            .Columns("FullName").HeaderText = "Full Name"
+            .Columns("FullName").FillWeight = 33
+            .Columns("Role").HeaderText = "Role"
+            .Columns("Role").FillWeight = 20
+            .Columns("Status").FillWeight = 14
+            .Columns("Status").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter
+        End With
     End Sub
 
     Private Sub LoadActiveInactiveUsers()
         Try
-            If cn.State = ConnectionState.Closed Then cn.Open()
-
-            ' Active Users
-            Dim sqlActive As String = "SELECT COUNT(*) FROM tblUsers WHERE Status = 'Active'"
-            Using cmd As New MySqlCommand(sqlActive, cn)
-                lblNumberActiveUsers.Text = Convert.ToInt32(cmd.ExecuteScalar()).ToString()
+            Using c As New MySqlConnection(connStr)
+                c.Open()
+                lblNumberActiveUsers.Text = CountByStatus(c, "Active")
+                lblNumberInactiveUsers.Text = CountByStatus(c, "Inactive")
             End Using
-
-            ' Inactive Users
-            Dim sqlInactive As String = "SELECT COUNT(*) FROM tblUsers WHERE Status = 'Inactive'"
-            Using cmd As New MySqlCommand(sqlInactive, cn)
-                lblNumberInactiveUsers.Text = Convert.ToInt32(cmd.ExecuteScalar()).ToString()
-            End Using
-
         Catch ex As Exception
             MessageBox.Show("Error loading user statistics: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If cn.State = ConnectionState.Open Then cn.Close()
         End Try
     End Sub
 
-    ' Filter users dynamically as the user types
-    Private Sub SearchUsers(searchTerm As String)
-        If String.IsNullOrWhiteSpace(searchTerm) Then
-            LoadUsers()
+    Private Function CountByStatus(c As MySqlConnection, status As String) As String
+        Using cmd As New MySqlCommand("SELECT COUNT(*) FROM tblUsers WHERE Status = @status", c)
+            cmd.Parameters.AddWithValue("@status", status)
+            Return Convert.ToInt32(cmd.ExecuteScalar()).ToString()
+        End Using
+    End Function
+
+    ' Fill the "User Information" card from the selected row (mouse or arrow keys)
+    Private Sub ShowSelected()
+        Dim row As DataGridViewRow = dgvUsers.CurrentRow
+        If row Is Nothing OrElse Not dgvUsers.Columns.Contains("UserID") Then
+            selectedUserId = String.Empty
+            lblUsername.Text = "-"
+            lblRole.Text = "-"
             Return
         End If
 
-        Try
-            If cn.State <> ConnectionState.Open Then cn.Open()
-
-            Dim sql As String = "SELECT UserID, Username, FullName, Role, Status FROM tblUsers " &
-                               "WHERE Username LIKE @search OR FullName LIKE @search OR Role LIKE @search OR UserID LIKE @search"
-
-            Using cmd As New MySqlCommand(sql, cn)
-                cmd.Parameters.AddWithValue("@search", "%" & searchTerm & "%")
-
-                Using adapter As New MySqlDataAdapter(cmd)
-                    Dim dt As New DataTable()
-                    adapter.Fill(dt)
-                    dgvUsers.DataSource = dt
-                End Using
-            End Using
-        Catch ex As Exception
-            MessageBox.Show("Error searching users: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If cn.State = ConnectionState.Open Then cn.Close()
-        End Try
+        selectedUserId = Convert.ToString(row.Cells("UserID").Value)
+        lblUsername.Text = Convert.ToString(row.Cells("Username").Value)
+        lblRole.Text = Convert.ToString(row.Cells("Role").Value)
     End Sub
 
-    ' Handle cell selection to display labels and store UserID safely
-    Private Sub dgvUsers_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvUsers.CellClick
-        If e.RowIndex < 0 Then Return
-
-        Dim selectedRow As DataGridViewRow = dgvUsers.Rows(e.RowIndex)
-
-        If TypeOf selectedRow.DataBoundItem Is DataRowView Then
-            Dim drv = DirectCast(selectedRow.DataBoundItem, DataRowView)
-
-            If drv.Row.Table.Columns.Contains("Username") AndAlso drv("Username") IsNot DBNull.Value Then
-                lblUsername.Text = drv("Username").ToString()
-            End If
-
-            If drv.Row.Table.Columns.Contains("Role") AndAlso drv("Role") IsNot DBNull.Value Then
-                lblRole.Text = drv("Role").ToString()
-            End If
-
-            If drv.Row.Table.Columns.Contains("UserID") AndAlso drv("UserID") IsNot DBNull.Value Then
-                selectedUserId = drv("UserID").ToString()
-            End If
-        End If
+    Private Sub dgvUsers_SelectionChanged(sender As Object, e As EventArgs) Handles dgvUsers.SelectionChanged
+        If _loading Then Return
+        ShowSelected()
     End Sub
 
-    ' Open child view user form with selected user ID
+    Private Sub txtSearchBox_TextChanged(sender As Object, e As EventArgs) Handles txtSearchBox.TextChanged
+        LoadUsers(txtSearchBox.Text.Trim())
+    End Sub
+
+    Private Sub btnClearSearch_Click(sender As Object, e As EventArgs) Handles btnClearSearch.Click
+        txtSearchBox.Clear()   ' reloads the full list through txtSearchBox_TextChanged
+        Me.ActiveControl = Nothing
+    End Sub
+
     Private Sub btnViewUser_Click(sender As Object, e As EventArgs) Handles btnViewUser.Click
         If String.IsNullOrEmpty(selectedUserId) Then
             MessageBox.Show("Please select a user from the table first.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -158,33 +135,6 @@ Public Class frmUserManagement
             Dim addForm As New frmAddUser()
             addForm.ShowDialog()
         End If
-    End Sub
-
-    Private Sub txtSearchBox_Enter(sender As Object, e As EventArgs) Handles txtSearchBox.Enter
-        If txtSearchBox.Text = PlaceholderText Then
-            txtSearchBox.Text = ""
-            txtSearchBox.ForeColor = Color.Black
-        End If
-    End Sub
-
-    Private Sub txtSearchBox_Leave(sender As Object, e As EventArgs) Handles txtSearchBox.Leave
-        If String.IsNullOrWhiteSpace(txtSearchBox.Text) Then
-            txtSearchBox.Text = PlaceholderText
-            txtSearchBox.ForeColor = Color.Gray
-        End If
-    End Sub
-
-    Private Sub txtSearchBox_TextChanged(sender As Object, e As EventArgs) Handles txtSearchBox.TextChanged
-        If txtSearchBox.Text <> PlaceholderText Then
-            SearchUsers(txtSearchBox.Text.Trim())
-        End If
-    End Sub
-
-    Private Sub btnClearSearch_Click(sender As Object, e As EventArgs) Handles btnClearSearch.Click
-        txtSearchBox.Text = PlaceholderText
-        txtSearchBox.ForeColor = Color.Gray
-        Me.ActiveControl = Nothing
-        LoadUsers()
     End Sub
 
 End Class

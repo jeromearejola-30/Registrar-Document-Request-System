@@ -2,6 +2,8 @@
 
 Public Class frmAddStudent
 
+    Private ReadOnly connStr As String = "server=localhost;user=root;password=;database=registrar_db"
+
     Private Sub frmAddStudent_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Keep the form card centered and sized to its content whenever the window is resized
         Theme.FitFormCard(Me, cardForm, tlpForm, 980)
@@ -31,53 +33,50 @@ Public Class frmAddStudent
             Return
         End If
 
+        Dim saved As Boolean = False
         Try
-            If cn.State <> ConnectionState.Open Then cn.Open()
+            Using c As New MySqlConnection(connStr)
+                c.Open()
 
-            ' Check for an existing duplicate Student Number or LRN
-            Dim checkSql As String = "SELECT COUNT(*) FROM tblstudents WHERE StudentID = @StudentID OR LRN = @LRN"
-            Using checkCmd As New MySqlCommand(checkSql, cn)
-                checkCmd.Parameters.AddWithValue("@StudentID", txtStudentID.Text.Trim())
-                checkCmd.Parameters.AddWithValue("@LRN", txtLRN.Text.Trim())
-                Dim exists As Integer = Convert.ToInt32(checkCmd.ExecuteScalar())
+                ' Check for an existing duplicate Student Number or LRN
+                Using checkCmd As New MySqlCommand("SELECT COUNT(*) FROM tblstudents WHERE StudentID = @StudentID OR LRN = @LRN", c)
+                    checkCmd.Parameters.AddWithValue("@StudentID", txtStudentID.Text.Trim())
+                    checkCmd.Parameters.AddWithValue("@LRN", txtLRN.Text.Trim())
+                    If Convert.ToInt32(checkCmd.ExecuteScalar()) > 0 Then
+                        MessageBox.Show("A student with this Student Number or LRN already exists.", "Duplicate Record", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                        txtStudentID.Focus()
+                        Return
+                    End If
+                End Using
 
-                If exists > 0 Then
-                    MessageBox.Show("A student with this Student Number or LRN already exists.", "Duplicate Record", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                    txtStudentID.Focus()
-                    Return
-                End If
+                ' Insert record into tblstudents
+                Dim sql As String = "INSERT INTO tblstudents (StudentID, LRN, LastName, FirstName, MiddleName, YearLevel, Section, Course, ContactNo, Status) " &
+                                    "VALUES (@StudentID, @LRN, @LastName, @FirstName, @MiddleName, @YearLevel, @Section, @Course, @ContactNumber, 'Active')"
+                Using cmd As New MySqlCommand(sql, c)
+                    cmd.Parameters.AddWithValue("@StudentID", txtStudentID.Text.Trim())
+                    cmd.Parameters.AddWithValue("@LRN", txtLRN.Text.Trim())
+                    cmd.Parameters.AddWithValue("@LastName", txtLastName.Text.Trim())
+                    cmd.Parameters.AddWithValue("@FirstName", txtFirstName.Text.Trim())
+                    cmd.Parameters.AddWithValue("@MiddleName", txtMiddleName.Text.Trim())
+                    cmd.Parameters.AddWithValue("@YearLevel", cboYearLevel.SelectedItem.ToString())
+                    cmd.Parameters.AddWithValue("@Section", txtSection.Text.Trim())
+                    cmd.Parameters.AddWithValue("@Course", cboCourse.SelectedItem.ToString())
+                    cmd.Parameters.AddWithValue("@ContactNumber", txtContactNumber.Text.Trim())
+                    saved = cmd.ExecuteNonQuery() > 0
+                End Using
             End Using
-
-            ' Insert record into tblstudents
-            Dim sql As String = "INSERT INTO tblstudents (StudentID, LRN, LastName, FirstName, MiddleName, YearLevel, Section, Course, ContactNo, Status) " &
-                               "VALUES (@StudentID, @LRN, @LastName, @FirstName, @MiddleName, @YearLevel, @Section, @Course, @ContactNumber, 'Active')"
-
-            Using cmd As New MySqlCommand(sql, cn)
-                cmd.Parameters.AddWithValue("@StudentID", txtStudentID.Text.Trim())
-                cmd.Parameters.AddWithValue("@LRN", txtLRN.Text.Trim())
-                cmd.Parameters.AddWithValue("@LastName", txtLastName.Text.Trim())
-                cmd.Parameters.AddWithValue("@FirstName", txtFirstName.Text.Trim())
-                cmd.Parameters.AddWithValue("@MiddleName", txtMiddleName.Text.Trim())
-                cmd.Parameters.AddWithValue("@YearLevel", cboYearLevel.SelectedItem.ToString())
-                cmd.Parameters.AddWithValue("@Section", txtSection.Text.Trim())
-                cmd.Parameters.AddWithValue("@Course", cboCourse.SelectedItem.ToString())
-                cmd.Parameters.AddWithValue("@ContactNumber", txtContactNumber.Text.Trim())
-
-                Dim rowsAffected As Integer = cmd.ExecuteNonQuery()
-
-                If rowsAffected > 0 Then
-                    MessageBox.Show("Student registered successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    ReturnToStudentManagement()
-                Else
-                    MessageBox.Show("Failed to register student.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End If
-            End Using
-
         Catch ex As Exception
             MessageBox.Show("Error adding student: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If cn.State = ConnectionState.Open Then cn.Close()
+            Return
         End Try
+
+        ' Leave the page only after the connection is closed
+        If saved Then
+            MessageBox.Show("Student registered successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            ReturnToStudentManagement()
+        Else
+            MessageBox.Show("Failed to register student.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End If
     End Sub
 
     ' Clear button

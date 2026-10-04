@@ -1,4 +1,4 @@
-Imports System.ComponentModel
+﻿Imports System.ComponentModel
 
 ''' <summary>
 ''' A dashboard summary card: colored top strip, small title, big number.
@@ -10,6 +10,7 @@ Public Class StatCard
     Private _title As String = ""
     Private _value As String = "0"
     Private _accent As Color = Theme.Primary
+    Private _selected As Boolean = False
 
     Public Sub New()
         SetStyle(ControlStyles.UserPaint Or ControlStyles.AllPaintingInWmPaint Or
@@ -49,13 +50,31 @@ Public Class StatCard
         End Set
     End Property
 
+    ''' <summary>When True the card is outlined in its accent color (used by clickable filter cards).</summary>
+    <Category("Appearance"), DefaultValue(False)>
+    Public Property Selected As Boolean
+        Get
+            Return _selected
+        End Get
+        Set(value As Boolean)
+            _selected = value
+            Invalidate()
+        End Set
+    End Property
+
     Protected Overrides Sub OnPaint(e As PaintEventArgs)
         Dim g As Graphics = e.Graphics
         g.Clear(Theme.Surface)
 
-        Using p As New Pen(Theme.Border)
-            g.DrawRectangle(p, 0, 0, Width - 1, Height - 1)
-        End Using
+        If _selected Then
+            Using p As New Pen(_accent, 2.0F)
+                g.DrawRectangle(p, 1, 1, Width - 3, Height - 3)
+            End Using
+        Else
+            Using p As New Pen(Theme.Border)
+                g.DrawRectangle(p, 0, 0, Width - 1, Height - 1)
+            End Using
+        End If
 
         Dim stripH As Integer = LogicalToDeviceUnits(4)
         Using b As New SolidBrush(_accent)

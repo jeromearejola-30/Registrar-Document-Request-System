@@ -1,5 +1,4 @@
-﻿Imports Mysqlx.XDevAPI.Common
-Module ExitAppModule
+﻿Module ExitAppModule
     Public Function ExitApp() As Boolean
         Dim result As DialogResult
 

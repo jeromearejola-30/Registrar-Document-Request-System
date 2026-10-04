@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmUserManagement
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -17,462 +17,392 @@ Partial Class frmUserManagement
     'Required by the Windows Form Designer
     Private components As System.ComponentModel.IContainer
 
-    'NOTE: The following procedure is required by the Windows Form Designer
-    'It can be modified using the Windows Form Designer.  
-    'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As DataGridViewCellStyle = New DataGridViewCellStyle()
-        dgvUsers = New DataGridView()
-        ColUserID = New DataGridViewTextBoxColumn()
-        ColUsername = New DataGridViewTextBoxColumn()
-        ColFullname = New DataGridViewTextBoxColumn()
-        ColRole = New DataGridViewTextBoxColumn()
-        ColUserStatus = New DataGridViewTextBoxColumn()
-        fplSearchbox = New FlowLayoutPanel()
+
         txtSearchBox = New TextBox()
         btnClearSearch = New Button()
-        fplAllUsers = New FlowLayoutPanel()
+        btnAddUser = New Button()
+        tlpToolbar = New TableLayoutPanel()
         lblAllUsers = New Label()
-        fplDataGridView = New FlowLayoutPanel()
-        FlowLayoutPanel1 = New FlowLayoutPanel()
+        dgvUsers = New DataGridView()
+        pnlGridBorder = New Panel()
         lblUserInformation = New Label()
-        FlowLayoutPanel3 = New FlowLayoutPanel()
-        Label1 = New Label()
+        lblCapUsername = New Label()
         lblUsername = New Label()
-        FlowLayoutPanel4 = New FlowLayoutPanel()
-        Label3 = New Label()
+        lblCapRole = New Label()
         lblRole = New Label()
         btnViewUser = New Button()
-        FlowLayoutPanel2 = New FlowLayoutPanel()
+        tlpInfo = New TableLayoutPanel()
+        cardInfo = New CardPanel()
         lblUserStatusSummary = New Label()
-        FlowLayoutPanel6 = New FlowLayoutPanel()
         lblActiveUsers = New Label()
         lblNumberActiveUsers = New Label()
-        FlowLayoutPanel7 = New FlowLayoutPanel()
         lblInactiveUsers = New Label()
         lblNumberInactiveUsers = New Label()
-        btnAddUser = New Button()
-        fplContentArea = New FlowLayoutPanel()
-        TableLayoutPanel1 = New TableLayoutPanel()
+        tlpStatus = New TableLayoutPanel()
+        cardStatus = New CardPanel()
+        tlpSummary = New TableLayoutPanel()
+        tlpMain = New TableLayoutPanel()
+        tlpToolbar.SuspendLayout()
+        pnlGridBorder.SuspendLayout()
+        tlpInfo.SuspendLayout()
+        cardInfo.SuspendLayout()
+        tlpStatus.SuspendLayout()
+        cardStatus.SuspendLayout()
+        tlpSummary.SuspendLayout()
+        tlpMain.SuspendLayout()
         CType(dgvUsers, ComponentModel.ISupportInitialize).BeginInit()
-        fplSearchbox.SuspendLayout()
-        fplAllUsers.SuspendLayout()
-        fplDataGridView.SuspendLayout()
-        FlowLayoutPanel1.SuspendLayout()
-        FlowLayoutPanel3.SuspendLayout()
-        FlowLayoutPanel4.SuspendLayout()
-        FlowLayoutPanel2.SuspendLayout()
-        FlowLayoutPanel6.SuspendLayout()
-        FlowLayoutPanel7.SuspendLayout()
-        fplContentArea.SuspendLayout()
-        TableLayoutPanel1.SuspendLayout()
         SuspendLayout()
-        ' 
-        ' dgvUsers
-        ' 
-        dgvUsers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
-        dgvUsers.BackgroundColor = SystemColors.Control
-        DataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = SystemColors.Control
-        DataGridViewCellStyle1.Font = New Font("Tahoma", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        DataGridViewCellStyle1.ForeColor = SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = Color.LightSteelBlue
-        DataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = DataGridViewTriState.True
-        dgvUsers.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
-        dgvUsers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dgvUsers.Columns.AddRange(New DataGridViewColumn() {ColUserID, ColUsername, ColFullname, ColRole, ColUserStatus})
-        dgvUsers.Location = New Point(30, 20)
-        dgvUsers.Margin = New Padding(30, 20, 3, 2)
-        dgvUsers.Name = "dgvUsers"
-        dgvUsers.RowHeadersVisible = False
-        dgvUsers.RowHeadersWidth = 51
-        dgvUsers.Size = New Size(870, 215)
-        dgvUsers.TabIndex = 4
-        ' 
-        ' ColUserID
-        ' 
-        ColUserID.HeaderText = "User ID"
-        ColUserID.Name = "ColUserID"
-        ' 
-        ' ColUsername
-        ' 
-        ColUsername.HeaderText = "Username"
-        ColUsername.Name = "ColUsername"
-        ' 
-        ' ColFullname
-        ' 
-        ColFullname.HeaderText = "Full Name"
-        ColFullname.Name = "ColFullname"
-        ' 
-        ' ColRole
-        ' 
-        ColRole.HeaderText = "User Role"
-        ColRole.Name = "ColRole"
-        ' 
-        ' ColUserStatus
-        ' 
-        ColUserStatus.HeaderText = "User Status"
-        ColUserStatus.Name = "ColUserStatus"
-        ' 
-        ' fplSearchbox
-        ' 
-        fplSearchbox.Controls.Add(txtSearchBox)
-        fplSearchbox.Controls.Add(btnClearSearch)
-        fplSearchbox.Dock = DockStyle.Fill
-        fplSearchbox.Location = New Point(3, 3)
-        fplSearchbox.Name = "fplSearchbox"
-        fplSearchbox.Size = New Size(925, 64)
-        fplSearchbox.TabIndex = 5
         ' 
         ' txtSearchBox
         ' 
-        txtSearchBox.Font = New Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        txtSearchBox.Location = New Point(165, 20)
-        txtSearchBox.Margin = New Padding(165, 20, 3, 3)
+        txtSearchBox.Anchor = AnchorStyles.Left Or AnchorStyles.Right
+        txtSearchBox.BorderStyle = BorderStyle.FixedSingle
+        txtSearchBox.Font = New Font("Segoe UI", 11F)
+        txtSearchBox.ForeColor = Color.FromArgb(CByte(31), CByte(41), CByte(55))
+        txtSearchBox.Margin = New Padding(0)
+        txtSearchBox.MaximumSize = New Size(520, 0)
         txtSearchBox.Name = "txtSearchBox"
-        txtSearchBox.Size = New Size(488, 27)
-        txtSearchBox.TabIndex = 2
-        txtSearchBox.Text = "   Search user..."
+        txtSearchBox.PlaceholderText = "Search by username, name or role..."
+        txtSearchBox.Size = New Size(520, 27)
         ' 
         ' btnClearSearch
         ' 
-        btnClearSearch.Font = New Font("Tahoma", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        btnClearSearch.Location = New Point(659, 20)
-        btnClearSearch.Margin = New Padding(3, 20, 3, 3)
+        btnClearSearch.AutoSize = True
+        btnClearSearch.AutoSizeMode = AutoSizeMode.GrowAndShrink
+        btnClearSearch.Cursor = Cursors.Hand
+        btnClearSearch.BackColor = Color.White
+        btnClearSearch.FlatAppearance.BorderColor = Color.FromArgb(CByte(27), CByte(67), CByte(50))
+        btnClearSearch.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(207), CByte(227), CByte(214))
+        btnClearSearch.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(234), CByte(242), CByte(237))
+        btnClearSearch.ForeColor = Color.FromArgb(CByte(27), CByte(67), CByte(50))
+        btnClearSearch.FlatStyle = FlatStyle.Flat
+        btnClearSearch.Font = New Font("Segoe UI Semibold", 10F)
+        btnClearSearch.Margin = New Padding(8, 0, 0, 0)
+        btnClearSearch.MinimumSize = New Size(0, 40)
         btnClearSearch.Name = "btnClearSearch"
-        btnClearSearch.Size = New Size(115, 27)
-        btnClearSearch.TabIndex = 1
+        btnClearSearch.Padding = New Padding(14, 0, 14, 0)
         btnClearSearch.Text = "Clear Search"
-        btnClearSearch.UseVisualStyleBackColor = True
+        btnClearSearch.UseVisualStyleBackColor = False
         ' 
-        ' fplAllUsers
+        ' btnAddUser
         ' 
-        fplAllUsers.Controls.Add(lblAllUsers)
-        fplAllUsers.Dock = DockStyle.Bottom
-        fplAllUsers.Location = New Point(3, 73)
-        fplAllUsers.Name = "fplAllUsers"
-        fplAllUsers.Size = New Size(925, 35)
-        fplAllUsers.TabIndex = 6
+        btnAddUser.AutoSize = True
+        btnAddUser.AutoSizeMode = AutoSizeMode.GrowAndShrink
+        btnAddUser.Cursor = Cursors.Hand
+        btnAddUser.BackColor = Color.FromArgb(CByte(27), CByte(67), CByte(50))
+        btnAddUser.FlatAppearance.BorderSize = 0
+        btnAddUser.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(36), CByte(90), CByte(65))
+        btnAddUser.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(45), CByte(106), CByte(79))
+        btnAddUser.ForeColor = Color.White
+        btnAddUser.FlatStyle = FlatStyle.Flat
+        btnAddUser.Font = New Font("Segoe UI Semibold", 10F)
+        btnAddUser.Margin = New Padding(8, 0, 0, 0)
+        btnAddUser.MinimumSize = New Size(0, 40)
+        btnAddUser.Name = "btnAddUser"
+        btnAddUser.Padding = New Padding(14, 0, 14, 0)
+        btnAddUser.Text = "Add User"
+        btnAddUser.UseVisualStyleBackColor = False
+        ' 
+        ' tlpToolbar
+        ' 
+        tlpToolbar.AutoSize = True
+        tlpToolbar.AutoSizeMode = AutoSizeMode.GrowAndShrink
+        tlpToolbar.ColumnCount = 3
+        tlpToolbar.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100F))
+        tlpToolbar.ColumnStyles.Add(New ColumnStyle())
+        tlpToolbar.ColumnStyles.Add(New ColumnStyle())
+        tlpToolbar.Controls.Add(txtSearchBox, 0, 0)
+        tlpToolbar.Controls.Add(btnClearSearch, 1, 0)
+        tlpToolbar.Controls.Add(btnAddUser, 2, 0)
+        tlpToolbar.Dock = DockStyle.Fill
+        tlpToolbar.Margin = New Padding(0)
+        tlpToolbar.Name = "tlpToolbar"
+        tlpToolbar.RowCount = 1
+        tlpToolbar.RowStyles.Add(New RowStyle())
         ' 
         ' lblAllUsers
         ' 
         lblAllUsers.AutoSize = True
-        lblAllUsers.Font = New Font("Tahoma", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        lblAllUsers.Location = New Point(20, 5)
-        lblAllUsers.Margin = New Padding(20, 5, 3, 0)
+        lblAllUsers.Font = New Font("Segoe UI Semibold", 12F)
+        lblAllUsers.ForeColor = Color.FromArgb(CByte(31), CByte(41), CByte(55))
+        lblAllUsers.Margin = New Padding(0, 16, 0, 8)
         lblAllUsers.Name = "lblAllUsers"
-        lblAllUsers.Size = New Size(93, 25)
-        lblAllUsers.TabIndex = 0
         lblAllUsers.Text = "All Users"
         ' 
-        ' fplDataGridView
+        ' dgvUsers
         ' 
-        fplDataGridView.Controls.Add(dgvUsers)
-        fplDataGridView.Location = New Point(3, 114)
-        fplDataGridView.Name = "fplDataGridView"
-        fplDataGridView.Size = New Size(925, 259)
-        fplDataGridView.TabIndex = 7
+        dgvUsers.Dock = DockStyle.Fill
+        dgvUsers.Name = "dgvUsers"
         ' 
-        ' FlowLayoutPanel1
+        ' pnlGridBorder
         ' 
-        FlowLayoutPanel1.Controls.Add(lblUserInformation)
-        FlowLayoutPanel1.Controls.Add(FlowLayoutPanel3)
-        FlowLayoutPanel1.Controls.Add(FlowLayoutPanel4)
-        FlowLayoutPanel1.Controls.Add(btnViewUser)
-        FlowLayoutPanel1.Dock = DockStyle.Fill
-        FlowLayoutPanel1.FlowDirection = FlowDirection.TopDown
-        FlowLayoutPanel1.Location = New Point(10, 15)
-        FlowLayoutPanel1.Margin = New Padding(10, 15, 15, 15)
-        FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        FlowLayoutPanel1.Size = New Size(437, 207)
-        FlowLayoutPanel1.TabIndex = 0
+        pnlGridBorder.BackColor = Color.FromArgb(CByte(229), CByte(231), CByte(235))
+        pnlGridBorder.Controls.Add(dgvUsers)
+        pnlGridBorder.Dock = DockStyle.Fill
+        pnlGridBorder.Margin = New Padding(0)
+        pnlGridBorder.Name = "pnlGridBorder"
+        pnlGridBorder.Padding = New Padding(1)
         ' 
         ' lblUserInformation
         ' 
         lblUserInformation.AutoSize = True
-        lblUserInformation.Font = New Font("Tahoma", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        lblUserInformation.Location = New Point(25, 15)
-        lblUserInformation.Margin = New Padding(25, 15, 3, 8)
+        lblUserInformation.Font = New Font("Segoe UI Semibold", 11F)
+        lblUserInformation.ForeColor = Color.FromArgb(CByte(27), CByte(67), CByte(50))
+        lblUserInformation.Margin = New Padding(0, 0, 0, 8)
         lblUserInformation.Name = "lblUserInformation"
-        lblUserInformation.Size = New Size(171, 25)
-        lblUserInformation.TabIndex = 0
         lblUserInformation.Text = "User Information"
         ' 
-        ' FlowLayoutPanel3
+        ' lblCapUsername
         ' 
-        FlowLayoutPanel3.Controls.Add(Label1)
-        FlowLayoutPanel3.Controls.Add(lblUsername)
-        FlowLayoutPanel3.Location = New Point(25, 51)
-        FlowLayoutPanel3.Margin = New Padding(25, 3, 3, 8)
-        FlowLayoutPanel3.Name = "FlowLayoutPanel3"
-        FlowLayoutPanel3.Size = New Size(389, 39)
-        FlowLayoutPanel3.TabIndex = 1
-        ' 
-        ' Label1
-        ' 
-        Label1.AutoSize = True
-        Label1.Font = New Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Label1.Location = New Point(10, 8)
-        Label1.Margin = New Padding(10, 8, 3, 0)
-        Label1.Name = "Label1"
-        Label1.Size = New Size(107, 23)
-        Label1.TabIndex = 0
-        Label1.Text = "Username: "
-        Label1.TextAlign = ContentAlignment.MiddleLeft
+        lblCapUsername.AutoSize = True
+        lblCapUsername.Font = New Font("Segoe UI", 10F)
+        lblCapUsername.ForeColor = Color.FromArgb(CByte(107), CByte(114), CByte(128))
+        lblCapUsername.Margin = New Padding(0, 3, 0, 3)
+        lblCapUsername.Name = "lblCapUsername"
+        lblCapUsername.Text = "Username"
         ' 
         ' lblUsername
         ' 
-        lblUsername.AutoSize = True
-        lblUsername.Font = New Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        lblUsername.Location = New Point(215, 8)
-        lblUsername.Margin = New Padding(95, 8, 3, 0)
+        lblUsername.Font = New Font("Segoe UI Semibold", 10.5F)
+        lblUsername.ForeColor = Color.FromArgb(CByte(31), CByte(41), CByte(55))
+        lblUsername.Margin = New Padding(0, 3, 0, 3)
         lblUsername.Name = "lblUsername"
-        lblUsername.Size = New Size(87, 23)
-        lblUsername.TabIndex = 1
-        lblUsername.Text = "User1234"
-        lblUsername.TextAlign = ContentAlignment.MiddleLeft
+        lblUsername.Text = "-"
+        lblUsername.Anchor = AnchorStyles.Left Or AnchorStyles.Right
+        lblUsername.AutoEllipsis = True
+        lblUsername.Size = New Size(200, 22)
         ' 
-        ' FlowLayoutPanel4
+        ' lblCapRole
         ' 
-        FlowLayoutPanel4.Controls.Add(Label3)
-        FlowLayoutPanel4.Controls.Add(lblRole)
-        FlowLayoutPanel4.Location = New Point(25, 101)
-        FlowLayoutPanel4.Margin = New Padding(25, 3, 3, 8)
-        FlowLayoutPanel4.Name = "FlowLayoutPanel4"
-        FlowLayoutPanel4.Size = New Size(389, 39)
-        FlowLayoutPanel4.TabIndex = 2
-        ' 
-        ' Label3
-        ' 
-        Label3.AutoSize = True
-        Label3.Font = New Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Label3.Location = New Point(10, 8)
-        Label3.Margin = New Padding(10, 8, 3, 0)
-        Label3.Name = "Label3"
-        Label3.Size = New Size(59, 23)
-        Label3.TabIndex = 1
-        Label3.Text = "Role: "
-        Label3.TextAlign = ContentAlignment.MiddleLeft
+        lblCapRole.AutoSize = True
+        lblCapRole.Font = New Font("Segoe UI", 10F)
+        lblCapRole.ForeColor = Color.FromArgb(CByte(107), CByte(114), CByte(128))
+        lblCapRole.Margin = New Padding(0, 3, 0, 3)
+        lblCapRole.Name = "lblCapRole"
+        lblCapRole.Text = "Role"
         ' 
         ' lblRole
         ' 
-        lblRole.AutoSize = True
-        lblRole.Font = New Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        lblRole.Location = New Point(217, 8)
-        lblRole.Margin = New Padding(145, 8, 3, 0)
+        lblRole.Font = New Font("Segoe UI Semibold", 10.5F)
+        lblRole.ForeColor = Color.FromArgb(CByte(31), CByte(41), CByte(55))
+        lblRole.Margin = New Padding(0, 3, 0, 3)
         lblRole.Name = "lblRole"
-        lblRole.Size = New Size(121, 23)
-        lblRole.TabIndex = 2
-        lblRole.Text = "Administrator"
-        lblRole.TextAlign = ContentAlignment.MiddleLeft
+        lblRole.Text = "-"
+        lblRole.Anchor = AnchorStyles.Left Or AnchorStyles.Right
+        lblRole.AutoEllipsis = True
+        lblRole.Size = New Size(200, 22)
         ' 
         ' btnViewUser
         ' 
-        btnViewUser.Font = New Font("Tahoma", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        btnViewUser.Location = New Point(25, 151)
-        btnViewUser.Margin = New Padding(25, 3, 3, 3)
+        btnViewUser.AutoSize = True
+        btnViewUser.AutoSizeMode = AutoSizeMode.GrowAndShrink
+        btnViewUser.Cursor = Cursors.Hand
+        btnViewUser.BackColor = Color.White
+        btnViewUser.FlatAppearance.BorderColor = Color.FromArgb(CByte(27), CByte(67), CByte(50))
+        btnViewUser.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(207), CByte(227), CByte(214))
+        btnViewUser.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(234), CByte(242), CByte(237))
+        btnViewUser.ForeColor = Color.FromArgb(CByte(27), CByte(67), CByte(50))
+        btnViewUser.FlatStyle = FlatStyle.Flat
+        btnViewUser.Font = New Font("Segoe UI Semibold", 10F)
+        btnViewUser.Margin = New Padding(8, 0, 0, 0)
+        btnViewUser.MinimumSize = New Size(0, 40)
         btnViewUser.Name = "btnViewUser"
-        btnViewUser.Size = New Size(117, 28)
-        btnViewUser.TabIndex = 4
-        btnViewUser.Text = "View User"
-        btnViewUser.UseVisualStyleBackColor = True
+        btnViewUser.Padding = New Padding(14, 0, 14, 0)
+        btnViewUser.Text = "View / Edit User"
+        btnViewUser.UseVisualStyleBackColor = False
         ' 
-        ' FlowLayoutPanel2
+        ' tlpInfo
         ' 
-        FlowLayoutPanel2.Controls.Add(lblUserStatusSummary)
-        FlowLayoutPanel2.Controls.Add(FlowLayoutPanel6)
-        FlowLayoutPanel2.Controls.Add(FlowLayoutPanel7)
-        FlowLayoutPanel2.Controls.Add(btnAddUser)
-        FlowLayoutPanel2.Dock = DockStyle.Fill
-        FlowLayoutPanel2.FlowDirection = FlowDirection.TopDown
-        FlowLayoutPanel2.Location = New Point(477, 15)
-        FlowLayoutPanel2.Margin = New Padding(15)
-        FlowLayoutPanel2.Name = "FlowLayoutPanel2"
-        FlowLayoutPanel2.Size = New Size(433, 207)
-        FlowLayoutPanel2.TabIndex = 1
+        tlpInfo.ColumnCount = 2
+        tlpInfo.ColumnStyles.Add(New ColumnStyle(SizeType.Absolute, 130F))
+        tlpInfo.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100F))
+        tlpInfo.Controls.Add(lblUserInformation, 0, 0)
+        tlpInfo.Controls.Add(lblCapUsername, 0, 1)
+        tlpInfo.Controls.Add(lblUsername, 1, 1)
+        tlpInfo.Controls.Add(lblCapRole, 0, 2)
+        tlpInfo.Controls.Add(lblRole, 1, 2)
+        tlpInfo.Controls.Add(btnViewUser, 0, 3)
+        tlpInfo.Dock = DockStyle.Fill
+        tlpInfo.Margin = New Padding(0)
+        tlpInfo.Name = "tlpInfo"
+        tlpInfo.RowCount = 4
+        tlpInfo.RowStyles.Add(New RowStyle())
+        tlpInfo.RowStyles.Add(New RowStyle())
+        tlpInfo.RowStyles.Add(New RowStyle())
+        tlpInfo.RowStyles.Add(New RowStyle(SizeType.Percent, 100F))
+        tlpInfo.SetColumnSpan(lblUserInformation, 2)
+        tlpInfo.SetColumnSpan(btnViewUser, 2)
+        btnViewUser.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
+        btnViewUser.Margin = New Padding(0, 8, 0, 0)
+        ' 
+        ' cardInfo
+        ' 
+        cardInfo.BackColor = Color.White
+        cardInfo.Controls.Add(tlpInfo)
+        cardInfo.Dock = DockStyle.Fill
+        cardInfo.Margin = New Padding(0, 0, 8, 0)
+        cardInfo.Name = "cardInfo"
+        cardInfo.Padding = New Padding(20, 14, 20, 14)
         ' 
         ' lblUserStatusSummary
         ' 
         lblUserStatusSummary.AutoSize = True
-        lblUserStatusSummary.Font = New Font("Tahoma", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        lblUserStatusSummary.Location = New Point(25, 15)
-        lblUserStatusSummary.Margin = New Padding(25, 15, 3, 8)
+        lblUserStatusSummary.Font = New Font("Segoe UI Semibold", 11F)
+        lblUserStatusSummary.ForeColor = Color.FromArgb(CByte(27), CByte(67), CByte(50))
+        lblUserStatusSummary.Margin = New Padding(0, 0, 0, 8)
         lblUserStatusSummary.Name = "lblUserStatusSummary"
-        lblUserStatusSummary.Size = New Size(215, 25)
-        lblUserStatusSummary.TabIndex = 1
         lblUserStatusSummary.Text = "User Status Summary"
-        ' 
-        ' FlowLayoutPanel6
-        ' 
-        FlowLayoutPanel6.Controls.Add(lblActiveUsers)
-        FlowLayoutPanel6.Controls.Add(lblNumberActiveUsers)
-        FlowLayoutPanel6.Location = New Point(25, 51)
-        FlowLayoutPanel6.Margin = New Padding(25, 3, 3, 8)
-        FlowLayoutPanel6.Name = "FlowLayoutPanel6"
-        FlowLayoutPanel6.Size = New Size(389, 39)
-        FlowLayoutPanel6.TabIndex = 2
         ' 
         ' lblActiveUsers
         ' 
         lblActiveUsers.AutoSize = True
-        lblActiveUsers.Font = New Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        lblActiveUsers.Location = New Point(10, 8)
-        lblActiveUsers.Margin = New Padding(10, 8, 3, 0)
+        lblActiveUsers.Font = New Font("Segoe UI", 10F)
+        lblActiveUsers.ForeColor = Color.FromArgb(CByte(107), CByte(114), CByte(128))
+        lblActiveUsers.Margin = New Padding(0, 3, 0, 3)
         lblActiveUsers.Name = "lblActiveUsers"
-        lblActiveUsers.Size = New Size(123, 23)
-        lblActiveUsers.TabIndex = 0
-        lblActiveUsers.Text = "Active Users: "
-        lblActiveUsers.TextAlign = ContentAlignment.MiddleLeft
+        lblActiveUsers.Text = "Active Users"
         ' 
         ' lblNumberActiveUsers
         ' 
         lblNumberActiveUsers.AutoSize = True
-        lblNumberActiveUsers.Font = New Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        lblNumberActiveUsers.Location = New Point(336, 8)
-        lblNumberActiveUsers.Margin = New Padding(200, 8, 3, 0)
+        lblNumberActiveUsers.Font = New Font("Segoe UI Semibold", 10.5F)
+        lblNumberActiveUsers.ForeColor = Color.FromArgb(CByte(31), CByte(41), CByte(55))
+        lblNumberActiveUsers.Margin = New Padding(0, 3, 0, 3)
         lblNumberActiveUsers.Name = "lblNumberActiveUsers"
-        lblNumberActiveUsers.Size = New Size(30, 23)
-        lblNumberActiveUsers.TabIndex = 2
-        lblNumberActiveUsers.Text = "00"
-        lblNumberActiveUsers.TextAlign = ContentAlignment.MiddleLeft
-        ' 
-        ' FlowLayoutPanel7
-        ' 
-        FlowLayoutPanel7.Controls.Add(lblInactiveUsers)
-        FlowLayoutPanel7.Controls.Add(lblNumberInactiveUsers)
-        FlowLayoutPanel7.Location = New Point(25, 101)
-        FlowLayoutPanel7.Margin = New Padding(25, 3, 3, 8)
-        FlowLayoutPanel7.Name = "FlowLayoutPanel7"
-        FlowLayoutPanel7.Size = New Size(389, 39)
-        FlowLayoutPanel7.TabIndex = 3
+        lblNumberActiveUsers.Text = "0"
+        lblNumberActiveUsers.Anchor = AnchorStyles.Right
         ' 
         ' lblInactiveUsers
         ' 
         lblInactiveUsers.AutoSize = True
-        lblInactiveUsers.Font = New Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        lblInactiveUsers.Location = New Point(10, 8)
-        lblInactiveUsers.Margin = New Padding(10, 8, 3, 0)
+        lblInactiveUsers.Font = New Font("Segoe UI", 10F)
+        lblInactiveUsers.ForeColor = Color.FromArgb(CByte(107), CByte(114), CByte(128))
+        lblInactiveUsers.Margin = New Padding(0, 3, 0, 3)
         lblInactiveUsers.Name = "lblInactiveUsers"
-        lblInactiveUsers.Size = New Size(140, 23)
-        lblInactiveUsers.TabIndex = 1
-        lblInactiveUsers.Text = "Inactive Users: "
-        lblInactiveUsers.TextAlign = ContentAlignment.MiddleLeft
+        lblInactiveUsers.Text = "Inactive Users"
         ' 
         ' lblNumberInactiveUsers
         ' 
         lblNumberInactiveUsers.AutoSize = True
-        lblNumberInactiveUsers.Font = New Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        lblNumberInactiveUsers.Location = New Point(338, 8)
-        lblNumberInactiveUsers.Margin = New Padding(185, 8, 3, 0)
+        lblNumberInactiveUsers.Font = New Font("Segoe UI Semibold", 10.5F)
+        lblNumberInactiveUsers.ForeColor = Color.FromArgb(CByte(31), CByte(41), CByte(55))
+        lblNumberInactiveUsers.Margin = New Padding(0, 3, 0, 3)
         lblNumberInactiveUsers.Name = "lblNumberInactiveUsers"
-        lblNumberInactiveUsers.Size = New Size(30, 23)
-        lblNumberInactiveUsers.TabIndex = 3
-        lblNumberInactiveUsers.Text = "00"
-        lblNumberInactiveUsers.TextAlign = ContentAlignment.MiddleLeft
+        lblNumberInactiveUsers.Text = "0"
+        lblNumberInactiveUsers.Anchor = AnchorStyles.Right
         ' 
-        ' btnAddUser
+        ' tlpStatus
         ' 
-        btnAddUser.Font = New Font("Tahoma", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        btnAddUser.Location = New Point(25, 151)
-        btnAddUser.Margin = New Padding(25, 3, 3, 3)
-        btnAddUser.Name = "btnAddUser"
-        btnAddUser.Size = New Size(117, 28)
-        btnAddUser.TabIndex = 5
-        btnAddUser.Text = "Add User"
-        btnAddUser.UseVisualStyleBackColor = True
+        tlpStatus.ColumnCount = 2
+        tlpStatus.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100F))
+        tlpStatus.ColumnStyles.Add(New ColumnStyle())
+        tlpStatus.Controls.Add(lblUserStatusSummary, 0, 0)
+        tlpStatus.Controls.Add(lblActiveUsers, 0, 1)
+        tlpStatus.Controls.Add(lblNumberActiveUsers, 1, 1)
+        tlpStatus.Controls.Add(lblInactiveUsers, 0, 2)
+        tlpStatus.Controls.Add(lblNumberInactiveUsers, 1, 2)
+        tlpStatus.Dock = DockStyle.Fill
+        tlpStatus.Margin = New Padding(0)
+        tlpStatus.Name = "tlpStatus"
+        tlpStatus.RowCount = 4
+        tlpStatus.RowStyles.Add(New RowStyle())
+        tlpStatus.RowStyles.Add(New RowStyle())
+        tlpStatus.RowStyles.Add(New RowStyle())
+        tlpStatus.RowStyles.Add(New RowStyle(SizeType.Percent, 100F))
+        tlpStatus.SetColumnSpan(lblUserStatusSummary, 2)
         ' 
-        ' fplContentArea
+        ' cardStatus
         ' 
-        fplContentArea.Controls.Add(fplSearchbox)
-        fplContentArea.Controls.Add(fplAllUsers)
-        fplContentArea.Controls.Add(fplDataGridView)
-        fplContentArea.Controls.Add(TableLayoutPanel1)
-        fplContentArea.Dock = DockStyle.Fill
-        fplContentArea.FlowDirection = FlowDirection.TopDown
-        fplContentArea.Location = New Point(0, 0)
-        fplContentArea.Name = "fplContentArea"
-        fplContentArea.Size = New Size(927, 622)
-        fplContentArea.TabIndex = 9
+        cardStatus.BackColor = Color.White
+        cardStatus.Controls.Add(tlpStatus)
+        cardStatus.Dock = DockStyle.Fill
+        cardStatus.Margin = New Padding(8, 0, 0, 0)
+        cardStatus.Name = "cardStatus"
+        cardStatus.Padding = New Padding(20, 14, 20, 14)
         ' 
-        ' TableLayoutPanel1
+        ' tlpSummary
         ' 
-        TableLayoutPanel1.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
-        TableLayoutPanel1.ColumnCount = 2
-        TableLayoutPanel1.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 49.9459457F))
-        TableLayoutPanel1.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50.0540543F))
-        TableLayoutPanel1.Controls.Add(FlowLayoutPanel2, 1, 0)
-        TableLayoutPanel1.Controls.Add(FlowLayoutPanel1, 0, 0)
-        TableLayoutPanel1.Location = New Point(3, 379)
-        TableLayoutPanel1.Name = "TableLayoutPanel1"
-        TableLayoutPanel1.RowCount = 1
-        TableLayoutPanel1.RowStyles.Add(New RowStyle(SizeType.Percent, 50F))
-        TableLayoutPanel1.RowStyles.Add(New RowStyle(SizeType.Percent, 50F))
-        TableLayoutPanel1.Size = New Size(925, 237)
-        TableLayoutPanel1.TabIndex = 8
+        tlpSummary.ColumnCount = 2
+        tlpSummary.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
+        tlpSummary.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
+        tlpSummary.Controls.Add(cardInfo, 0, 0)
+        tlpSummary.Controls.Add(cardStatus, 1, 0)
+        tlpSummary.Dock = DockStyle.Fill
+        tlpSummary.Margin = New Padding(0, 16, 0, 0)
+        tlpSummary.Name = "tlpSummary"
+        tlpSummary.RowCount = 1
+        tlpSummary.RowStyles.Add(New RowStyle(SizeType.Percent, 100F))
+        ' 
+        ' tlpMain
+        ' 
+        tlpMain.ColumnCount = 1
+        tlpMain.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100F))
+        tlpMain.Controls.Add(tlpToolbar, 0, 0)
+        tlpMain.Controls.Add(lblAllUsers, 0, 1)
+        tlpMain.Controls.Add(pnlGridBorder, 0, 2)
+        tlpMain.Controls.Add(tlpSummary, 0, 3)
+        tlpMain.Dock = DockStyle.Fill
+        tlpMain.Margin = New Padding(0)
+        tlpMain.Name = "tlpMain"
+        tlpMain.RowCount = 4
+        tlpMain.RowStyles.Add(New RowStyle())
+        tlpMain.RowStyles.Add(New RowStyle())
+        tlpMain.RowStyles.Add(New RowStyle(SizeType.Percent, 100F))
+        tlpMain.RowStyles.Add(New RowStyle(SizeType.Absolute, 180F))
+        tlpMain.Padding = New Padding(28, 20, 28, 24)
         ' 
         ' frmUserManagement
         ' 
-        AutoScaleDimensions = New SizeF(7F, 15F)
-        AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(927, 622)
-        Controls.Add(fplContentArea)
+        AutoScaleDimensions = New SizeF(96F, 96F)
+        AutoScaleMode = AutoScaleMode.Dpi
+        AutoScroll = True
+        AutoScrollMinSize = New Size(760, 600)
+        BackColor = Color.FromArgb(CByte(245), CByte(247), CByte(244))
+        ClientSize = New Size(1020, 640)
+        Controls.Add(tlpMain)
+        FormBorderStyle = FormBorderStyle.None
         Name = "frmUserManagement"
-        Text = "UserManagement"
+        Text = "User Management"
+        tlpToolbar.ResumeLayout(False)
+        tlpToolbar.PerformLayout()
+        pnlGridBorder.ResumeLayout(False)
         CType(dgvUsers, ComponentModel.ISupportInitialize).EndInit()
-        fplSearchbox.ResumeLayout(False)
-        fplSearchbox.PerformLayout()
-        fplAllUsers.ResumeLayout(False)
-        fplAllUsers.PerformLayout()
-        fplDataGridView.ResumeLayout(False)
-        FlowLayoutPanel1.ResumeLayout(False)
-        FlowLayoutPanel1.PerformLayout()
-        FlowLayoutPanel3.ResumeLayout(False)
-        FlowLayoutPanel3.PerformLayout()
-        FlowLayoutPanel4.ResumeLayout(False)
-        FlowLayoutPanel4.PerformLayout()
-        FlowLayoutPanel2.ResumeLayout(False)
-        FlowLayoutPanel2.PerformLayout()
-        FlowLayoutPanel6.ResumeLayout(False)
-        FlowLayoutPanel6.PerformLayout()
-        FlowLayoutPanel7.ResumeLayout(False)
-        FlowLayoutPanel7.PerformLayout()
-        fplContentArea.ResumeLayout(False)
-        TableLayoutPanel1.ResumeLayout(False)
+        tlpInfo.ResumeLayout(False)
+        tlpInfo.PerformLayout()
+        cardInfo.ResumeLayout(False)
+        tlpStatus.ResumeLayout(False)
+        tlpStatus.PerformLayout()
+        cardStatus.ResumeLayout(False)
+        tlpSummary.ResumeLayout(False)
+        tlpMain.ResumeLayout(False)
+        tlpMain.PerformLayout()
         ResumeLayout(False)
     End Sub
 
-    Friend WithEvents dgvUsers As DataGridView
-    Friend WithEvents fplSearchbox As FlowLayoutPanel
-    Friend WithEvents fplAllUsers As FlowLayoutPanel
-    Friend WithEvents fplDataGridView As FlowLayoutPanel
-    Friend WithEvents lblAllUsers As Label
-    Friend WithEvents btnClearSearch As Button
-    Friend WithEvents ColUserID As DataGridViewTextBoxColumn
-    Friend WithEvents ColUsername As DataGridViewTextBoxColumn
-    Friend WithEvents ColFullname As DataGridViewTextBoxColumn
-    Friend WithEvents ColRole As DataGridViewTextBoxColumn
-    Friend WithEvents ColUserStatus As DataGridViewTextBoxColumn
-    Friend WithEvents FlowLayoutPanel1 As FlowLayoutPanel
-    Friend WithEvents FlowLayoutPanel2 As FlowLayoutPanel
-    Friend WithEvents lblUserInformation As Label
-    Friend WithEvents FlowLayoutPanel3 As FlowLayoutPanel
-    Friend WithEvents Label1 As Label
-    Friend WithEvents lblUserStatusSummary As Label
-    Friend WithEvents FlowLayoutPanel4 As FlowLayoutPanel
-    Friend WithEvents btnViewUser As Button
-    Friend WithEvents FlowLayoutPanel6 As FlowLayoutPanel
-    Friend WithEvents lblActiveUsers As Label
-    Friend WithEvents FlowLayoutPanel7 As FlowLayoutPanel
-    Friend WithEvents btnAddUser As Button
-    Friend WithEvents lblUsername As Label
-    Friend WithEvents Label3 As Label
-    Friend WithEvents lblRole As Label
-    Friend WithEvents lblInactiveUsers As Label
-    Friend WithEvents lblNumberActiveUsers As Label
-    Friend WithEvents lblNumberInactiveUsers As Label
     Friend WithEvents txtSearchBox As TextBox
-    Friend WithEvents fplContentArea As FlowLayoutPanel
-    Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
+    Friend WithEvents btnClearSearch As Button
+    Friend WithEvents btnAddUser As Button
+    Friend WithEvents tlpToolbar As TableLayoutPanel
+    Friend WithEvents lblAllUsers As Label
+    Friend WithEvents dgvUsers As DataGridView
+    Friend WithEvents pnlGridBorder As Panel
+    Friend WithEvents lblUserInformation As Label
+    Friend WithEvents lblCapUsername As Label
+    Friend WithEvents lblUsername As Label
+    Friend WithEvents lblCapRole As Label
+    Friend WithEvents lblRole As Label
+    Friend WithEvents btnViewUser As Button
+    Friend WithEvents tlpInfo As TableLayoutPanel
+    Friend WithEvents cardInfo As CardPanel
+    Friend WithEvents lblUserStatusSummary As Label
+    Friend WithEvents lblActiveUsers As Label
+    Friend WithEvents lblNumberActiveUsers As Label
+    Friend WithEvents lblInactiveUsers As Label
+    Friend WithEvents lblNumberInactiveUsers As Label
+    Friend WithEvents tlpStatus As TableLayoutPanel
+    Friend WithEvents cardStatus As CardPanel
+    Friend WithEvents tlpSummary As TableLayoutPanel
+    Friend WithEvents tlpMain As TableLayoutPanel
 End Class

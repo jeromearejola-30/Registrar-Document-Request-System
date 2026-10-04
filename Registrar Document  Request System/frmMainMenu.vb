@@ -1,4 +1,4 @@
-Public Class frmMainMenu
+﻿Public Class frmMainMenu
 
     ' ---- Current user (set by frmLogin before Show) ----
     Public Property UserRole As String
@@ -87,8 +87,13 @@ Public Class frmMainMenu
             UserRole = String.Empty
             UserName = String.Empty
             timer1.Stop()
-            Dim loginForm As New frmLogin()
+
+            ' frmLogin is the app's main form and was only hidden at sign-in, so show that same one again
+            ' (creating a new login form every logout would leave a hidden copy behind each time)
+            Dim loginForm As frmLogin = Application.OpenForms.OfType(Of frmLogin)().FirstOrDefault()
+            If loginForm Is Nothing Then loginForm = New frmLogin()
             loginForm.Show()
+            loginForm.Activate()
 
             Me.Dispose() ' Safely destroys frmMainMenu without closing the new login screen
         End If
@@ -143,7 +148,10 @@ Public Class frmMainMenu
 
             Case TypeOf page Is frmDocumentRequest
                 title = "Document Requests" : nav = btnDocumentRequests
-            Case TypeOf page Is frmCreateDocumentRequest, TypeOf page Is frmCreateRequest
+            Case TypeOf page Is frmRequestDetails
+                title = "Request Details" : nav = btnDocumentRequests
+
+            Case TypeOf page Is frmCreateDocumentRequest
                 title = "Create Document Request" : nav = btnDocumentRequests
 
             Case TypeOf page Is frmReport

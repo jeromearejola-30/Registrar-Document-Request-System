@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmDocumentRequest
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -17,377 +17,325 @@ Partial Class frmDocumentRequest
     'Required by the Windows Form Designer
     Private components As System.ComponentModel.IContainer
 
-    'NOTE: The following procedure is required by the Windows Form Designer
-    'It can be modified using the Windows Form Designer.  
-    'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        pnlSearch = New Panel()
-        btnClearSearch = New Button()
+
         txtSearch = New TextBox()
-        pnlGridContainer = New Panel()
-        lblDocTypeDate = New Label()
-        dgvRequests = New DataGridView()
-        lblAllDocRequest = New Label()
-        pnlDocSummary = New Panel()
-        btnAllRequests = New Button()
-        Label1 = New Label()
-        btnCancelledRequests = New Button()
-        btnAddDocument = New Button()
-        btnReleasedRequests = New Button()
-        btnReadyForRelease = New Button()
-        btnPendingRequests = New Button()
-        btnProcessingRequests = New Button()
-        Panel1 = New Panel()
-        lblCancelledCount = New Label()
-        lblReleasedCount = New Label()
-        lblProcessCount = New Label()
-        lblReadyCount = New Label()
-        lblPendingCount = New Label()
-        lblRequestStatus = New Label()
-        Button1 = New Button()
-        Panel2 = New Panel()
         cboFilterByDocType = New ComboBox()
+        btnClearSearch = New Button()
+        btnViewRequest = New Button()
         btnCreateRequest = New Button()
-        lblFilterRequest = New Label()
-        Button2 = New Button()
-        pnlSearch.SuspendLayout()
-        pnlGridContainer.SuspendLayout()
+        tlpToolbar = New TableLayoutPanel()
+        cardAll = New StatCard()
+        cardPending = New StatCard()
+        cardProcessing = New StatCard()
+        cardReadyForRelease = New StatCard()
+        cardReleased = New StatCard()
+        cardCancelled = New StatCard()
+        tlpStatus = New TableLayoutPanel()
+        lblAllDocRequest = New Label()
+        lblDocTypeDate = New Label()
+        tlpHead = New TableLayoutPanel()
+        dgvRequests = New DataGridView()
+        pnlGridBorder = New Panel()
+        tlpMain = New TableLayoutPanel()
+        tlpToolbar.SuspendLayout()
+        tlpStatus.SuspendLayout()
+        tlpHead.SuspendLayout()
+        pnlGridBorder.SuspendLayout()
+        tlpMain.SuspendLayout()
         CType(dgvRequests, ComponentModel.ISupportInitialize).BeginInit()
-        pnlDocSummary.SuspendLayout()
-        Panel1.SuspendLayout()
-        Panel2.SuspendLayout()
         SuspendLayout()
-        ' 
-        ' pnlSearch
-        ' 
-        pnlSearch.Controls.Add(btnClearSearch)
-        pnlSearch.Controls.Add(txtSearch)
-        pnlSearch.Location = New Point(67, 44)
-        pnlSearch.Name = "pnlSearch"
-        pnlSearch.Size = New Size(774, 71)
-        pnlSearch.TabIndex = 3
-        ' 
-        ' btnClearSearch
-        ' 
-        btnClearSearch.Location = New Point(645, 23)
-        btnClearSearch.Name = "btnClearSearch"
-        btnClearSearch.Size = New Size(101, 29)
-        btnClearSearch.TabIndex = 2
-        btnClearSearch.Text = "Clear Search"
-        btnClearSearch.UseVisualStyleBackColor = True
         ' 
         ' txtSearch
         ' 
-        txtSearch.Location = New Point(21, 17)
-        txtSearch.Multiline = True
+        txtSearch.Anchor = AnchorStyles.Left Or AnchorStyles.Right
+        txtSearch.BorderStyle = BorderStyle.FixedSingle
+        txtSearch.Font = New Font("Segoe UI", 11F)
+        txtSearch.ForeColor = Color.FromArgb(CByte(31), CByte(41), CByte(55))
+        txtSearch.Margin = New Padding(0)
+        txtSearch.MaximumSize = New Size(520, 0)
         txtSearch.Name = "txtSearch"
-        txtSearch.Size = New Size(541, 33)
-        txtSearch.TabIndex = 1
+        txtSearch.PlaceholderText = "Search request no., student, document, date..."
+        txtSearch.Size = New Size(520, 27)
         ' 
-        ' pnlGridContainer
+        ' cboFilterByDocType
         ' 
-        pnlGridContainer.Controls.Add(lblDocTypeDate)
-        pnlGridContainer.Controls.Add(dgvRequests)
-        pnlGridContainer.Controls.Add(lblAllDocRequest)
-        pnlGridContainer.Location = New Point(41, 121)
-        pnlGridContainer.Name = "pnlGridContainer"
-        pnlGridContainer.Size = New Size(846, 234)
-        pnlGridContainer.TabIndex = 4
+        cboFilterByDocType.Anchor = AnchorStyles.Left Or AnchorStyles.Right
+        cboFilterByDocType.DropDownStyle = ComboBoxStyle.DropDownList
+        cboFilterByDocType.Font = New Font("Segoe UI", 10.5F)
+        cboFilterByDocType.FormattingEnabled = True
+        cboFilterByDocType.Margin = New Padding(12, 0, 0, 0)
+        cboFilterByDocType.Name = "cboFilterByDocType"
         ' 
-        ' lblDocTypeDate
+        ' btnClearSearch
         ' 
-        lblDocTypeDate.AutoSize = True
-        lblDocTypeDate.Location = New Point(625, 17)
-        lblDocTypeDate.Name = "lblDocTypeDate"
-        lblDocTypeDate.Size = New Size(172, 20)
-        lblDocTypeDate.TabIndex = 4
-        lblDocTypeDate.Text = "document type and date"
+        btnClearSearch.AutoSize = True
+        btnClearSearch.AutoSizeMode = AutoSizeMode.GrowAndShrink
+        btnClearSearch.Cursor = Cursors.Hand
+        btnClearSearch.BackColor = Color.White
+        btnClearSearch.FlatAppearance.BorderColor = Color.FromArgb(CByte(27), CByte(67), CByte(50))
+        btnClearSearch.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(207), CByte(227), CByte(214))
+        btnClearSearch.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(234), CByte(242), CByte(237))
+        btnClearSearch.ForeColor = Color.FromArgb(CByte(27), CByte(67), CByte(50))
+        btnClearSearch.FlatStyle = FlatStyle.Flat
+        btnClearSearch.Font = New Font("Segoe UI Semibold", 10F)
+        btnClearSearch.Margin = New Padding(8, 0, 0, 0)
+        btnClearSearch.MinimumSize = New Size(0, 40)
+        btnClearSearch.Name = "btnClearSearch"
+        btnClearSearch.Padding = New Padding(14, 0, 14, 0)
+        btnClearSearch.Text = "Clear Search"
+        btnClearSearch.UseVisualStyleBackColor = False
         ' 
-        ' dgvRequests
+        ' btnViewRequest
         ' 
-        dgvRequests.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
-        dgvRequests.BackgroundColor = SystemColors.Control
-        dgvRequests.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dgvRequests.Location = New Point(21, 53)
-        dgvRequests.Name = "dgvRequests"
-        dgvRequests.RowHeadersVisible = False
-        dgvRequests.RowHeadersWidth = 51
-        dgvRequests.Size = New Size(806, 159)
-        dgvRequests.TabIndex = 3
+        btnViewRequest.AutoSize = True
+        btnViewRequest.AutoSizeMode = AutoSizeMode.GrowAndShrink
+        btnViewRequest.Cursor = Cursors.Hand
+        btnViewRequest.BackColor = Color.White
+        btnViewRequest.FlatAppearance.BorderColor = Color.FromArgb(CByte(27), CByte(67), CByte(50))
+        btnViewRequest.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(207), CByte(227), CByte(214))
+        btnViewRequest.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(234), CByte(242), CByte(237))
+        btnViewRequest.ForeColor = Color.FromArgb(CByte(27), CByte(67), CByte(50))
+        btnViewRequest.FlatStyle = FlatStyle.Flat
+        btnViewRequest.Font = New Font("Segoe UI Semibold", 10F)
+        btnViewRequest.Margin = New Padding(8, 0, 0, 0)
+        btnViewRequest.MinimumSize = New Size(0, 40)
+        btnViewRequest.Name = "btnViewRequest"
+        btnViewRequest.Padding = New Padding(14, 0, 14, 0)
+        btnViewRequest.Text = "View / Update"
+        btnViewRequest.UseVisualStyleBackColor = False
+        ' 
+        ' btnCreateRequest
+        ' 
+        btnCreateRequest.AutoSize = True
+        btnCreateRequest.AutoSizeMode = AutoSizeMode.GrowAndShrink
+        btnCreateRequest.Cursor = Cursors.Hand
+        btnCreateRequest.BackColor = Color.FromArgb(CByte(27), CByte(67), CByte(50))
+        btnCreateRequest.FlatAppearance.BorderSize = 0
+        btnCreateRequest.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(36), CByte(90), CByte(65))
+        btnCreateRequest.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(45), CByte(106), CByte(79))
+        btnCreateRequest.ForeColor = Color.White
+        btnCreateRequest.FlatStyle = FlatStyle.Flat
+        btnCreateRequest.Font = New Font("Segoe UI Semibold", 10F)
+        btnCreateRequest.Margin = New Padding(8, 0, 0, 0)
+        btnCreateRequest.MinimumSize = New Size(0, 40)
+        btnCreateRequest.Name = "btnCreateRequest"
+        btnCreateRequest.Padding = New Padding(14, 0, 14, 0)
+        btnCreateRequest.Text = "Create Document Request"
+        btnCreateRequest.UseVisualStyleBackColor = False
+        ' 
+        ' tlpToolbar
+        ' 
+        tlpToolbar.AutoSize = True
+        tlpToolbar.AutoSizeMode = AutoSizeMode.GrowAndShrink
+        tlpToolbar.ColumnCount = 5
+        tlpToolbar.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100F))
+        tlpToolbar.ColumnStyles.Add(New ColumnStyle(SizeType.Absolute, 252F))
+        tlpToolbar.ColumnStyles.Add(New ColumnStyle())
+        tlpToolbar.ColumnStyles.Add(New ColumnStyle())
+        tlpToolbar.ColumnStyles.Add(New ColumnStyle())
+        tlpToolbar.Controls.Add(txtSearch, 0, 0)
+        tlpToolbar.Controls.Add(cboFilterByDocType, 1, 0)
+        tlpToolbar.Controls.Add(btnClearSearch, 2, 0)
+        tlpToolbar.Controls.Add(btnViewRequest, 3, 0)
+        tlpToolbar.Controls.Add(btnCreateRequest, 4, 0)
+        tlpToolbar.Dock = DockStyle.Fill
+        tlpToolbar.Margin = New Padding(0)
+        tlpToolbar.Name = "tlpToolbar"
+        tlpToolbar.RowCount = 1
+        tlpToolbar.RowStyles.Add(New RowStyle())
+        ' 
+        ' cardAll
+        ' 
+        cardAll.AccentColor = Color.FromArgb(27, 67, 50)
+        cardAll.Cursor = Cursors.Hand
+        cardAll.Dock = DockStyle.Fill
+        cardAll.Margin = New Padding(0, 0, 12, 0)
+        cardAll.Name = "cardAll"
+        cardAll.Title = "All Requests"
+        cardAll.Value = "0"
+        ' 
+        ' cardPending
+        ' 
+        cardPending.AccentColor = Color.FromArgb(245, 158, 11)
+        cardPending.Cursor = Cursors.Hand
+        cardPending.Dock = DockStyle.Fill
+        cardPending.Margin = New Padding(0, 0, 12, 0)
+        cardPending.Name = "cardPending"
+        cardPending.Title = "Pending"
+        cardPending.Value = "0"
+        ' 
+        ' cardProcessing
+        ' 
+        cardProcessing.AccentColor = Color.FromArgb(124, 58, 237)
+        cardProcessing.Cursor = Cursors.Hand
+        cardProcessing.Dock = DockStyle.Fill
+        cardProcessing.Margin = New Padding(0, 0, 12, 0)
+        cardProcessing.Name = "cardProcessing"
+        cardProcessing.Title = "Processing"
+        cardProcessing.Value = "0"
+        ' 
+        ' cardReadyForRelease
+        ' 
+        cardReadyForRelease.AccentColor = Color.FromArgb(13, 148, 136)
+        cardReadyForRelease.Cursor = Cursors.Hand
+        cardReadyForRelease.Dock = DockStyle.Fill
+        cardReadyForRelease.Margin = New Padding(0, 0, 12, 0)
+        cardReadyForRelease.Name = "cardReadyForRelease"
+        cardReadyForRelease.Title = "Ready for Release"
+        cardReadyForRelease.Value = "0"
+        ' 
+        ' cardReleased
+        ' 
+        cardReleased.AccentColor = Color.FromArgb(71, 85, 105)
+        cardReleased.Cursor = Cursors.Hand
+        cardReleased.Dock = DockStyle.Fill
+        cardReleased.Margin = New Padding(0, 0, 12, 0)
+        cardReleased.Name = "cardReleased"
+        cardReleased.Title = "Released"
+        cardReleased.Value = "0"
+        ' 
+        ' cardCancelled
+        ' 
+        cardCancelled.AccentColor = Color.FromArgb(220, 38, 38)
+        cardCancelled.Cursor = Cursors.Hand
+        cardCancelled.Dock = DockStyle.Fill
+        cardCancelled.Margin = New Padding(0, 0, 0, 0)
+        cardCancelled.Name = "cardCancelled"
+        cardCancelled.Title = "Cancelled"
+        cardCancelled.Value = "0"
+        ' 
+        ' tlpStatus
+        ' 
+        tlpStatus.ColumnCount = 6
+        tlpStatus.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 16.6667F))
+        tlpStatus.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 16.6667F))
+        tlpStatus.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 16.6667F))
+        tlpStatus.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 16.6667F))
+        tlpStatus.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 16.6667F))
+        tlpStatus.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 16.6667F))
+        tlpStatus.Controls.Add(cardAll, 0, 0)
+        tlpStatus.Controls.Add(cardPending, 1, 0)
+        tlpStatus.Controls.Add(cardProcessing, 2, 0)
+        tlpStatus.Controls.Add(cardReadyForRelease, 3, 0)
+        tlpStatus.Controls.Add(cardReleased, 4, 0)
+        tlpStatus.Controls.Add(cardCancelled, 5, 0)
+        tlpStatus.Dock = DockStyle.Fill
+        tlpStatus.Margin = New Padding(0, 16, 0, 0)
+        tlpStatus.Name = "tlpStatus"
+        tlpStatus.RowCount = 1
+        tlpStatus.RowStyles.Add(New RowStyle(SizeType.Percent, 100F))
         ' 
         ' lblAllDocRequest
         ' 
         lblAllDocRequest.AutoSize = True
-        lblAllDocRequest.Location = New Point(29, 17)
+        lblAllDocRequest.Font = New Font("Segoe UI Semibold", 12F)
+        lblAllDocRequest.ForeColor = Color.FromArgb(CByte(31), CByte(41), CByte(55))
+        lblAllDocRequest.Margin = New Padding(0)
         lblAllDocRequest.Name = "lblAllDocRequest"
-        lblAllDocRequest.Size = New Size(163, 20)
-        lblAllDocRequest.TabIndex = 2
-        lblAllDocRequest.Text = "All Documents Request"
+        lblAllDocRequest.Text = "All Document Requests"
+        lblAllDocRequest.Anchor = AnchorStyles.Left
         ' 
-        ' pnlDocSummary
+        ' lblDocTypeDate
         ' 
-        pnlDocSummary.Controls.Add(btnAllRequests)
-        pnlDocSummary.Controls.Add(Label1)
-        pnlDocSummary.Controls.Add(btnCancelledRequests)
-        pnlDocSummary.Controls.Add(btnAddDocument)
-        pnlDocSummary.Controls.Add(btnReleasedRequests)
-        pnlDocSummary.Controls.Add(btnReadyForRelease)
-        pnlDocSummary.Controls.Add(btnPendingRequests)
-        pnlDocSummary.Controls.Add(btnProcessingRequests)
-        pnlDocSummary.Location = New Point(366, 361)
-        pnlDocSummary.Name = "pnlDocSummary"
-        pnlDocSummary.Size = New Size(269, 241)
-        pnlDocSummary.TabIndex = 7
+        lblDocTypeDate.AutoSize = True
+        lblDocTypeDate.Font = New Font("Segoe UI", 9.5F)
+        lblDocTypeDate.ForeColor = Color.FromArgb(CByte(107), CByte(114), CByte(128))
+        lblDocTypeDate.Margin = New Padding(0)
+        lblDocTypeDate.Name = "lblDocTypeDate"
+        lblDocTypeDate.Text = "[All Document Types]"
+        lblDocTypeDate.Anchor = AnchorStyles.Right
         ' 
-        ' btnAllRequests
+        ' tlpHead
         ' 
-        btnAllRequests.Location = New Point(25, 201)
-        btnAllRequests.Name = "btnAllRequests"
-        btnAllRequests.Size = New Size(213, 26)
-        btnAllRequests.TabIndex = 16
-        btnAllRequests.Text = "All Requests"
-        btnAllRequests.UseVisualStyleBackColor = True
+        tlpHead.AutoSize = True
+        tlpHead.AutoSizeMode = AutoSizeMode.GrowAndShrink
+        tlpHead.ColumnCount = 2
+        tlpHead.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100F))
+        tlpHead.ColumnStyles.Add(New ColumnStyle())
+        tlpHead.Controls.Add(lblAllDocRequest, 0, 0)
+        tlpHead.Controls.Add(lblDocTypeDate, 1, 0)
+        tlpHead.Dock = DockStyle.Fill
+        tlpHead.Margin = New Padding(0, 16, 0, 8)
+        tlpHead.Name = "tlpHead"
+        tlpHead.RowCount = 1
+        tlpHead.RowStyles.Add(New RowStyle())
         ' 
-        ' Label1
+        ' dgvRequests
         ' 
-        Label1.AutoSize = True
-        Label1.Location = New Point(25, 14)
-        Label1.Name = "Label1"
-        Label1.Size = New Size(176, 20)
-        Label1.TabIndex = 11
-        Label1.Text = " Request Status Summary"
+        dgvRequests.Dock = DockStyle.Fill
+        dgvRequests.Name = "dgvRequests"
         ' 
-        ' btnCancelledRequests
+        ' pnlGridBorder
         ' 
-        btnCancelledRequests.Location = New Point(25, 169)
-        btnCancelledRequests.Name = "btnCancelledRequests"
-        btnCancelledRequests.Size = New Size(213, 26)
-        btnCancelledRequests.TabIndex = 15
-        btnCancelledRequests.Text = "Cancelled Requests"
-        btnCancelledRequests.UseVisualStyleBackColor = True
+        pnlGridBorder.BackColor = Color.FromArgb(CByte(229), CByte(231), CByte(235))
+        pnlGridBorder.Controls.Add(dgvRequests)
+        pnlGridBorder.Dock = DockStyle.Fill
+        pnlGridBorder.Margin = New Padding(0)
+        pnlGridBorder.Name = "pnlGridBorder"
+        pnlGridBorder.Padding = New Padding(1)
         ' 
-        ' btnAddDocument
+        ' tlpMain
         ' 
-        btnAddDocument.Location = New Point(25, 261)
-        btnAddDocument.Name = "btnAddDocument"
-        btnAddDocument.Size = New Size(122, 29)
-        btnAddDocument.TabIndex = 10
-        btnAddDocument.Text = "Add Document"
-        btnAddDocument.UseVisualStyleBackColor = True
-        ' 
-        ' btnReleasedRequests
-        ' 
-        btnReleasedRequests.Location = New Point(25, 137)
-        btnReleasedRequests.Name = "btnReleasedRequests"
-        btnReleasedRequests.Size = New Size(213, 26)
-        btnReleasedRequests.TabIndex = 14
-        btnReleasedRequests.Text = "Released Requests"
-        btnReleasedRequests.UseVisualStyleBackColor = True
-        ' 
-        ' btnReadyForRelease
-        ' 
-        btnReadyForRelease.Location = New Point(25, 105)
-        btnReadyForRelease.Name = "btnReadyForRelease"
-        btnReadyForRelease.Size = New Size(213, 26)
-        btnReadyForRelease.TabIndex = 13
-        btnReadyForRelease.Text = "Ready for Release"
-        btnReadyForRelease.UseVisualStyleBackColor = True
-        ' 
-        ' btnPendingRequests
-        ' 
-        btnPendingRequests.Location = New Point(25, 41)
-        btnPendingRequests.Name = "btnPendingRequests"
-        btnPendingRequests.Size = New Size(213, 26)
-        btnPendingRequests.TabIndex = 11
-        btnPendingRequests.Text = "Pending Requests"
-        btnPendingRequests.UseVisualStyleBackColor = True
-        ' 
-        ' btnProcessingRequests
-        ' 
-        btnProcessingRequests.Location = New Point(25, 73)
-        btnProcessingRequests.Name = "btnProcessingRequests"
-        btnProcessingRequests.Size = New Size(213, 26)
-        btnProcessingRequests.TabIndex = 12
-        btnProcessingRequests.Text = "Processing Requests"
-        btnProcessingRequests.UseVisualStyleBackColor = True
-        ' 
-        ' Panel1
-        ' 
-        Panel1.Controls.Add(lblCancelledCount)
-        Panel1.Controls.Add(lblReleasedCount)
-        Panel1.Controls.Add(lblProcessCount)
-        Panel1.Controls.Add(lblReadyCount)
-        Panel1.Controls.Add(lblPendingCount)
-        Panel1.Controls.Add(lblRequestStatus)
-        Panel1.Controls.Add(Button1)
-        Panel1.Location = New Point(41, 361)
-        Panel1.Name = "Panel1"
-        Panel1.Size = New Size(319, 241)
-        Panel1.TabIndex = 11
-        ' 
-        ' lblCancelledCount
-        ' 
-        lblCancelledCount.AutoSize = True
-        lblCancelledCount.Location = New Point(25, 196)
-        lblCancelledCount.Name = "lblCancelledCount"
-        lblCancelledCount.Size = New Size(93, 20)
-        lblCancelledCount.TabIndex = 15
-        lblCancelledCount.Text = "Cancelled : 0"
-        ' 
-        ' lblReleasedCount
-        ' 
-        lblReleasedCount.AutoSize = True
-        lblReleasedCount.Location = New Point(25, 164)
-        lblReleasedCount.Name = "lblReleasedCount"
-        lblReleasedCount.Size = New Size(88, 20)
-        lblReleasedCount.TabIndex = 14
-        lblReleasedCount.Text = "Released : 0"
-        ' 
-        ' lblProcessCount
-        ' 
-        lblProcessCount.AutoSize = True
-        lblProcessCount.Location = New Point(25, 132)
-        lblProcessCount.Name = "lblProcessCount"
-        lblProcessCount.Size = New Size(77, 20)
-        lblProcessCount.TabIndex = 13
-        lblProcessCount.Text = "Process : 0"
-        ' 
-        ' lblReadyCount
-        ' 
-        lblReadyCount.AutoSize = True
-        lblReadyCount.Location = New Point(25, 100)
-        lblReadyCount.Name = "lblReadyCount"
-        lblReadyCount.Size = New Size(143, 20)
-        lblReadyCount.TabIndex = 12
-        lblReadyCount.Text = "Ready for release : 0"
-        ' 
-        ' lblPendingCount
-        ' 
-        lblPendingCount.AutoSize = True
-        lblPendingCount.Location = New Point(25, 62)
-        lblPendingCount.Name = "lblPendingCount"
-        lblPendingCount.Size = New Size(81, 20)
-        lblPendingCount.TabIndex = 11
-        lblPendingCount.Text = "Pending : 0"
-        ' 
-        ' lblRequestStatus
-        ' 
-        lblRequestStatus.AutoSize = True
-        lblRequestStatus.Location = New Point(21, 14)
-        lblRequestStatus.Name = "lblRequestStatus"
-        lblRequestStatus.Size = New Size(176, 20)
-        lblRequestStatus.TabIndex = 5
-        lblRequestStatus.Text = " Request Status Summary"
-        ' 
-        ' Button1
-        ' 
-        Button1.Location = New Point(25, 261)
-        Button1.Name = "Button1"
-        Button1.Size = New Size(122, 29)
-        Button1.TabIndex = 10
-        Button1.Text = "Add Document"
-        Button1.UseVisualStyleBackColor = True
-        ' 
-        ' Panel2
-        ' 
-        Panel2.Controls.Add(cboFilterByDocType)
-        Panel2.Controls.Add(btnCreateRequest)
-        Panel2.Controls.Add(lblFilterRequest)
-        Panel2.Controls.Add(Button2)
-        Panel2.Location = New Point(641, 361)
-        Panel2.Name = "Panel2"
-        Panel2.Size = New Size(246, 241)
-        Panel2.TabIndex = 12
-        ' 
-        ' cboFilterByDocType
-        ' 
-        cboFilterByDocType.FormattingEnabled = True
-        cboFilterByDocType.Location = New Point(18, 54)
-        cboFilterByDocType.Name = "cboFilterByDocType"
-        cboFilterByDocType.Size = New Size(213, 28)
-        cboFilterByDocType.TabIndex = 20
-        ' 
-        ' btnCreateRequest
-        ' 
-        btnCreateRequest.Location = New Point(18, 97)
-        btnCreateRequest.Name = "btnCreateRequest"
-        btnCreateRequest.Size = New Size(213, 26)
-        btnCreateRequest.TabIndex = 18
-        btnCreateRequest.Text = "Create a Document Request"
-        btnCreateRequest.UseVisualStyleBackColor = True
-        ' 
-        ' lblFilterRequest
-        ' 
-        lblFilterRequest.AutoSize = True
-        lblFilterRequest.Location = New Point(18, 14)
-        lblFilterRequest.Name = "lblFilterRequest"
-        lblFilterRequest.Size = New Size(176, 20)
-        lblFilterRequest.TabIndex = 16
-        lblFilterRequest.Text = " Request Status Summary"
-        ' 
-        ' Button2
-        ' 
-        Button2.Location = New Point(25, 261)
-        Button2.Name = "Button2"
-        Button2.Size = New Size(122, 29)
-        Button2.TabIndex = 10
-        Button2.Text = "Add Document"
-        Button2.UseVisualStyleBackColor = True
+        tlpMain.ColumnCount = 1
+        tlpMain.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100F))
+        tlpMain.Controls.Add(tlpToolbar, 0, 0)
+        tlpMain.Controls.Add(tlpStatus, 0, 1)
+        tlpMain.Controls.Add(tlpHead, 0, 2)
+        tlpMain.Controls.Add(pnlGridBorder, 0, 3)
+        tlpMain.Dock = DockStyle.Fill
+        tlpMain.Margin = New Padding(0)
+        tlpMain.Name = "tlpMain"
+        tlpMain.RowCount = 4
+        tlpMain.RowStyles.Add(New RowStyle())
+        tlpMain.RowStyles.Add(New RowStyle(SizeType.Absolute, 108F))
+        tlpMain.RowStyles.Add(New RowStyle())
+        tlpMain.RowStyles.Add(New RowStyle(SizeType.Percent, 100F))
+        tlpMain.Padding = New Padding(28, 20, 28, 24)
         ' 
         ' frmDocumentRequest
         ' 
-        AutoScaleDimensions = New SizeF(8F, 20F)
-        AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(925, 614)
-        Controls.Add(Panel2)
-        Controls.Add(Panel1)
-        Controls.Add(pnlDocSummary)
-        Controls.Add(pnlGridContainer)
-        Controls.Add(pnlSearch)
+        AutoScaleDimensions = New SizeF(96F, 96F)
+        AutoScaleMode = AutoScaleMode.Dpi
+        AutoScroll = True
+        AutoScrollMinSize = New Size(940, 520)
+        BackColor = Color.FromArgb(CByte(245), CByte(247), CByte(244))
+        ClientSize = New Size(1020, 640)
+        Controls.Add(tlpMain)
+        FormBorderStyle = FormBorderStyle.None
         Name = "frmDocumentRequest"
-        Text = "DocumentRequest"
-        pnlSearch.ResumeLayout(False)
-        pnlSearch.PerformLayout()
-        pnlGridContainer.ResumeLayout(False)
-        pnlGridContainer.PerformLayout()
+        Text = "Document Requests"
+        tlpToolbar.ResumeLayout(False)
+        tlpToolbar.PerformLayout()
+        tlpStatus.ResumeLayout(False)
+        tlpStatus.PerformLayout()
+        tlpHead.ResumeLayout(False)
+        tlpHead.PerformLayout()
+        pnlGridBorder.ResumeLayout(False)
         CType(dgvRequests, ComponentModel.ISupportInitialize).EndInit()
-        pnlDocSummary.ResumeLayout(False)
-        pnlDocSummary.PerformLayout()
-        Panel1.ResumeLayout(False)
-        Panel1.PerformLayout()
-        Panel2.ResumeLayout(False)
-        Panel2.PerformLayout()
+        tlpMain.ResumeLayout(False)
+        tlpMain.PerformLayout()
         ResumeLayout(False)
     End Sub
 
-    Friend WithEvents pnlSearch As Panel
-    Friend WithEvents btnClearSearch As Button
     Friend WithEvents txtSearch As TextBox
-    Friend WithEvents pnlGridContainer As Panel
-    Friend WithEvents dgvRequests As DataGridView
-    Friend WithEvents lblAllDocRequest As Label
-    Friend WithEvents pnlDocSummary As Panel
-    Friend WithEvents btnAddDocument As Button
-    Friend WithEvents Panel1 As Panel
-    Friend WithEvents Button1 As Button
-    Friend WithEvents Panel2 As Panel
-    Friend WithEvents Button2 As Button
-    Friend WithEvents lblDocTypeDate As Label
-    Friend WithEvents btnPendingRequests As Button
-    Friend WithEvents lblRequestStatus As Label
-    Friend WithEvents btnCancelledRequests As Button
-    Friend WithEvents btnReleasedRequests As Button
-    Friend WithEvents btnReadyForRelease As Button
-    Friend WithEvents btnProcessingRequests As Button
-    Friend WithEvents Label1 As Label
-    Friend WithEvents lblCancelledCount As Label
-    Friend WithEvents lblReleasedCount As Label
-    Friend WithEvents lblProcessCount As Label
-    Friend WithEvents lblReadyCount As Label
-    Friend WithEvents lblPendingCount As Label
-    Friend WithEvents lblFilterRequest As Label
-    Friend WithEvents btnCreateRequest As Button
     Friend WithEvents cboFilterByDocType As ComboBox
-    Friend WithEvents btnAllRequests As Button
+    Friend WithEvents btnClearSearch As Button
+    Friend WithEvents btnViewRequest As Button
+    Friend WithEvents btnCreateRequest As Button
+    Friend WithEvents tlpToolbar As TableLayoutPanel
+    Friend WithEvents cardAll As StatCard
+    Friend WithEvents cardPending As StatCard
+    Friend WithEvents cardProcessing As StatCard
+    Friend WithEvents cardReadyForRelease As StatCard
+    Friend WithEvents cardReleased As StatCard
+    Friend WithEvents cardCancelled As StatCard
+    Friend WithEvents tlpStatus As TableLayoutPanel
+    Friend WithEvents lblAllDocRequest As Label
+    Friend WithEvents lblDocTypeDate As Label
+    Friend WithEvents tlpHead As TableLayoutPanel
+    Friend WithEvents dgvRequests As DataGridView
+    Friend WithEvents pnlGridBorder As Panel
+    Friend WithEvents tlpMain As TableLayoutPanel
 End Class
