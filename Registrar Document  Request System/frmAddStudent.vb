@@ -3,6 +3,9 @@
 Public Class frmAddStudent
 
     Private Sub frmAddStudent_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ' Keep the form card centered and sized to its content whenever the window is resized
+        Theme.FitFormCard(Me, cardForm, tlpForm, 980)
+
         PopulateComboBoxes()
         ClearFields()
     End Sub
@@ -17,37 +20,40 @@ Public Class frmAddStudent
 
     Private Sub btnSaveEdit_Click(sender As Object, e As EventArgs) Handles btnSaveEdit.Click
         ' Validation
-        If String.IsNullOrWhiteSpace(txtLRN.Text) OrElse
+        If String.IsNullOrWhiteSpace(txtStudentID.Text) OrElse
+           String.IsNullOrWhiteSpace(txtLRN.Text) OrElse
            String.IsNullOrWhiteSpace(txtLastName.Text) OrElse
            String.IsNullOrWhiteSpace(txtFirstName.Text) OrElse
            cboCourse.SelectedIndex = -1 OrElse
            cboYearLevel.SelectedIndex = -1 Then
 
-            MessageBox.Show("Please fill in all required fields (LRN, First Name, Last Name, Course, Year Level).", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show("Please fill in all required fields (Student Number, LRN, First Name, Last Name, Course, Year Level).", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
 
         Try
             If cn.State <> ConnectionState.Open Then cn.Open()
 
-            ' Check for existing duplicate LRN
-            Dim checkSql As String = "SELECT COUNT(*) FROM tblstudents WHERE LRN = @LRN"
+            ' Check for an existing duplicate Student Number or LRN
+            Dim checkSql As String = "SELECT COUNT(*) FROM tblstudents WHERE StudentID = @StudentID OR LRN = @LRN"
             Using checkCmd As New MySqlCommand(checkSql, cn)
+                checkCmd.Parameters.AddWithValue("@StudentID", txtStudentID.Text.Trim())
                 checkCmd.Parameters.AddWithValue("@LRN", txtLRN.Text.Trim())
                 Dim exists As Integer = Convert.ToInt32(checkCmd.ExecuteScalar())
 
                 If exists > 0 Then
-                    MessageBox.Show("A student with this LRN already exists.", "Duplicate Record", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                    txtLRN.Focus()
+                    MessageBox.Show("A student with this Student Number or LRN already exists.", "Duplicate Record", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                    txtStudentID.Focus()
                     Return
                 End If
             End Using
 
             ' Insert record into tblstudents
-            Dim sql As String = "INSERT INTO tblstudents (LRN, LastName, FirstName, MiddleName, YearLevel, Section, Course, ContactNo, Status) " &
-                               "VALUES (@LRN, @LastName, @FirstName, @MiddleName, @YearLevel, @Section, @Course, @ContactNumber, 'Active')"
+            Dim sql As String = "INSERT INTO tblstudents (StudentID, LRN, LastName, FirstName, MiddleName, YearLevel, Section, Course, ContactNo, Status) " &
+                               "VALUES (@StudentID, @LRN, @LastName, @FirstName, @MiddleName, @YearLevel, @Section, @Course, @ContactNumber, 'Active')"
 
             Using cmd As New MySqlCommand(sql, cn)
+                cmd.Parameters.AddWithValue("@StudentID", txtStudentID.Text.Trim())
                 cmd.Parameters.AddWithValue("@LRN", txtLRN.Text.Trim())
                 cmd.Parameters.AddWithValue("@LastName", txtLastName.Text.Trim())
                 cmd.Parameters.AddWithValue("@FirstName", txtFirstName.Text.Trim())
@@ -85,6 +91,7 @@ Public Class frmAddStudent
     End Sub
 
     Private Sub ClearFields()
+        txtStudentID.Clear()
         txtLRN.Clear()
         txtLastName.Clear()
         txtFirstName.Clear()
@@ -95,7 +102,7 @@ Public Class frmAddStudent
         cboYearLevel.SelectedIndex = -1
         cboCourse.SelectedIndex = -1
 
-        txtLRN.Focus()
+        txtStudentID.Focus()
     End Sub
 
     Private Sub ReturnToStudentManagement()

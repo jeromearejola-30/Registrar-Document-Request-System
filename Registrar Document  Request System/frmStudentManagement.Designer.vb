@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmStudentManagement
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -17,508 +17,516 @@ Partial Class frmStudentManagement
     'Required by the Windows Form Designer
     Private components As System.ComponentModel.IContainer
 
-    'NOTE: The following procedure is required by the Windows Form Designer
-    'It can be modified using the Windows Form Designer.  
-    'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As DataGridViewCellStyle = New DataGridViewCellStyle()
-        dgvStudents = New DataGridView()
+        tlpMain = New TableLayoutPanel()
+        tlpToolbar = New TableLayoutPanel()
         txtSearch = New TextBox()
         btnClearSearch = New Button()
-        FlowLayoutPanel2 = New FlowLayoutPanel()
-        lblUserStatusSummary = New Label()
-        FlowLayoutPanel6 = New FlowLayoutPanel()
-        lblActiveUsers = New Label()
-        lblNumberActiveStudents = New Label()
-        FlowLayoutPanel7 = New FlowLayoutPanel()
-        lblInactiveUsers = New Label()
-        lblNumberInactiveStudents = New Label()
-        FlowLayoutPanel8 = New FlowLayoutPanel()
-        Label5 = New Label()
-        lblNumberIncompleteRecords = New Label()
         btnAddStudentRecord = New Button()
-        FlowLayoutPanel1 = New FlowLayoutPanel()
+        lblAllStudents = New Label()
+        pnlGridBorder = New Panel()
+        dgvStudents = New DataGridView()
+        tlpSummary = New TableLayoutPanel()
+        cardInfo = New CardPanel()
+        tlpInfo = New TableLayoutPanel()
         lblUserInformation = New Label()
-        FlowLayoutPanel3 = New FlowLayoutPanel()
-        Label1 = New Label()
+        lblCapStudentNumber = New Label()
         lblStudentNumber = New Label()
-        FlowLayoutPanel4 = New FlowLayoutPanel()
-        Label3 = New Label()
+        lblCapLastName = New Label()
         lblLastName = New Label()
-        FlowLayoutPanel5 = New FlowLayoutPanel()
-        Label2 = New Label()
+        lblCapFirstName = New Label()
         lblFirstName = New Label()
         btnViewStudent = New Button()
-        Label7 = New Label()
-        FlowLayoutPanel9 = New FlowLayoutPanel()
-        tplContentArea = New TableLayoutPanel()
-        TableLayoutPanel2 = New TableLayoutPanel()
-        FlowLayoutPanel10 = New FlowLayoutPanel()
+        cardStatus = New CardPanel()
+        tlpStatus = New TableLayoutPanel()
+        lblUserStatusSummary = New Label()
+        lblCapActive = New Label()
+        lblNumberActiveStudents = New Label()
+        lblCapInactive = New Label()
+        lblNumberInactiveStudents = New Label()
+        lblCapIncomplete = New Label()
+        lblNumberIncompleteRecords = New Label()
+        tlpMain.SuspendLayout()
+        tlpToolbar.SuspendLayout()
+        pnlGridBorder.SuspendLayout()
         CType(dgvStudents, ComponentModel.ISupportInitialize).BeginInit()
-        FlowLayoutPanel2.SuspendLayout()
-        FlowLayoutPanel6.SuspendLayout()
-        FlowLayoutPanel7.SuspendLayout()
-        FlowLayoutPanel8.SuspendLayout()
-        FlowLayoutPanel1.SuspendLayout()
-        FlowLayoutPanel3.SuspendLayout()
-        FlowLayoutPanel4.SuspendLayout()
-        FlowLayoutPanel5.SuspendLayout()
-        FlowLayoutPanel9.SuspendLayout()
-        tplContentArea.SuspendLayout()
-        TableLayoutPanel2.SuspendLayout()
-        FlowLayoutPanel10.SuspendLayout()
+        tlpSummary.SuspendLayout()
+        cardInfo.SuspendLayout()
+        tlpInfo.SuspendLayout()
+        cardStatus.SuspendLayout()
+        tlpStatus.SuspendLayout()
         SuspendLayout()
         ' 
-        ' dgvStudents
+        ' tlpMain
         ' 
-        dgvStudents.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
-        dgvStudents.BackgroundColor = SystemColors.Control
-        dgvStudents.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = SystemColors.Window
-        DataGridViewCellStyle1.Font = New Font("Tahoma", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        DataGridViewCellStyle1.ForeColor = SystemColors.ControlText
-        DataGridViewCellStyle1.SelectionBackColor = SystemColors.GradientActiveCaption
-        DataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = DataGridViewTriState.False
-        dgvStudents.DefaultCellStyle = DataGridViewCellStyle1
-        dgvStudents.Dock = DockStyle.Fill
-        dgvStudents.Location = New Point(15, 156)
-        dgvStudents.Margin = New Padding(15)
-        dgvStudents.Name = "dgvStudents"
-        dgvStudents.RowHeadersVisible = False
-        dgvStudents.RowHeadersWidth = 51
-        dgvStudents.Size = New Size(897, 178)
-        dgvStudents.TabIndex = 0
+        tlpMain.ColumnCount = 1
+        tlpMain.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100F))
+        tlpMain.Controls.Add(tlpToolbar, 0, 0)
+        tlpMain.Controls.Add(lblAllStudents, 0, 1)
+        tlpMain.Controls.Add(pnlGridBorder, 0, 2)
+        tlpMain.Controls.Add(tlpSummary, 0, 3)
+        tlpMain.Dock = DockStyle.Fill
+        tlpMain.Location = New Point(0, 0)
+        tlpMain.Name = "tlpMain"
+        tlpMain.Padding = New Padding(28, 20, 28, 24)
+        tlpMain.RowCount = 4
+        tlpMain.RowStyles.Add(New RowStyle())
+        tlpMain.RowStyles.Add(New RowStyle())
+        tlpMain.RowStyles.Add(New RowStyle(SizeType.Percent, 100F))
+        tlpMain.RowStyles.Add(New RowStyle(SizeType.Absolute, 196F))
+        tlpMain.Size = New Size(1020, 640)
+        tlpMain.TabIndex = 0
+        ' 
+        ' tlpToolbar
+        ' 
+        tlpToolbar.AutoSize = True
+        tlpToolbar.ColumnCount = 3
+        tlpToolbar.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100F))
+        tlpToolbar.ColumnStyles.Add(New ColumnStyle())
+        tlpToolbar.ColumnStyles.Add(New ColumnStyle())
+        tlpToolbar.Controls.Add(txtSearch, 0, 0)
+        tlpToolbar.Controls.Add(btnClearSearch, 1, 0)
+        tlpToolbar.Controls.Add(btnAddStudentRecord, 2, 0)
+        tlpToolbar.Dock = DockStyle.Fill
+        tlpToolbar.Location = New Point(28, 20)
+        tlpToolbar.Margin = New Padding(0)
+        tlpToolbar.Name = "tlpToolbar"
+        tlpToolbar.RowCount = 1
+        tlpToolbar.RowStyles.Add(New RowStyle())
+        tlpToolbar.Size = New Size(964, 40)
+        tlpToolbar.TabIndex = 0
         ' 
         ' txtSearch
         ' 
-        txtSearch.Font = New Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        txtSearch.Location = New Point(100, 30)
-        txtSearch.Margin = New Padding(100, 30, 3, 3)
+        txtSearch.Anchor = AnchorStyles.Left Or AnchorStyles.Right
+        txtSearch.BorderStyle = BorderStyle.FixedSingle
+        txtSearch.Font = New Font("Segoe UI", 11F)
+        txtSearch.ForeColor = Color.FromArgb(CByte(31), CByte(41), CByte(55))
+        txtSearch.Location = New Point(0, 6)
+        txtSearch.Margin = New Padding(0)
+        txtSearch.MaximumSize = New Size(520, 0)
         txtSearch.Name = "txtSearch"
-        txtSearch.Size = New Size(480, 27)
-        txtSearch.TabIndex = 22
-        txtSearch.Text = "   Search student..."
+        txtSearch.PlaceholderText = "Search by student number or name..."
+        txtSearch.Size = New Size(520, 27)
+        txtSearch.TabIndex = 0
         ' 
         ' btnClearSearch
         ' 
-        btnClearSearch.Font = New Font("Tahoma", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        btnClearSearch.Location = New Point(586, 30)
-        btnClearSearch.Margin = New Padding(3, 30, 3, 3)
+        btnClearSearch.AutoSize = True
+        btnClearSearch.AutoSizeMode = AutoSizeMode.GrowAndShrink
+        btnClearSearch.BackColor = Color.White
+        btnClearSearch.Cursor = Cursors.Hand
+        btnClearSearch.FlatAppearance.BorderColor = Color.FromArgb(CByte(27), CByte(67), CByte(50))
+        btnClearSearch.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(207), CByte(227), CByte(214))
+        btnClearSearch.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(234), CByte(242), CByte(237))
+        btnClearSearch.FlatStyle = FlatStyle.Flat
+        btnClearSearch.Font = New Font("Segoe UI Semibold", 10F)
+        btnClearSearch.ForeColor = Color.FromArgb(CByte(27), CByte(67), CByte(50))
+        btnClearSearch.Location = New Point(704, 0)
+        btnClearSearch.Margin = New Padding(8, 0, 0, 0)
+        btnClearSearch.MinimumSize = New Size(0, 40)
         btnClearSearch.Name = "btnClearSearch"
-        btnClearSearch.Size = New Size(115, 27)
-        btnClearSearch.TabIndex = 23
+        btnClearSearch.Padding = New Padding(14, 0, 14, 0)
+        btnClearSearch.Size = New Size(127, 40)
+        btnClearSearch.TabIndex = 1
         btnClearSearch.Text = "Clear Search"
-        btnClearSearch.UseVisualStyleBackColor = True
-        ' 
-        ' FlowLayoutPanel2
-        ' 
-        FlowLayoutPanel2.Controls.Add(lblUserStatusSummary)
-        FlowLayoutPanel2.Controls.Add(FlowLayoutPanel6)
-        FlowLayoutPanel2.Controls.Add(FlowLayoutPanel7)
-        FlowLayoutPanel2.Controls.Add(FlowLayoutPanel8)
-        FlowLayoutPanel2.Controls.Add(btnAddStudentRecord)
-        FlowLayoutPanel2.Dock = DockStyle.Fill
-        FlowLayoutPanel2.FlowDirection = FlowDirection.TopDown
-        FlowLayoutPanel2.Location = New Point(473, 10)
-        FlowLayoutPanel2.Margin = New Padding(13, 10, 15, 10)
-        FlowLayoutPanel2.Name = "FlowLayoutPanel2"
-        FlowLayoutPanel2.Size = New Size(433, 247)
-        FlowLayoutPanel2.TabIndex = 25
-        ' 
-        ' lblUserStatusSummary
-        ' 
-        lblUserStatusSummary.AutoSize = True
-        lblUserStatusSummary.Font = New Font("Tahoma", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        lblUserStatusSummary.Location = New Point(25, 15)
-        lblUserStatusSummary.Margin = New Padding(25, 15, 3, 8)
-        lblUserStatusSummary.Name = "lblUserStatusSummary"
-        lblUserStatusSummary.Size = New Size(246, 25)
-        lblUserStatusSummary.TabIndex = 1
-        lblUserStatusSummary.Text = "Student Status Summary"
-        ' 
-        ' FlowLayoutPanel6
-        ' 
-        FlowLayoutPanel6.Controls.Add(lblActiveUsers)
-        FlowLayoutPanel6.Controls.Add(lblNumberActiveStudents)
-        FlowLayoutPanel6.Location = New Point(25, 51)
-        FlowLayoutPanel6.Margin = New Padding(25, 3, 3, 8)
-        FlowLayoutPanel6.Name = "FlowLayoutPanel6"
-        FlowLayoutPanel6.Size = New Size(389, 39)
-        FlowLayoutPanel6.TabIndex = 2
-        ' 
-        ' lblActiveUsers
-        ' 
-        lblActiveUsers.AutoSize = True
-        lblActiveUsers.Font = New Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        lblActiveUsers.Location = New Point(10, 8)
-        lblActiveUsers.Margin = New Padding(10, 8, 3, 0)
-        lblActiveUsers.Name = "lblActiveUsers"
-        lblActiveUsers.Size = New Size(152, 23)
-        lblActiveUsers.TabIndex = 0
-        lblActiveUsers.Text = "Active Students: "
-        lblActiveUsers.TextAlign = ContentAlignment.MiddleLeft
-        ' 
-        ' lblNumberActiveStudents
-        ' 
-        lblNumberActiveStudents.AutoSize = True
-        lblNumberActiveStudents.Font = New Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        lblNumberActiveStudents.Location = New Point(325, 8)
-        lblNumberActiveStudents.Margin = New Padding(160, 8, 3, 0)
-        lblNumberActiveStudents.Name = "lblNumberActiveStudents"
-        lblNumberActiveStudents.Size = New Size(30, 23)
-        lblNumberActiveStudents.TabIndex = 2
-        lblNumberActiveStudents.Text = "00"
-        lblNumberActiveStudents.TextAlign = ContentAlignment.MiddleLeft
-        ' 
-        ' FlowLayoutPanel7
-        ' 
-        FlowLayoutPanel7.Controls.Add(lblInactiveUsers)
-        FlowLayoutPanel7.Controls.Add(lblNumberInactiveStudents)
-        FlowLayoutPanel7.Location = New Point(25, 101)
-        FlowLayoutPanel7.Margin = New Padding(25, 3, 3, 8)
-        FlowLayoutPanel7.Name = "FlowLayoutPanel7"
-        FlowLayoutPanel7.Size = New Size(389, 39)
-        FlowLayoutPanel7.TabIndex = 3
-        ' 
-        ' lblInactiveUsers
-        ' 
-        lblInactiveUsers.AutoSize = True
-        lblInactiveUsers.Font = New Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        lblInactiveUsers.Location = New Point(10, 8)
-        lblInactiveUsers.Margin = New Padding(10, 8, 3, 0)
-        lblInactiveUsers.Name = "lblInactiveUsers"
-        lblInactiveUsers.Size = New Size(169, 23)
-        lblInactiveUsers.TabIndex = 1
-        lblInactiveUsers.Text = "Inactive Students: "
-        lblInactiveUsers.TextAlign = ContentAlignment.MiddleLeft
-        ' 
-        ' lblNumberInactiveStudents
-        ' 
-        lblNumberInactiveStudents.AutoSize = True
-        lblNumberInactiveStudents.Font = New Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        lblNumberInactiveStudents.Location = New Point(327, 8)
-        lblNumberInactiveStudents.Margin = New Padding(145, 8, 3, 0)
-        lblNumberInactiveStudents.Name = "lblNumberInactiveStudents"
-        lblNumberInactiveStudents.Size = New Size(30, 23)
-        lblNumberInactiveStudents.TabIndex = 3
-        lblNumberInactiveStudents.Text = "00"
-        lblNumberInactiveStudents.TextAlign = ContentAlignment.MiddleLeft
-        ' 
-        ' FlowLayoutPanel8
-        ' 
-        FlowLayoutPanel8.Controls.Add(Label5)
-        FlowLayoutPanel8.Controls.Add(lblNumberIncompleteRecords)
-        FlowLayoutPanel8.Location = New Point(25, 151)
-        FlowLayoutPanel8.Margin = New Padding(25, 3, 3, 8)
-        FlowLayoutPanel8.Name = "FlowLayoutPanel8"
-        FlowLayoutPanel8.Size = New Size(389, 39)
-        FlowLayoutPanel8.TabIndex = 6
-        ' 
-        ' Label5
-        ' 
-        Label5.AutoSize = True
-        Label5.Font = New Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Label5.Location = New Point(10, 8)
-        Label5.Margin = New Padding(10, 8, 3, 0)
-        Label5.Name = "Label5"
-        Label5.Size = New Size(184, 23)
-        Label5.TabIndex = 1
-        Label5.Text = "Incomplete Records:"
-        Label5.TextAlign = ContentAlignment.MiddleLeft
-        ' 
-        ' lblNumberIncompleteRecords
-        ' 
-        lblNumberIncompleteRecords.AutoSize = True
-        lblNumberIncompleteRecords.Font = New Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        lblNumberIncompleteRecords.Location = New Point(327, 8)
-        lblNumberIncompleteRecords.Margin = New Padding(130, 8, 3, 0)
-        lblNumberIncompleteRecords.Name = "lblNumberIncompleteRecords"
-        lblNumberIncompleteRecords.Size = New Size(30, 23)
-        lblNumberIncompleteRecords.TabIndex = 3
-        lblNumberIncompleteRecords.Text = "00"
-        lblNumberIncompleteRecords.TextAlign = ContentAlignment.MiddleLeft
+        btnClearSearch.UseVisualStyleBackColor = False
         ' 
         ' btnAddStudentRecord
         ' 
-        btnAddStudentRecord.Font = New Font("Tahoma", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        btnAddStudentRecord.Location = New Point(25, 201)
-        btnAddStudentRecord.Margin = New Padding(25, 3, 3, 3)
+        btnAddStudentRecord.AutoSize = True
+        btnAddStudentRecord.AutoSizeMode = AutoSizeMode.GrowAndShrink
+        btnAddStudentRecord.BackColor = Color.FromArgb(CByte(27), CByte(67), CByte(50))
+        btnAddStudentRecord.Cursor = Cursors.Hand
+        btnAddStudentRecord.FlatAppearance.BorderSize = 0
+        btnAddStudentRecord.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(36), CByte(90), CByte(65))
+        btnAddStudentRecord.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(45), CByte(106), CByte(79))
+        btnAddStudentRecord.FlatStyle = FlatStyle.Flat
+        btnAddStudentRecord.Font = New Font("Segoe UI Semibold", 10F)
+        btnAddStudentRecord.ForeColor = Color.White
+        btnAddStudentRecord.Location = New Point(839, 0)
+        btnAddStudentRecord.Margin = New Padding(8, 0, 0, 0)
+        btnAddStudentRecord.MinimumSize = New Size(0, 40)
         btnAddStudentRecord.Name = "btnAddStudentRecord"
-        btnAddStudentRecord.Size = New Size(162, 28)
-        btnAddStudentRecord.TabIndex = 5
-        btnAddStudentRecord.Text = "Add Student Record"
-        btnAddStudentRecord.UseVisualStyleBackColor = True
+        btnAddStudentRecord.Padding = New Padding(14, 0, 14, 0)
+        btnAddStudentRecord.Size = New Size(125, 40)
+        btnAddStudentRecord.TabIndex = 2
+        btnAddStudentRecord.Text = "Add Student"
+        btnAddStudentRecord.UseVisualStyleBackColor = False
         ' 
-        ' FlowLayoutPanel1
+        ' lblAllStudents
         ' 
-        FlowLayoutPanel1.Controls.Add(lblUserInformation)
-        FlowLayoutPanel1.Controls.Add(FlowLayoutPanel3)
-        FlowLayoutPanel1.Controls.Add(FlowLayoutPanel4)
-        FlowLayoutPanel1.Controls.Add(FlowLayoutPanel5)
-        FlowLayoutPanel1.Controls.Add(btnViewStudent)
-        FlowLayoutPanel1.Dock = DockStyle.Fill
-        FlowLayoutPanel1.FlowDirection = FlowDirection.TopDown
-        FlowLayoutPanel1.Location = New Point(13, 10)
-        FlowLayoutPanel1.Margin = New Padding(13, 10, 15, 10)
-        FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        FlowLayoutPanel1.Size = New Size(432, 247)
-        FlowLayoutPanel1.TabIndex = 24
+        lblAllStudents.AutoSize = True
+        lblAllStudents.Font = New Font("Segoe UI Semibold", 12F)
+        lblAllStudents.ForeColor = Color.FromArgb(CByte(31), CByte(41), CByte(55))
+        lblAllStudents.Location = New Point(28, 76)
+        lblAllStudents.Margin = New Padding(0, 16, 0, 8)
+        lblAllStudents.Name = "lblAllStudents"
+        lblAllStudents.Size = New Size(155, 21)
+        lblAllStudents.TabIndex = 1
+        lblAllStudents.Text = "All Student Records"
+        ' 
+        ' pnlGridBorder
+        ' 
+        pnlGridBorder.BackColor = Color.FromArgb(CByte(229), CByte(231), CByte(235))
+        pnlGridBorder.Controls.Add(dgvStudents)
+        pnlGridBorder.Dock = DockStyle.Fill
+        pnlGridBorder.Location = New Point(28, 105)
+        pnlGridBorder.Margin = New Padding(0)
+        pnlGridBorder.Name = "pnlGridBorder"
+        pnlGridBorder.Padding = New Padding(1)
+        pnlGridBorder.Size = New Size(964, 315)
+        pnlGridBorder.TabIndex = 2
+        ' 
+        ' dgvStudents
+        ' 
+        dgvStudents.Dock = DockStyle.Fill
+        dgvStudents.Location = New Point(1, 1)
+        dgvStudents.Name = "dgvStudents"
+        dgvStudents.Size = New Size(962, 313)
+        dgvStudents.TabIndex = 0
+        ' 
+        ' tlpSummary
+        ' 
+        tlpSummary.ColumnCount = 2
+        tlpSummary.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
+        tlpSummary.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
+        tlpSummary.Controls.Add(cardInfo, 0, 0)
+        tlpSummary.Controls.Add(cardStatus, 1, 0)
+        tlpSummary.Dock = DockStyle.Fill
+        tlpSummary.Location = New Point(28, 436)
+        tlpSummary.Margin = New Padding(0, 16, 0, 0)
+        tlpSummary.Name = "tlpSummary"
+        tlpSummary.RowCount = 1
+        tlpSummary.RowStyles.Add(New RowStyle(SizeType.Percent, 100F))
+        tlpSummary.Size = New Size(964, 180)
+        tlpSummary.TabIndex = 3
+        ' 
+        ' cardInfo
+        ' 
+        cardInfo.BackColor = Color.White
+        cardInfo.Controls.Add(tlpInfo)
+        cardInfo.Dock = DockStyle.Fill
+        cardInfo.Location = New Point(0, 0)
+        cardInfo.Margin = New Padding(0, 0, 8, 0)
+        cardInfo.Name = "cardInfo"
+        cardInfo.Padding = New Padding(20, 14, 20, 14)
+        cardInfo.Size = New Size(474, 180)
+        cardInfo.TabIndex = 0
+        ' 
+        ' tlpInfo
+        ' 
+        tlpInfo.ColumnCount = 2
+        tlpInfo.ColumnStyles.Add(New ColumnStyle(SizeType.Absolute, 130F))
+        tlpInfo.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100F))
+        tlpInfo.Controls.Add(lblUserInformation, 0, 0)
+        tlpInfo.Controls.Add(lblCapStudentNumber, 0, 1)
+        tlpInfo.Controls.Add(lblStudentNumber, 1, 1)
+        tlpInfo.Controls.Add(lblCapLastName, 0, 2)
+        tlpInfo.Controls.Add(lblLastName, 1, 2)
+        tlpInfo.Controls.Add(lblCapFirstName, 0, 3)
+        tlpInfo.Controls.Add(lblFirstName, 1, 3)
+        tlpInfo.Controls.Add(btnViewStudent, 0, 4)
+        tlpInfo.Dock = DockStyle.Fill
+        tlpInfo.Location = New Point(20, 14)
+        tlpInfo.Name = "tlpInfo"
+        tlpInfo.RowCount = 5
+        tlpInfo.RowStyles.Add(New RowStyle())
+        tlpInfo.RowStyles.Add(New RowStyle())
+        tlpInfo.RowStyles.Add(New RowStyle())
+        tlpInfo.RowStyles.Add(New RowStyle())
+        tlpInfo.RowStyles.Add(New RowStyle(SizeType.Percent, 100F))
+        tlpInfo.Size = New Size(434, 152)
+        tlpInfo.TabIndex = 0
         ' 
         ' lblUserInformation
         ' 
         lblUserInformation.AutoSize = True
-        lblUserInformation.Font = New Font("Tahoma", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        lblUserInformation.Location = New Point(25, 15)
-        lblUserInformation.Margin = New Padding(25, 15, 3, 8)
+        tlpInfo.SetColumnSpan(lblUserInformation, 2)
+        lblUserInformation.Font = New Font("Segoe UI Semibold", 11F)
+        lblUserInformation.ForeColor = Color.FromArgb(CByte(27), CByte(67), CByte(50))
+        lblUserInformation.Location = New Point(0, 0)
+        lblUserInformation.Margin = New Padding(0, 0, 0, 8)
         lblUserInformation.Name = "lblUserInformation"
-        lblUserInformation.Size = New Size(298, 25)
+        lblUserInformation.Size = New Size(217, 20)
         lblUserInformation.TabIndex = 0
         lblUserInformation.Text = "Student Information Summary"
         ' 
-        ' FlowLayoutPanel3
+        ' lblCapStudentNumber
         ' 
-        FlowLayoutPanel3.Controls.Add(Label1)
-        FlowLayoutPanel3.Controls.Add(lblStudentNumber)
-        FlowLayoutPanel3.Location = New Point(25, 51)
-        FlowLayoutPanel3.Margin = New Padding(25, 3, 3, 8)
-        FlowLayoutPanel3.Name = "FlowLayoutPanel3"
-        FlowLayoutPanel3.Size = New Size(389, 39)
-        FlowLayoutPanel3.TabIndex = 1
-        ' 
-        ' Label1
-        ' 
-        Label1.AutoSize = True
-        Label1.Font = New Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Label1.Location = New Point(10, 8)
-        Label1.Margin = New Padding(10, 8, 3, 0)
-        Label1.Name = "Label1"
-        Label1.Size = New Size(157, 23)
-        Label1.TabIndex = 0
-        Label1.Text = "Student Number:"
-        Label1.TextAlign = ContentAlignment.MiddleLeft
+        lblCapStudentNumber.AutoSize = True
+        lblCapStudentNumber.Font = New Font("Segoe UI", 10F)
+        lblCapStudentNumber.ForeColor = Color.FromArgb(CByte(107), CByte(114), CByte(128))
+        lblCapStudentNumber.Location = New Point(0, 31)
+        lblCapStudentNumber.Margin = New Padding(0, 3, 0, 3)
+        lblCapStudentNumber.Name = "lblCapStudentNumber"
+        lblCapStudentNumber.Size = New Size(111, 19)
+        lblCapStudentNumber.TabIndex = 1
+        lblCapStudentNumber.Text = "Student Number"
         ' 
         ' lblStudentNumber
         ' 
         lblStudentNumber.AutoSize = True
-        lblStudentNumber.Font = New Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        lblStudentNumber.Location = New Point(180, 8)
-        lblStudentNumber.Margin = New Padding(10, 8, 3, 0)
+        lblStudentNumber.Font = New Font("Segoe UI Semibold", 10.5F)
+        lblStudentNumber.ForeColor = Color.FromArgb(CByte(31), CByte(41), CByte(55))
+        lblStudentNumber.Location = New Point(130, 31)
+        lblStudentNumber.Margin = New Padding(0, 3, 0, 3)
         lblStudentNumber.Name = "lblStudentNumber"
-        lblStudentNumber.Size = New Size(77, 23)
-        lblStudentNumber.TabIndex = 1
-        lblStudentNumber.Text = "0000-00"
-        lblStudentNumber.TextAlign = ContentAlignment.MiddleLeft
+        lblStudentNumber.Size = New Size(15, 19)
+        lblStudentNumber.TabIndex = 2
+        lblStudentNumber.Text = "-"
         ' 
-        ' FlowLayoutPanel4
+        ' lblCapLastName
         ' 
-        FlowLayoutPanel4.Controls.Add(Label3)
-        FlowLayoutPanel4.Controls.Add(lblLastName)
-        FlowLayoutPanel4.Location = New Point(25, 101)
-        FlowLayoutPanel4.Margin = New Padding(25, 3, 3, 8)
-        FlowLayoutPanel4.Name = "FlowLayoutPanel4"
-        FlowLayoutPanel4.Size = New Size(389, 39)
-        FlowLayoutPanel4.TabIndex = 2
-        ' 
-        ' Label3
-        ' 
-        Label3.AutoSize = True
-        Label3.Font = New Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Label3.Location = New Point(10, 8)
-        Label3.Margin = New Padding(10, 8, 3, 0)
-        Label3.Name = "Label3"
-        Label3.Size = New Size(105, 23)
-        Label3.TabIndex = 1
-        Label3.Text = "Last Name:"
-        Label3.TextAlign = ContentAlignment.MiddleLeft
+        lblCapLastName.AutoSize = True
+        lblCapLastName.Font = New Font("Segoe UI", 10F)
+        lblCapLastName.ForeColor = Color.FromArgb(CByte(107), CByte(114), CByte(128))
+        lblCapLastName.Location = New Point(0, 56)
+        lblCapLastName.Margin = New Padding(0, 3, 0, 3)
+        lblCapLastName.Name = "lblCapLastName"
+        lblCapLastName.Size = New Size(74, 19)
+        lblCapLastName.TabIndex = 3
+        lblCapLastName.Text = "Last Name"
         ' 
         ' lblLastName
         ' 
         lblLastName.AutoSize = True
-        lblLastName.Font = New Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        lblLastName.Location = New Point(178, 8)
-        lblLastName.Margin = New Padding(60, 8, 3, 0)
+        lblLastName.Font = New Font("Segoe UI Semibold", 10.5F)
+        lblLastName.ForeColor = Color.FromArgb(CByte(31), CByte(41), CByte(55))
+        lblLastName.Location = New Point(130, 56)
+        lblLastName.Margin = New Padding(0, 3, 0, 3)
         lblLastName.Name = "lblLastName"
-        lblLastName.Size = New Size(67, 23)
-        lblLastName.TabIndex = 2
-        lblLastName.Text = "Arejola"
-        lblLastName.TextAlign = ContentAlignment.MiddleLeft
+        lblLastName.Size = New Size(15, 19)
+        lblLastName.TabIndex = 4
+        lblLastName.Text = "-"
         ' 
-        ' FlowLayoutPanel5
+        ' lblCapFirstName
         ' 
-        FlowLayoutPanel5.Controls.Add(Label2)
-        FlowLayoutPanel5.Controls.Add(lblFirstName)
-        FlowLayoutPanel5.Location = New Point(25, 151)
-        FlowLayoutPanel5.Margin = New Padding(25, 3, 3, 8)
-        FlowLayoutPanel5.Name = "FlowLayoutPanel5"
-        FlowLayoutPanel5.Size = New Size(389, 39)
-        FlowLayoutPanel5.TabIndex = 5
-        ' 
-        ' Label2
-        ' 
-        Label2.AutoSize = True
-        Label2.Font = New Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Label2.Location = New Point(10, 8)
-        Label2.Margin = New Padding(10, 8, 3, 0)
-        Label2.Name = "Label2"
-        Label2.Size = New Size(107, 23)
-        Label2.TabIndex = 1
-        Label2.Text = "First Name:"
-        Label2.TextAlign = ContentAlignment.MiddleLeft
+        lblCapFirstName.AutoSize = True
+        lblCapFirstName.Font = New Font("Segoe UI", 10F)
+        lblCapFirstName.ForeColor = Color.FromArgb(CByte(107), CByte(114), CByte(128))
+        lblCapFirstName.Location = New Point(0, 81)
+        lblCapFirstName.Margin = New Padding(0, 3, 0, 3)
+        lblCapFirstName.Name = "lblCapFirstName"
+        lblCapFirstName.Size = New Size(75, 19)
+        lblCapFirstName.TabIndex = 5
+        lblCapFirstName.Text = "First Name"
         ' 
         ' lblFirstName
         ' 
         lblFirstName.AutoSize = True
-        lblFirstName.Font = New Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        lblFirstName.Location = New Point(180, 8)
-        lblFirstName.Margin = New Padding(60, 8, 3, 0)
+        lblFirstName.Font = New Font("Segoe UI Semibold", 10.5F)
+        lblFirstName.ForeColor = Color.FromArgb(CByte(31), CByte(41), CByte(55))
+        lblFirstName.Location = New Point(130, 81)
+        lblFirstName.Margin = New Padding(0, 3, 0, 3)
         lblFirstName.Name = "lblFirstName"
-        lblFirstName.Size = New Size(71, 23)
-        lblFirstName.TabIndex = 2
-        lblFirstName.Text = "Jerome"
-        lblFirstName.TextAlign = ContentAlignment.MiddleLeft
+        lblFirstName.Size = New Size(15, 19)
+        lblFirstName.TabIndex = 6
+        lblFirstName.Text = "-"
         ' 
         ' btnViewStudent
         ' 
-        btnViewStudent.Font = New Font("Tahoma", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        btnViewStudent.Location = New Point(25, 201)
-        btnViewStudent.Margin = New Padding(25, 3, 3, 3)
+        btnViewStudent.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
+        btnViewStudent.AutoSize = True
+        btnViewStudent.AutoSizeMode = AutoSizeMode.GrowAndShrink
+        btnViewStudent.BackColor = Color.White
+        tlpInfo.SetColumnSpan(btnViewStudent, 2)
+        btnViewStudent.Cursor = Cursors.Hand
+        btnViewStudent.FlatAppearance.BorderColor = Color.FromArgb(CByte(27), CByte(67), CByte(50))
+        btnViewStudent.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(207), CByte(227), CByte(214))
+        btnViewStudent.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(234), CByte(242), CByte(237))
+        btnViewStudent.FlatStyle = FlatStyle.Flat
+        btnViewStudent.Font = New Font("Segoe UI Semibold", 10F)
+        btnViewStudent.ForeColor = Color.FromArgb(CByte(27), CByte(67), CByte(50))
+        btnViewStudent.Location = New Point(0, 112)
+        btnViewStudent.Margin = New Padding(0, 8, 0, 0)
+        btnViewStudent.MinimumSize = New Size(0, 40)
         btnViewStudent.Name = "btnViewStudent"
-        btnViewStudent.Size = New Size(117, 28)
-        btnViewStudent.TabIndex = 4
+        btnViewStudent.Padding = New Padding(14, 0, 14, 0)
+        btnViewStudent.Size = New Size(133, 40)
+        btnViewStudent.TabIndex = 7
         btnViewStudent.Text = "View Student"
-        btnViewStudent.UseVisualStyleBackColor = True
+        btnViewStudent.UseVisualStyleBackColor = False
         ' 
-        ' Label7
+        ' cardStatus
         ' 
-        Label7.AutoSize = True
-        Label7.Font = New Font("Tahoma", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Label7.Location = New Point(25, 15)
-        Label7.Margin = New Padding(25, 15, 3, 8)
-        Label7.Name = "Label7"
-        Label7.Size = New Size(196, 25)
-        Label7.TabIndex = 26
-        Label7.Text = "All Student Records"
+        cardStatus.BackColor = Color.White
+        cardStatus.Controls.Add(tlpStatus)
+        cardStatus.Dock = DockStyle.Fill
+        cardStatus.Location = New Point(490, 0)
+        cardStatus.Margin = New Padding(8, 0, 0, 0)
+        cardStatus.Name = "cardStatus"
+        cardStatus.Padding = New Padding(20, 14, 20, 14)
+        cardStatus.Size = New Size(474, 180)
+        cardStatus.TabIndex = 1
         ' 
-        ' FlowLayoutPanel9
+        ' tlpStatus
         ' 
-        FlowLayoutPanel9.Controls.Add(txtSearch)
-        FlowLayoutPanel9.Controls.Add(btnClearSearch)
-        FlowLayoutPanel9.Dock = DockStyle.Fill
-        FlowLayoutPanel9.Location = New Point(3, 3)
-        FlowLayoutPanel9.Name = "FlowLayoutPanel9"
-        FlowLayoutPanel9.Size = New Size(921, 82)
-        FlowLayoutPanel9.TabIndex = 27
+        tlpStatus.ColumnCount = 2
+        tlpStatus.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100F))
+        tlpStatus.ColumnStyles.Add(New ColumnStyle())
+        tlpStatus.Controls.Add(lblUserStatusSummary, 0, 0)
+        tlpStatus.Controls.Add(lblCapActive, 0, 1)
+        tlpStatus.Controls.Add(lblNumberActiveStudents, 1, 1)
+        tlpStatus.Controls.Add(lblCapInactive, 0, 2)
+        tlpStatus.Controls.Add(lblNumberInactiveStudents, 1, 2)
+        tlpStatus.Controls.Add(lblCapIncomplete, 0, 3)
+        tlpStatus.Controls.Add(lblNumberIncompleteRecords, 1, 3)
+        tlpStatus.Dock = DockStyle.Fill
+        tlpStatus.Location = New Point(20, 14)
+        tlpStatus.Name = "tlpStatus"
+        tlpStatus.RowCount = 5
+        tlpStatus.RowStyles.Add(New RowStyle())
+        tlpStatus.RowStyles.Add(New RowStyle())
+        tlpStatus.RowStyles.Add(New RowStyle())
+        tlpStatus.RowStyles.Add(New RowStyle())
+        tlpStatus.RowStyles.Add(New RowStyle(SizeType.Percent, 100F))
+        tlpStatus.Size = New Size(434, 152)
+        tlpStatus.TabIndex = 0
         ' 
-        ' tplContentArea
+        ' lblUserStatusSummary
         ' 
-        tplContentArea.ColumnCount = 1
-        tplContentArea.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
-        tplContentArea.Controls.Add(TableLayoutPanel2, 0, 3)
-        tplContentArea.Controls.Add(FlowLayoutPanel10, 0, 1)
-        tplContentArea.Controls.Add(FlowLayoutPanel9, 0, 0)
-        tplContentArea.Controls.Add(dgvStudents, 0, 2)
-        tplContentArea.Dock = DockStyle.Fill
-        tplContentArea.Location = New Point(0, 0)
-        tplContentArea.Name = "tplContentArea"
-        tplContentArea.RowCount = 4
-        tplContentArea.RowStyles.Add(New RowStyle(SizeType.Percent, 62.5F))
-        tplContentArea.RowStyles.Add(New RowStyle(SizeType.Percent, 37.5F))
-        tplContentArea.RowStyles.Add(New RowStyle(SizeType.Absolute, 208F))
-        tplContentArea.RowStyles.Add(New RowStyle(SizeType.Absolute, 272F))
-        tplContentArea.Size = New Size(927, 622)
-        tplContentArea.TabIndex = 28
+        lblUserStatusSummary.AutoSize = True
+        tlpStatus.SetColumnSpan(lblUserStatusSummary, 2)
+        lblUserStatusSummary.Font = New Font("Segoe UI Semibold", 11F)
+        lblUserStatusSummary.ForeColor = Color.FromArgb(CByte(27), CByte(67), CByte(50))
+        lblUserStatusSummary.Location = New Point(0, 0)
+        lblUserStatusSummary.Margin = New Padding(0, 0, 0, 8)
+        lblUserStatusSummary.Name = "lblUserStatusSummary"
+        lblUserStatusSummary.Size = New Size(177, 20)
+        lblUserStatusSummary.TabIndex = 0
+        lblUserStatusSummary.Text = "Student Status Summary"
         ' 
-        ' TableLayoutPanel2
+        ' lblCapActive
         ' 
-        TableLayoutPanel2.ColumnCount = 2
-        TableLayoutPanel2.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
-        TableLayoutPanel2.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
-        TableLayoutPanel2.Controls.Add(FlowLayoutPanel1, 0, 0)
-        TableLayoutPanel2.Controls.Add(FlowLayoutPanel2, 1, 0)
-        TableLayoutPanel2.Dock = DockStyle.Bottom
-        TableLayoutPanel2.Location = New Point(3, 352)
-        TableLayoutPanel2.Name = "TableLayoutPanel2"
-        TableLayoutPanel2.RowCount = 1
-        TableLayoutPanel2.RowStyles.Add(New RowStyle(SizeType.Percent, 100F))
-        TableLayoutPanel2.Size = New Size(921, 267)
-        TableLayoutPanel2.TabIndex = 29
+        lblCapActive.AutoSize = True
+        lblCapActive.Font = New Font("Segoe UI", 10F)
+        lblCapActive.ForeColor = Color.FromArgb(CByte(107), CByte(114), CByte(128))
+        lblCapActive.Location = New Point(0, 31)
+        lblCapActive.Margin = New Padding(0, 3, 0, 3)
+        lblCapActive.Name = "lblCapActive"
+        lblCapActive.Size = New Size(104, 19)
+        lblCapActive.TabIndex = 1
+        lblCapActive.Text = "Active Students"
         ' 
-        ' FlowLayoutPanel10
+        ' lblNumberActiveStudents
         ' 
-        FlowLayoutPanel10.Controls.Add(Label7)
-        FlowLayoutPanel10.Dock = DockStyle.Bottom
-        FlowLayoutPanel10.Location = New Point(3, 92)
-        FlowLayoutPanel10.Name = "FlowLayoutPanel10"
-        FlowLayoutPanel10.Size = New Size(921, 46)
-        FlowLayoutPanel10.TabIndex = 30
+        lblNumberActiveStudents.Anchor = AnchorStyles.Right
+        lblNumberActiveStudents.AutoSize = True
+        lblNumberActiveStudents.Font = New Font("Segoe UI Semibold", 10.5F)
+        lblNumberActiveStudents.ForeColor = Color.FromArgb(CByte(31), CByte(41), CByte(55))
+        lblNumberActiveStudents.Location = New Point(417, 31)
+        lblNumberActiveStudents.Margin = New Padding(0, 3, 0, 3)
+        lblNumberActiveStudents.Name = "lblNumberActiveStudents"
+        lblNumberActiveStudents.Size = New Size(17, 19)
+        lblNumberActiveStudents.TabIndex = 2
+        lblNumberActiveStudents.Text = "0"
+        ' 
+        ' lblCapInactive
+        ' 
+        lblCapInactive.AutoSize = True
+        lblCapInactive.Font = New Font("Segoe UI", 10F)
+        lblCapInactive.ForeColor = Color.FromArgb(CByte(107), CByte(114), CByte(128))
+        lblCapInactive.Location = New Point(0, 56)
+        lblCapInactive.Margin = New Padding(0, 3, 0, 3)
+        lblCapInactive.Name = "lblCapInactive"
+        lblCapInactive.Size = New Size(114, 19)
+        lblCapInactive.TabIndex = 3
+        lblCapInactive.Text = "Inactive Students"
+        ' 
+        ' lblNumberInactiveStudents
+        ' 
+        lblNumberInactiveStudents.Anchor = AnchorStyles.Right
+        lblNumberInactiveStudents.AutoSize = True
+        lblNumberInactiveStudents.Font = New Font("Segoe UI Semibold", 10.5F)
+        lblNumberInactiveStudents.ForeColor = Color.FromArgb(CByte(31), CByte(41), CByte(55))
+        lblNumberInactiveStudents.Location = New Point(417, 56)
+        lblNumberInactiveStudents.Margin = New Padding(0, 3, 0, 3)
+        lblNumberInactiveStudents.Name = "lblNumberInactiveStudents"
+        lblNumberInactiveStudents.Size = New Size(17, 19)
+        lblNumberInactiveStudents.TabIndex = 4
+        lblNumberInactiveStudents.Text = "0"
+        ' 
+        ' lblCapIncomplete
+        ' 
+        lblCapIncomplete.AutoSize = True
+        lblCapIncomplete.Font = New Font("Segoe UI", 10F)
+        lblCapIncomplete.ForeColor = Color.FromArgb(CByte(107), CByte(114), CByte(128))
+        lblCapIncomplete.Location = New Point(0, 81)
+        lblCapIncomplete.Margin = New Padding(0, 3, 0, 3)
+        lblCapIncomplete.Name = "lblCapIncomplete"
+        lblCapIncomplete.Size = New Size(129, 19)
+        lblCapIncomplete.TabIndex = 5
+        lblCapIncomplete.Text = "Incomplete Records"
+        ' 
+        ' lblNumberIncompleteRecords
+        ' 
+        lblNumberIncompleteRecords.Anchor = AnchorStyles.Right
+        lblNumberIncompleteRecords.AutoSize = True
+        lblNumberIncompleteRecords.Font = New Font("Segoe UI Semibold", 10.5F)
+        lblNumberIncompleteRecords.ForeColor = Color.FromArgb(CByte(31), CByte(41), CByte(55))
+        lblNumberIncompleteRecords.Location = New Point(419, 81)
+        lblNumberIncompleteRecords.Margin = New Padding(0, 3, 0, 3)
+        lblNumberIncompleteRecords.Name = "lblNumberIncompleteRecords"
+        lblNumberIncompleteRecords.Size = New Size(15, 19)
+        lblNumberIncompleteRecords.TabIndex = 6
+        lblNumberIncompleteRecords.Text = "-"
         ' 
         ' frmStudentManagement
         ' 
-        AutoScaleDimensions = New SizeF(7F, 15F)
-        AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(927, 622)
-        Controls.Add(tplContentArea)
+        AutoScaleDimensions = New SizeF(96F, 96F)
+        AutoScaleMode = AutoScaleMode.Dpi
+        AutoScroll = True
+        AutoScrollMinSize = New Size(860, 640)
+        BackColor = Color.FromArgb(CByte(245), CByte(247), CByte(244))
+        ClientSize = New Size(1020, 640)
+        Controls.Add(tlpMain)
+        FormBorderStyle = FormBorderStyle.None
         Name = "frmStudentManagement"
-        Text = "StudentRecords"
+        Text = "Student Management"
+        tlpMain.ResumeLayout(False)
+        tlpMain.PerformLayout()
+        tlpToolbar.ResumeLayout(False)
+        tlpToolbar.PerformLayout()
+        pnlGridBorder.ResumeLayout(False)
         CType(dgvStudents, ComponentModel.ISupportInitialize).EndInit()
-        FlowLayoutPanel2.ResumeLayout(False)
-        FlowLayoutPanel2.PerformLayout()
-        FlowLayoutPanel6.ResumeLayout(False)
-        FlowLayoutPanel6.PerformLayout()
-        FlowLayoutPanel7.ResumeLayout(False)
-        FlowLayoutPanel7.PerformLayout()
-        FlowLayoutPanel8.ResumeLayout(False)
-        FlowLayoutPanel8.PerformLayout()
-        FlowLayoutPanel1.ResumeLayout(False)
-        FlowLayoutPanel1.PerformLayout()
-        FlowLayoutPanel3.ResumeLayout(False)
-        FlowLayoutPanel3.PerformLayout()
-        FlowLayoutPanel4.ResumeLayout(False)
-        FlowLayoutPanel4.PerformLayout()
-        FlowLayoutPanel5.ResumeLayout(False)
-        FlowLayoutPanel5.PerformLayout()
-        FlowLayoutPanel9.ResumeLayout(False)
-        FlowLayoutPanel9.PerformLayout()
-        tplContentArea.ResumeLayout(False)
-        TableLayoutPanel2.ResumeLayout(False)
-        FlowLayoutPanel10.ResumeLayout(False)
-        FlowLayoutPanel10.PerformLayout()
+        tlpSummary.ResumeLayout(False)
+        cardInfo.ResumeLayout(False)
+        tlpInfo.ResumeLayout(False)
+        tlpInfo.PerformLayout()
+        cardStatus.ResumeLayout(False)
+        tlpStatus.ResumeLayout(False)
+        tlpStatus.PerformLayout()
         ResumeLayout(False)
     End Sub
 
-    Friend WithEvents dgvStudents As DataGridView
+    Friend WithEvents tlpMain As TableLayoutPanel
+    Friend WithEvents tlpToolbar As TableLayoutPanel
     Friend WithEvents txtSearch As TextBox
     Friend WithEvents btnClearSearch As Button
-    Friend WithEvents FlowLayoutPanel2 As FlowLayoutPanel
-    Friend WithEvents lblUserStatusSummary As Label
-    Friend WithEvents FlowLayoutPanel6 As FlowLayoutPanel
-    Friend WithEvents lblActiveUsers As Label
-    Friend WithEvents lblNumberActiveStudents As Label
-    Friend WithEvents FlowLayoutPanel7 As FlowLayoutPanel
-    Friend WithEvents lblInactiveUsers As Label
-    Friend WithEvents lblNumberInactiveStudents As Label
-    Friend WithEvents FlowLayoutPanel8 As FlowLayoutPanel
-    Friend WithEvents Label5 As Label
-    Friend WithEvents lblNumberIncompleteRecords As Label
     Friend WithEvents btnAddStudentRecord As Button
-    Friend WithEvents FlowLayoutPanel1 As FlowLayoutPanel
+    Friend WithEvents lblAllStudents As Label
+    Friend WithEvents pnlGridBorder As Panel
+    Friend WithEvents dgvStudents As DataGridView
+    Friend WithEvents tlpSummary As TableLayoutPanel
+    Friend WithEvents cardInfo As CardPanel
+    Friend WithEvents tlpInfo As TableLayoutPanel
     Friend WithEvents lblUserInformation As Label
-    Friend WithEvents FlowLayoutPanel3 As FlowLayoutPanel
-    Friend WithEvents Label1 As Label
+    Friend WithEvents lblCapStudentNumber As Label
     Friend WithEvents lblStudentNumber As Label
-    Friend WithEvents FlowLayoutPanel4 As FlowLayoutPanel
-    Friend WithEvents Label3 As Label
+    Friend WithEvents lblCapLastName As Label
     Friend WithEvents lblLastName As Label
-    Friend WithEvents FlowLayoutPanel5 As FlowLayoutPanel
-    Friend WithEvents Label2 As Label
+    Friend WithEvents lblCapFirstName As Label
     Friend WithEvents lblFirstName As Label
     Friend WithEvents btnViewStudent As Button
-    Friend WithEvents Label7 As Label
-    Friend WithEvents FlowLayoutPanel9 As FlowLayoutPanel
-    Friend WithEvents tplContentArea As TableLayoutPanel
-    Friend WithEvents TableLayoutPanel2 As TableLayoutPanel
-    Friend WithEvents FlowLayoutPanel10 As FlowLayoutPanel
+    Friend WithEvents cardStatus As CardPanel
+    Friend WithEvents tlpStatus As TableLayoutPanel
+    Friend WithEvents lblUserStatusSummary As Label
+    Friend WithEvents lblCapActive As Label
+    Friend WithEvents lblNumberActiveStudents As Label
+    Friend WithEvents lblCapInactive As Label
+    Friend WithEvents lblNumberInactiveStudents As Label
+    Friend WithEvents lblCapIncomplete As Label
+    Friend WithEvents lblNumberIncompleteRecords As Label
 End Class

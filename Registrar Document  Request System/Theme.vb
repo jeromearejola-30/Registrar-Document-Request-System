@@ -168,7 +168,7 @@ Public Module Theme
         fitColumns()
     End Sub
 
-    Private Sub DrawStatusPill(g As Graphics, cell As Rectangle, text As String, f As Font)
+    Public Sub DrawStatusPill(g As Graphics, cell As Rectangle, text As String, f As Font)
         If String.IsNullOrWhiteSpace(text) Then Return
         Dim k As Single = g.DpiX / 96.0F
         Dim h As Integer = CInt(22 * k)
@@ -188,6 +188,96 @@ Public Module Theme
         TextRenderer.DrawText(g, text, f, rect, StatusTextColor(text),
                               TextFormatFlags.HorizontalCenter Or TextFormatFlags.VerticalCenter Or
                               TextFormatFlags.EndEllipsis Or TextFormatFlags.NoPrefix)
+    End Sub
+
+    ' ---- DataGridView styling ----
+    ''' <summary>
+    ''' Green header, zebra rows, soft selection, no row header, read-only, columns share the width.
+    ''' Pass the name of a status column (e.g. "Status") to draw it as a colored pill.
+    ''' Call this BEFORE binding data so the row height applies.
+    ''' </summary>
+    Public Sub StyleGrid(dgv As DataGridView, Optional statusColumn As String = Nothing)
+        dgv.BorderStyle = BorderStyle.None
+        dgv.BackgroundColor = Surface
+        dgv.GridColor = Border
+        dgv.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal
+        dgv.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None
+        dgv.EnableHeadersVisualStyles = False
+        dgv.RowHeadersVisible = False
+        dgv.AllowUserToAddRows = False
+        dgv.AllowUserToDeleteRows = False
+        dgv.AllowUserToResizeRows = False
+        dgv.ReadOnly = True
+        dgv.MultiSelect = False
+        dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+        dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+        dgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        dgv.ColumnHeadersHeight = dgv.LogicalToDeviceUnits(40)
+        dgv.RowTemplate.Height = dgv.LogicalToDeviceUnits(36)
+
+        Dim header As New DataGridViewCellStyle()
+        header.BackColor = Primary
+        header.ForeColor = Color.White
+        header.SelectionBackColor = Primary      ' header must not change color when clicked
+        header.SelectionForeColor = Color.White
+        header.Font = UiFont(9.5F, FontStyle.Bold)
+        header.Alignment = DataGridViewContentAlignment.MiddleLeft
+        header.Padding = New Padding(8, 0, 0, 0)
+        dgv.ColumnHeadersDefaultCellStyle = header
+
+        Dim cell As New DataGridViewCellStyle()
+        cell.BackColor = Surface
+        cell.ForeColor = TextMain
+        cell.SelectionBackColor = SelectionBack
+        cell.SelectionForeColor = TextMain
+        cell.Font = UiFont(9.5F)
+        cell.Alignment = DataGridViewContentAlignment.MiddleLeft
+        cell.Padding = New Padding(8, 0, 0, 0)
+        dgv.DefaultCellStyle = cell
+
+        Dim alt As New DataGridViewCellStyle(cell)
+        alt.BackColor = SurfaceAlt
+        dgv.AlternatingRowsDefaultCellStyle = alt
+
+        ' When there are many columns, scroll sideways instead of crushing them
+        AddHandler dgv.DataBindingComplete, Sub(s, e)
+                                                For Each col As DataGridViewColumn In dgv.Columns
+                                                    col.MinimumWidth = dgv.LogicalToDeviceUnits(80)
+                                                Next
+                                            End Sub
+
+        If Not String.IsNullOrEmpty(statusColumn) Then
+            Dim pillFont As Font = UiFont(8.5F, FontStyle.Bold)
+            AddHandler dgv.Disposed, Sub(s, e) pillFont.Dispose()
+            AddHandler dgv.CellPainting, Sub(s, e)
+                                             If e.RowIndex < 0 OrElse e.ColumnIndex < 0 Then Return
+                                             If dgv.Columns(e.ColumnIndex).Name <> statusColumn Then Return
+                                             ' Paint everything except the text, then draw the pill on top
+                                             e.Paint(e.CellBounds, DataGridViewPaintParts.All And Not DataGridViewPaintParts.ContentForeground)
+                                             DrawStatusPill(e.Graphics, e.CellBounds, Convert.ToString(e.FormattedValue), pillFont)
+                                             e.Handled = True
+                                         End Sub
+        End If
+    End Sub
+
+    ' ---- Centered form card ----
+    ''' <summary>
+    ''' Keeps a "form card" centered, at most maxWidth wide, and exactly as tall as its content.
+    ''' host = the scrolling page, card = the CardPanel, inner = the layout panel inside the card.
+    ''' Re-runs on every resize; the page scrolls vertically if the window is too short.
+    ''' </summary>
+    Public Sub FitFormCard(host As ScrollableControl, card As Control, inner As Control, maxWidth As Integer)
+        Dim place As Action = Sub()
+                                  If host.ClientSize.Width <= 0 Then Return
+                                  Dim sidePad As Integer = host.LogicalToDeviceUnits(28)
+                                  Dim w As Integer = Math.Min(host.LogicalToDeviceUnits(maxWidth), host.ClientSize.Width - sidePad * 2)
+                                  w = Math.Max(w, host.LogicalToDeviceUnits(520))
+                                  Dim h As Integer = inner.GetPreferredSize(New Size(w - card.Padding.Horizontal, 0)).Height + card.Padding.Vertical
+                                  Dim x As Integer = Math.Max(sidePad, (host.ClientSize.Width - w) \ 2) + host.AutoScrollPosition.X
+                                  card.SetBounds(x, card.Top, w, h, BoundsSpecified.X Or BoundsSpecified.Width Or BoundsSpecified.Height)
+                              End Sub
+        AddHandler host.SizeChanged, Sub(s, e) place()
+        place()
     End Sub
 
 End Module

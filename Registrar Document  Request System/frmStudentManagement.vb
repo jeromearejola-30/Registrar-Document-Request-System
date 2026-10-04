@@ -1,19 +1,18 @@
 ﻿Imports MySql.Data.MySqlClient
-Imports Org.BouncyCastle.Asn1.Cmp
+
 Public Class frmStudentManagement
 
     Dim connStr As String = "server=localhost;user=root;password=;database=registrar_db"
     Dim conn As New MySqlConnection(connStr)
 
-    Private ReadOnly PlaceholderText As String = "   Search student..."
     Private selectedStudentId As String = String.Empty
 
-
     Private Sub FormStudentManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        LoadData()
+        ' "Status" is drawn as a colored pill; every other column is a plain text column
+        Theme.StyleGrid(dgvStudents, "Status")
 
-        txtSearch.Text = PlaceholderText
-        txtSearch.ForeColor = Color.Gray
+        LoadData()
+        LoadStatusCounts()
     End Sub
 
     ' Load student list
@@ -28,42 +27,33 @@ Public Class frmStudentManagement
         End Try
     End Sub
 
-    Private Sub ShowChildForm(childForm As Form)
-        If Me.tplContentArea.Controls.Count > 0 Then
-            Me.tplContentArea.Controls(0).Dispose()
-        End If
-
-        childForm.TopLevel = False
-        childForm.FormBorderStyle = FormBorderStyle.None
-        childForm.Dock = DockStyle.Fill
-
-        Me.tplContentArea.Controls.Add(childForm)
-        Me.tplContentArea.Tag = childForm
-
-        childForm.BringToFront()
-        childForm.Show()
+    ' Fill the "Student Status Summary" card
+    Private Sub LoadStatusCounts()
+        Try
+            Using c As New MySqlConnection(connStr)
+                c.Open()
+                lblNumberActiveStudents.Text = CountByStatus(c, "Active")
+                lblNumberInactiveStudents.Text = CountByStatus(c, "Inactive")
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Error loading student counts: " & ex.Message)
+        End Try
     End Sub
 
-    Private Sub txtSearchBox_Enter(sender As Object, e As EventArgs) Handles txtSearch.Enter
-        If txtSearch.Text = PlaceholderText Then
-            txtSearch.Text = ""
-            txtSearch.ForeColor = Color.Black
-        End If
-    End Sub
+    Private Function CountByStatus(c As MySqlConnection, status As String) As String
+        Using cmd As New MySqlCommand("SELECT COUNT(*) FROM tblstudents WHERE Status = @status", c)
+            cmd.Parameters.AddWithValue("@status", status)
+            Return Convert.ToInt32(cmd.ExecuteScalar()).ToString()
+        End Using
+    End Function
 
-    Private Sub txtSearchBox_Leave(sender As Object, e As EventArgs) Handles txtSearch.Leave
-        If String.IsNullOrWhiteSpace(txtSearch.Text) Then
-            txtSearch.Text = PlaceholderText
-            txtSearch.ForeColor = Color.Gray
-        End If
-    End Sub
-
-
-    ' Quick Search
+    ' Quick Search (the "Search..." hint is now the TextBox's built-in PlaceholderText)
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
         Try
-            Dim query As String = "SELECT * FROM tblstudents WHERE StudentID LIKE '%" & txtSearch.Text & "%' OR LastName LIKE '%" & txtSearch.Text & "%' OR FirstName LIKE '%" & txtSearch.Text & "%'"
+            ' @q is a parameter, so whatever is typed can never be run as SQL
+            Dim query As String = "SELECT * FROM tblstudents WHERE StudentID LIKE @q OR LastName LIKE @q OR FirstName LIKE @q"
             Dim adapter As New MySqlDataAdapter(query, conn)
+            adapter.SelectCommand.Parameters.AddWithValue("@q", "%" & txtSearch.Text.Trim() & "%")
             Dim table As New DataTable()
             adapter.Fill(table)
             dgvStudents.DataSource = table
@@ -71,7 +61,6 @@ Public Class frmStudentManagement
             MessageBox.Show("Search error: " & ex.Message)
         End Try
     End Sub
-
 
     ' View / Select Row
     Private Sub dgvStudents_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvStudents.CellClick
@@ -100,10 +89,8 @@ Public Class frmStudentManagement
         End If
     End Sub
 
-
     Private Sub btnClearSearch_Click(sender As Object, e As EventArgs) Handles btnClearSearch.Click
-        txtSearch.Text = PlaceholderText
-        txtSearch.ForeColor = Color.Gray
+        txtSearch.Clear()
         Me.ActiveControl = Nothing
         LoadData()
     End Sub

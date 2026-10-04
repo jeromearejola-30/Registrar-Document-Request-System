@@ -5,6 +5,9 @@ Public Class frmEditStudent
     Public Property selectedStudent As String
 
     Private Sub frmEditStudent_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ' Keep the form card centered and sized to its content whenever the window is resized
+        Theme.FitFormCard(Me, cardForm, tlpForm, 980)
+
         PopulateComboBoxes()
 
         If Not String.IsNullOrEmpty(selectedStudent) Then
@@ -20,7 +23,7 @@ Public Class frmEditStudent
         cboCourse.Items.AddRange(New Object() {"BSIT", "BSCS", "BSIS", "BSEd"})
 
         cboStudentStatus.Items.Clear()
-        cboStudentStatus.Items.AddRange(New Object() {"Active", "Inactive", "Graduated"})
+        cboStudentStatus.Items.AddRange(New Object() {"Active", "Inactive"}) ' matches tblstudents.Status (enum Active/Inactive)
     End Sub
 
     Private Sub LoadStudentData()
@@ -34,6 +37,8 @@ Public Class frmEditStudent
 
                 Using dr As MySqlDataReader = cmd.ExecuteReader()
                     If dr.Read() Then
+                        txtStudentID.Text = selectedStudent
+                        txtLRN.Text = dr("LRN").ToString()
                         txtLastName.Text = dr("LastName").ToString()
                         txtFirstName.Text = dr("FirstName").ToString()
                         txtMiddleName.Text = dr("MiddleName").ToString()
