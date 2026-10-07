@@ -348,12 +348,12 @@ Partial Class frmDocumentManagement
         btnEditDocument.FlatStyle = FlatStyle.Flat
         btnEditDocument.Font = New Font("Segoe UI Semibold", 10F)
         btnEditDocument.ForeColor = Color.FromArgb(CByte(27), CByte(67), CByte(50))
-        btnEditDocument.Location = New Point(0, 120)
+        btnEditDocument.Location = New Point(0, 121)
         btnEditDocument.Margin = New Padding(0, 8, 0, 0)
-        btnEditDocument.MinimumSize = New Size(0, 40)
+        btnEditDocument.MinimumSize = New Size(0, 15)
         btnEditDocument.Name = "btnEditDocument"
         btnEditDocument.Padding = New Padding(14, 0, 14, 0)
-        btnEditDocument.Size = New Size(142, 40)
+        btnEditDocument.Size = New Size(142, 31)
         btnEditDocument.TabIndex = 7
         btnEditDocument.Text = "Edit Document"
         btnEditDocument.UseVisualStyleBackColor = False
