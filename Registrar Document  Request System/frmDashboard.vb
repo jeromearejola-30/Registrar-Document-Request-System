@@ -12,10 +12,18 @@ Public Class frmDashboard
 
         recentTip.SetToolTip(lvRecentRequests, "Double-click a request to open its details.")
 
+
+        ' Populate the status filter combo box and load items
+        cboFilterRecentRequests.Items.Clear()
+        cboFilterRecentRequests.Items.AddRange(New String() {"All", "Pending", "Processing", "Ready for Release", "Released", "Cancelled"})
+        cboFilterRecentRequests.SelectedIndex = 0
+
         LoadRecentRequests()
         LoadStatistics()
 
     End Sub
+
+
 
     ' Double-click a recent request to open Request Details (the RequestID is stored in each row's Tag)
     Private Sub lvRecentRequests_DoubleClick(sender As Object, e As EventArgs) Handles lvRecentRequests.DoubleClick
@@ -90,6 +98,50 @@ Public Class frmDashboard
         Catch ex As Exception
             MessageBox.Show("Error loading statistics: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
+    End Sub
+
+    Private Sub LoadFilteredRecentRequests(status As String)
+        Try
+            lvRecentRequests.Items.Clear()
+            Dim sql As String = "SELECT r.RequestID, r.RequestNo, s.LastName, s.FirstName, s.Course, d.DocumentName, r.RequestDate, r.Status " &
+                                "FROM tblrequest AS r " &
+                                "INNER JOIN tblrequestdetails AS rd ON r.RequestID = rd.RequestID " &
+                                "INNER JOIN tblstudents AS s ON r.StudentID = s.StudentID " &
+                                "INNER JOIN tbldocuments AS d ON rd.DocumentID = d.DocumentID " &
+                                "WHERE r.Status = @Status " &
+                                "ORDER BY r.RequestDate DESC, r.RequestID DESC LIMIT 7"
+            Using c As New MySqlConnection(connStr)
+                c.Open()
+                Using cmd As New MySqlCommand(sql, c)
+                    cmd.Parameters.AddWithValue("@Status", status)
+                    Using dr As MySqlDataReader = cmd.ExecuteReader()
+                        While dr.Read()
+                            Dim item As New ListViewItem(dr("RequestNo").ToString())
+                            item.Tag = dr("RequestID")
+                            item.SubItems.Add(dr("LastName").ToString())
+                            item.SubItems.Add(dr("FirstName").ToString())
+                            item.SubItems.Add(dr("Course").ToString())
+                            item.SubItems.Add(dr("DocumentName").ToString())
+                            item.SubItems.Add(Convert.ToDateTime(dr("RequestDate")).ToString("MM/dd/yyyy"))
+                            item.SubItems.Add(dr("Status").ToString())
+                            lvRecentRequests.Items.Add(item)
+                        End While
+                    End Using
+                End Using
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Error loading filtered recent requests: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub cboFilterRecentRequests_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboFilterRecentRequests.SelectedIndexChanged
+        ' Filter the recent requests based on the selected status
+        Dim selectedStatus As String = cboFilterRecentRequests.SelectedItem?.ToString()
+        If String.IsNullOrEmpty(selectedStatus) OrElse selectedStatus = "All" Then
+            LoadRecentRequests() ' Load all recent requests
+        Else
+            LoadFilteredRecentRequests(selectedStatus)
+        End If
     End Sub
 
     ' Runs one COUNT query and returns the number as text for a card
