@@ -1,11 +1,16 @@
-﻿Imports System.Drawing.Printing
+﻿Imports System.Drawing.Drawing2D
+Imports System.Drawing.Imaging
+Imports System.Drawing.Printing
+Imports System.Drawing.Text
 Imports MySql.Data.MySqlClient
 
-''' <summary>Print preview of the official receipt, with Print and Save as PDF.</summary>
+''' <summary>
+''' Official receipt. With a printer: preview window with Print and Save as PDF.
+''' Without a printer: a warning, then an offer to save the receipt as a PDF.
+''' </summary>
 Public Class frmReceipt
     Inherits Form
 
-    Private Const PdfPrinter As String = "Microsoft Print to PDF"
     Private ReadOnly connStr As String = "server=localhost;user=root;password=;database=registrar_db"
     Private ReadOnly _requestId As Integer
 
@@ -19,8 +24,8 @@ Public Class frmReceipt
     End Class
 
     Private _d As ReceiptData
-    Private ReadOnly doc As New PrintDocument()
-    Private ReadOnly preview As New PrintPreviewControl()
+    Private _bitmap As Bitmap
+    Private ReadOnly picture As New PictureBox()
     Private ReadOnly btnPrint As New Button()
     Private ReadOnly btnPdf As New Button()
     Private ReadOnly btnClose As New Button()
@@ -29,7 +34,7 @@ Public Class frmReceipt
         _requestId = requestId
         Text = "Official Receipt"
         StartPosition = FormStartPosition.CenterParent
-        ClientSize = New Size(900, 700)
+        ClientSize = New Size(760, 760)
         BackColor = Theme.Background
         Font = Theme.UiFont(10)
 
@@ -52,28 +57,58 @@ Public Class frmReceipt
         btnClose.FlatAppearance.BorderColor = Theme.Border
         bar.Controls.AddRange(New Control() {btnPrint, btnPdf, btnClose})
 
-        preview.Dock = DockStyle.Fill
-        preview.AutoZoom = True
-        preview.UseAntiAlias = True
-        preview.Document = doc
+        picture.Dock = DockStyle.Fill
+        picture.SizeMode = PictureBoxSizeMode.Zoom
+        picture.BackColor = Color.FromArgb(120, 120, 120)
 
-        Controls.Add(preview)   ' fill first, then the bar on top
+        Controls.Add(picture)   ' fill first, then the bar on top
         Controls.Add(bar)
 
-        doc.DefaultPageSettings.Margins = New Margins(50, 50, 50, 50)
-        AddHandler doc.PrintPage, AddressOf Doc_PrintPage
         AddHandler btnPrint.Click, AddressOf Print_Click
-        AddHandler btnPdf.Click, AddressOf Pdf_Click
+        AddHandler btnPdf.Click, Sub(s, e) SavePdf(Me)
         AddHandler btnClose.Click, Sub(s, e) Close()
     End Sub
 
-    ''' <summary>Loads the receipt data and shows the preview; does nothing (with a message) if there is no payment.</summary>
-    Public Shared Sub ShowFor(owner As IWin32Window, requestId As Integer)
-        Dim f As New frmReceipt(requestId)
-        If f.LoadData() Then f.ShowDialog(owner)
-        f.Dispose()
+    Protected Overrides Sub OnFormClosed(e As FormClosedEventArgs)
+        MyBase.OnFormClosed(e)
+        picture.Image = Nothing
+        If _bitmap IsNot Nothing Then _bitmap.Dispose()
     End Sub
 
+    ' ---------------------------------------------------------------
+    ' Entry point used by Record Payment and View Receipt
+    ' ---------------------------------------------------------------
+    Public Shared Function HasPrinter() As Boolean
+        Try
+            Return PrinterSettings.InstalledPrinters.Count > 0
+        Catch
+            Return False
+        End Try
+    End Function
+
+    Public Shared Sub ShowFor(owner As IWin32Window, requestId As Integer)
+        Dim f As New frmReceipt(requestId)
+        Try
+            If Not f.LoadData() Then Return
+
+            If HasPrinter() Then
+                f.ShowDialog(owner)
+            Else
+                MessageBox.Show(owner, "No printer is connected to this computer, so the receipt cannot be printed.",
+                                "No Printer Found", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                If MessageBox.Show(owner, "Do you want to save the receipt as a PDF so you can view it?",
+                                   "Save as PDF", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+                    f.SavePdf(owner)
+                End If
+            End If
+        Finally
+            f.Dispose()
+        End Try
+    End Sub
+
+    ' ---------------------------------------------------------------
+    ' Data
+    ' ---------------------------------------------------------------
     Private Function LoadData() As Boolean
         Try
             Dim sql As String =
@@ -122,7 +157,8 @@ Public Class frmReceipt
                 End Using
             End Using
             _d = d
-            doc.DocumentName = "Receipt " & d.OrNo
+            _bitmap = RenderBitmap()      ' a picture of the receipt: used for the preview and the PDF
+            picture.Image = _bitmap
             Return True
         Catch ex As Exception
             MessageBox.Show("Error loading the receipt: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -131,19 +167,32 @@ Public Class frmReceipt
     End Function
 
     ' ---------------------------------------------------------------
-    ' Drawing (units are 1/100 inch)
+    ' Drawing (layout units are 1/100 inch)
     ' ---------------------------------------------------------------
     Private Shared Function Peso(v As Decimal) As String
         Return "₱" & v.ToString("N2")
     End Function
 
-    Private Sub Doc_PrintPage(sender As Object, e As PrintPageEventArgs)
+    ''' <summary>Draws the receipt on a 6 x 8 inch page at 200 pixels per inch (no printer involved).</summary>
+    Private Function RenderBitmap() As Bitmap
+        Dim bmp As New Bitmap(1200, 1600, PixelFormat.Format24bppRgb)
+        bmp.SetResolution(100, 100)   ' so that font sizes in points convert like they do for a printer
+        Using g As Graphics = Graphics.FromImage(bmp)
+            g.Clear(Color.White)
+            g.SmoothingMode = SmoothingMode.AntiAlias
+            g.TextRenderingHint = TextRenderingHint.AntiAliasGridFit
+            g.ScaleTransform(2.0F, 2.0F)   ' 1 layout unit (1/100 inch) = 2 pixels
+            DrawReceipt(g, New Rectangle(40, 40, 520, 720))
+        End Using
+        Return bmp
+    End Function
+
+    Private Sub DrawReceipt(g As Graphics, bounds As Rectangle)
         If _d Is Nothing Then Return
-        Dim g As Graphics = e.Graphics
         Const W As Single = 520.0F
-        Dim left As Single = e.MarginBounds.Left + (e.MarginBounds.Width - W) / 2.0F
+        Dim left As Single = bounds.Left + (bounds.Width - W) / 2.0F
         Dim right As Single = left + W
-        Dim y As Single = e.MarginBounds.Top
+        Dim y As Single = bounds.Top
 
         Using fTitle As New Font("Segoe UI", 15, FontStyle.Bold),
               fHead As New Font("Segoe UI", 11, FontStyle.Bold),
@@ -215,7 +264,7 @@ Public Class frmReceipt
             Next
             y += 24
 
-            ' Staff signatory
+            ' Staff signatory: the staff member who recorded the payment
             Dim sigW As Single = 230.0F
             Dim sigX As Single = right - sigW
             g.DrawLine(pen, sigX, y + 24, right, y + 24)
@@ -233,46 +282,56 @@ Public Class frmReceipt
 
             g.DrawString("This receipt was generated by the Registrar Document Request System.", fSmall, Brushes.Gray, New RectangleF(left, y, W, 18), center)
         End Using
-        e.HasMorePages = False
     End Sub
 
     ' ---------------------------------------------------------------
-    ' Print / Save as PDF
+    ' Print (only touches the printer system when you press the button)
     ' ---------------------------------------------------------------
     Private Sub Print_Click(sender As Object, e As EventArgs)
-        Using dlg As New PrintDialog() With {.Document = doc}
-            If dlg.ShowDialog(Me) = DialogResult.OK Then
-                Try
-                    doc.Print()
-                Catch ex As Exception
-                    MessageBox.Show("Could not print: " & ex.Message, "Print Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End Try
-            End If
-        End Using
-    End Sub
-
-    Private Sub Pdf_Click(sender As Object, e As EventArgs)
-        Dim found As Boolean = False
-        For Each p As String In PrinterSettings.InstalledPrinters
-            If String.Equals(p, PdfPrinter, StringComparison.OrdinalIgnoreCase) Then found = True
-        Next
-        If Not found Then
-            MessageBox.Show("This computer has no 'Microsoft Print to PDF' printer. Use Print and choose any PDF printer instead.",
-                            "PDF Not Available", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        If Not HasPrinter() Then
+            MessageBox.Show(Me, "No printer is connected to this computer. Use Save as PDF instead.",
+                            "No Printer Found", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
+        Try
+            Using doc As New PrintDocument()
+                doc.DocumentName = "Receipt " & _d.OrNo
+                doc.DefaultPageSettings.Margins = New Margins(50, 50, 50, 50)
+                AddHandler doc.PrintPage, Sub(s, pe)
+                                              DrawReceipt(pe.Graphics, pe.MarginBounds)
+                                              pe.HasMorePages = False
+                                          End Sub
+                Using dlg As New PrintDialog() With {.Document = doc}
+                    If dlg.ShowDialog(Me) = DialogResult.OK Then doc.Print()
+                End Using
+            End Using
+        Catch ex As Exception
+            MessageBox.Show(Me, "Could not print: " & ex.Message, "Print Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
 
-        Using sfd As New SaveFileDialog() With {.Filter = "PDF file (*.pdf)|*.pdf", .FileName = $"Receipt_{_d.OrNo}.pdf"}
-            If sfd.ShowDialog(Me) <> DialogResult.OK Then Return
+    ' ---------------------------------------------------------------
+    ' Save as PDF (works with or without a printer)
+    ' ---------------------------------------------------------------
+    Private Sub SavePdf(owner As IWin32Window)
+        Using sfd As New SaveFileDialog() With {
+            .Title = "Save receipt as PDF", .Filter = "PDF file (*.pdf)|*.pdf", .FileName = $"Receipt_{_d.OrNo}.pdf"}
+            If sfd.ShowDialog(owner) <> DialogResult.OK Then Return
             Try
-                doc.PrinterSettings = New PrinterSettings() With {.PrinterName = PdfPrinter, .PrintToFile = True, .PrintFileName = sfd.FileName}
-                doc.Print()
-                MessageBox.Show("Receipt saved as PDF.", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                SimplePdf.SaveImage(_bitmap, sfd.FileName, 432, 576)   ' 6 x 8 inch page
             Catch ex As Exception
-                MessageBox.Show("Could not save the PDF: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Finally
-                doc.PrinterSettings = New PrinterSettings()   ' back to the default printer
+                MessageBox.Show(owner, "Could not save the PDF: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return
             End Try
+
+            If MessageBox.Show(owner, "Receipt saved as PDF. Open it now?", "Saved", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
+                Try
+                    Process.Start(New ProcessStartInfo(sfd.FileName) With {.UseShellExecute = True})
+                Catch ex As Exception
+                    MessageBox.Show(owner, "The PDF was saved but could not be opened automatically:" & vbCrLf & sfd.FileName,
+                                    "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End Try
+            End If
         End Using
     End Sub
 
