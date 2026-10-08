@@ -94,7 +94,7 @@ Public Class frmPaymentReport
         End Try
     End Sub
 
-    ' Friendly headers and widths; runs after every bind so they always survive a reload
+    ' Friendly headers and width; runs after every bind so they always survive a reload
     Private Sub dgvReport_DataBindingComplete(sender As Object, e As DataGridViewBindingCompleteEventArgs) Handles dgvReport.DataBindingComplete
         With dgvReport
             If Not .Columns.Contains("ORNo") Then Return
@@ -303,10 +303,23 @@ Public Class frmPaymentReport
         Using printDoc As New Printing.PrintDocument()
             printDoc.DefaultPageSettings.Landscape = True
             AddHandler printDoc.PrintPage, AddressOf PrintReportPage
+
+            ' Pre-check: ensure there are installed printers before attempting preview
+            If System.Drawing.Printing.PrinterSettings.InstalledPrinters.Count = 0 Then
+                MessageBox.Show("No printers are installed. Please install a printer or start the Print Spooler service.", "Printing Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return
+            End If
+
             Using preview As New PrintPreviewDialog()
                 preview.Document = printDoc
                 preview.WindowState = FormWindowState.Maximized
-                preview.ShowDialog()
+                Try
+                    preview.ShowDialog()
+                Catch ex As System.Drawing.Printing.InvalidPrinterException
+                    MessageBox.Show("No printers are installed or the printer configuration is invalid. Please install a printer or start the Print Spooler service.", "Printing Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Catch ex As Exception
+                    MessageBox.Show($"An error occurred while preparing the print preview: {ex.Message}", "Printing Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End Try
             End Using
         End Using
     End Sub

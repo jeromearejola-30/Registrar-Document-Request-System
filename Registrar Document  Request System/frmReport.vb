@@ -250,6 +250,7 @@ Public Class frmReport
             Return
         End If
 
+
         printRowIndex = 0
         printPageNumber = 0
 
@@ -259,6 +260,7 @@ Public Class frmReport
                 preview.Document = printDoc
                 preview.WindowState = FormWindowState.Maximized
                 preview.ShowDialog()
+
             End Using
         End Using
     End Sub
