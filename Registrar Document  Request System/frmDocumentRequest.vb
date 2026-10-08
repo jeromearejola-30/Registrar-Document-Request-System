@@ -16,6 +16,19 @@ Public Class frmDocumentRequest
         UpdateHeaderLabel()
         ApplyFilters()
         UpdateStatusSummary()
+
+        ' "Request Manager" button after Create Request (added in code: the toolbar gets one more column)
+        Dim btnManager As New ThemedButton() With {
+            .Text = "Request Manager", .Kind = ButtonKind.Secondary, .AutoSize = True,
+            .MinimumSize = New Size(0, 40), .Margin = btnViewRequest.Margin}
+        AddHandler btnManager.Click, Sub(s, ev)
+                                         Dim host = TryCast(ParentForm, frmMainMenu)
+                                         If host IsNot Nothing Then host.ShowChildForm(New frmRequestManager())
+                                     End Sub
+        tlpToolbar.ColumnCount += 1
+        tlpToolbar.ColumnStyles.Add(New ColumnStyle(SizeType.AutoSize))
+        tlpToolbar.Controls.Add(btnManager, tlpToolbar.ColumnCount - 1, 0)
+
     End Sub
 
     ' Populate dropdown with active documents from database

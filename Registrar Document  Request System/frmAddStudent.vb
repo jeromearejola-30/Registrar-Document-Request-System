@@ -49,20 +49,27 @@ Public Class frmAddStudent
                     End If
                 End Using
 
-                ' Insert record into tblstudents
+                ' Insert record into tblstudents (and log it) in one transaction
                 Dim sql As String = "INSERT INTO tblstudents (StudentID, LRN, LastName, FirstName, MiddleName, YearLevel, Section, Course, ContactNo, Status) " &
                                     "VALUES (@StudentID, @LRN, @LastName, @FirstName, @MiddleName, @YearLevel, @Section, @Course, @ContactNumber, 'Active')"
-                Using cmd As New MySqlCommand(sql, c)
-                    cmd.Parameters.AddWithValue("@StudentID", txtStudentID.Text.Trim())
-                    cmd.Parameters.AddWithValue("@LRN", txtLRN.Text.Trim())
-                    cmd.Parameters.AddWithValue("@LastName", txtLastName.Text.Trim())
-                    cmd.Parameters.AddWithValue("@FirstName", txtFirstName.Text.Trim())
-                    cmd.Parameters.AddWithValue("@MiddleName", txtMiddleName.Text.Trim())
-                    cmd.Parameters.AddWithValue("@YearLevel", cboYearLevel.SelectedItem.ToString())
-                    cmd.Parameters.AddWithValue("@Section", txtSection.Text.Trim())
-                    cmd.Parameters.AddWithValue("@Course", cboCourse.SelectedItem.ToString())
-                    cmd.Parameters.AddWithValue("@ContactNumber", txtContactNumber.Text.Trim())
-                    saved = cmd.ExecuteNonQuery() > 0
+                Using tx As MySqlTransaction = c.BeginTransaction()
+                    Using cmd As New MySqlCommand(sql, c, tx)
+                        cmd.Parameters.AddWithValue("@StudentID", txtStudentID.Text.Trim())
+                        cmd.Parameters.AddWithValue("@LRN", txtLRN.Text.Trim())
+                        cmd.Parameters.AddWithValue("@LastName", txtLastName.Text.Trim())
+                        cmd.Parameters.AddWithValue("@FirstName", txtFirstName.Text.Trim())
+                        cmd.Parameters.AddWithValue("@MiddleName", txtMiddleName.Text.Trim())
+                        cmd.Parameters.AddWithValue("@YearLevel", cboYearLevel.SelectedItem.ToString())
+                        cmd.Parameters.AddWithValue("@Section", txtSection.Text.Trim())
+                        cmd.Parameters.AddWithValue("@Course", cboCourse.SelectedItem.ToString())
+                        cmd.Parameters.AddWithValue("@ContactNumber", txtContactNumber.Text.Trim())
+                        saved = cmd.ExecuteNonQuery() > 0
+                    End Using
+                    If saved Then
+                        ActivityLogger.Log(c, tx, ActivityLogger.TypeStudent, "Student Added", txtStudentID.Text.Trim(),
+                            $"Added student {txtStudentID.Text.Trim()} - {txtLastName.Text.Trim()}, {txtFirstName.Text.Trim()} ({cboCourse.SelectedItem} {cboYearLevel.SelectedItem})")
+                        tx.Commit()
+                    End If
                 End Using
             End Using
         Catch ex As Exception

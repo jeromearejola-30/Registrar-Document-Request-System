@@ -19,7 +19,6 @@ Partial Class frmEditDocument
 
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-
         lblSubtitle = New Label()
         lblSecDetails = New Label()
         lblCapDocName = New Label()
@@ -50,8 +49,11 @@ Partial Class frmEditDocument
         lblSubtitle.AutoSize = True
         lblSubtitle.Font = New Font("Segoe UI", 9.5F)
         lblSubtitle.ForeColor = Color.FromArgb(CByte(107), CByte(114), CByte(128))
+        lblSubtitle.Location = New Point(0, 0)
         lblSubtitle.Margin = New Padding(0)
         lblSubtitle.Name = "lblSubtitle"
+        lblSubtitle.Size = New Size(449, 17)
+        lblSubtitle.TabIndex = 0
         lblSubtitle.Text = "Update the details of this document. Changes apply to future requests only."
         ' 
         ' lblSecDetails
@@ -59,8 +61,11 @@ Partial Class frmEditDocument
         lblSecDetails.AutoSize = True
         lblSecDetails.Font = New Font("Segoe UI Semibold", 11.5F)
         lblSecDetails.ForeColor = Color.FromArgb(CByte(27), CByte(67), CByte(50))
+        lblSecDetails.Location = New Point(0, 31)
         lblSecDetails.Margin = New Padding(0, 14, 0, 8)
         lblSecDetails.Name = "lblSecDetails"
+        lblSecDetails.Size = New Size(139, 21)
+        lblSecDetails.TabIndex = 1
         lblSecDetails.Text = "Document Details"
         ' 
         ' lblCapDocName
@@ -68,8 +73,11 @@ Partial Class frmEditDocument
         lblCapDocName.AutoSize = True
         lblCapDocName.Font = New Font("Segoe UI Semibold", 9.5F)
         lblCapDocName.ForeColor = Color.FromArgb(CByte(31), CByte(41), CByte(55))
+        lblCapDocName.Location = New Point(0, 0)
         lblCapDocName.Margin = New Padding(0, 0, 0, 4)
         lblCapDocName.Name = "lblCapDocName"
+        lblCapDocName.Size = New Size(121, 17)
+        lblCapDocName.TabIndex = 0
         lblCapDocName.Text = "Document Name *"
         ' 
         ' txtDocName
@@ -77,17 +85,23 @@ Partial Class frmEditDocument
         txtDocName.Anchor = AnchorStyles.Left Or AnchorStyles.Right
         txtDocName.BorderStyle = BorderStyle.FixedSingle
         txtDocName.Font = New Font("Segoe UI", 10.5F)
+        txtDocName.Location = New Point(0, 21)
         txtDocName.Margin = New Padding(0, 0, 16, 0)
         txtDocName.MaxLength = 100
         txtDocName.Name = "txtDocName"
+        txtDocName.Size = New Size(382, 26)
+        txtDocName.TabIndex = 1
         ' 
         ' lblCapDocFee
         ' 
         lblCapDocFee.AutoSize = True
         lblCapDocFee.Font = New Font("Segoe UI Semibold", 9.5F)
         lblCapDocFee.ForeColor = Color.FromArgb(CByte(31), CByte(41), CByte(55))
+        lblCapDocFee.Location = New Point(398, 0)
         lblCapDocFee.Margin = New Padding(0, 0, 0, 4)
         lblCapDocFee.Name = "lblCapDocFee"
+        lblCapDocFee.Size = New Size(59, 17)
+        lblCapDocFee.TabIndex = 2
         lblCapDocFee.Text = "Fee (₱) *"
         ' 
         ' txtDocFee
@@ -95,17 +109,23 @@ Partial Class frmEditDocument
         txtDocFee.Anchor = AnchorStyles.Left Or AnchorStyles.Right
         txtDocFee.BorderStyle = BorderStyle.FixedSingle
         txtDocFee.Font = New Font("Segoe UI", 10.5F)
+        txtDocFee.Location = New Point(398, 21)
         txtDocFee.Margin = New Padding(0, 0, 16, 0)
         txtDocFee.MaxLength = 12
         txtDocFee.Name = "txtDocFee"
+        txtDocFee.Size = New Size(183, 26)
+        txtDocFee.TabIndex = 3
         ' 
         ' lblCapDocStatus
         ' 
         lblCapDocStatus.AutoSize = True
         lblCapDocStatus.Font = New Font("Segoe UI Semibold", 9.5F)
         lblCapDocStatus.ForeColor = Color.FromArgb(CByte(31), CByte(41), CByte(55))
+        lblCapDocStatus.Location = New Point(597, 0)
         lblCapDocStatus.Margin = New Padding(0, 0, 0, 4)
         lblCapDocStatus.Name = "lblCapDocStatus"
+        lblCapDocStatus.Size = New Size(46, 17)
+        lblCapDocStatus.TabIndex = 4
         lblCapDocStatus.Text = "Status"
         ' 
         ' cboDocStatus
@@ -114,8 +134,11 @@ Partial Class frmEditDocument
         cboDocStatus.DropDownStyle = ComboBoxStyle.DropDownList
         cboDocStatus.Font = New Font("Segoe UI", 10.5F)
         cboDocStatus.FormattingEnabled = True
-        cboDocStatus.Margin = New Padding(0, 0, 0, 0)
+        cboDocStatus.Location = New Point(597, 22)
+        cboDocStatus.Margin = New Padding(0)
         cboDocStatus.Name = "cboDocStatus"
+        cboDocStatus.Size = New Size(199, 27)
+        cboDocStatus.TabIndex = 5
         ' 
         ' tlpDetails
         ' 
@@ -132,19 +155,25 @@ Partial Class frmEditDocument
         tlpDetails.Controls.Add(lblCapDocStatus, 2, 0)
         tlpDetails.Controls.Add(cboDocStatus, 2, 1)
         tlpDetails.Dock = DockStyle.Fill
+        tlpDetails.Location = New Point(0, 60)
         tlpDetails.Margin = New Padding(0)
         tlpDetails.Name = "tlpDetails"
         tlpDetails.RowCount = 2
         tlpDetails.RowStyles.Add(New RowStyle())
         tlpDetails.RowStyles.Add(New RowStyle())
+        tlpDetails.Size = New Size(796, 47)
+        tlpDetails.TabIndex = 2
         ' 
         ' lblSecDescription
         ' 
         lblSecDescription.AutoSize = True
         lblSecDescription.Font = New Font("Segoe UI Semibold", 11.5F)
         lblSecDescription.ForeColor = Color.FromArgb(CByte(27), CByte(67), CByte(50))
+        lblSecDescription.Location = New Point(0, 129)
         lblSecDescription.Margin = New Padding(0, 22, 0, 8)
         lblSecDescription.Name = "lblSecDescription"
+        lblSecDescription.Size = New Size(169, 21)
+        lblSecDescription.TabIndex = 3
         lblSecDescription.Text = "Description (optional)"
         ' 
         ' txtDocDescription
@@ -152,14 +181,16 @@ Partial Class frmEditDocument
         txtDocDescription.BorderStyle = BorderStyle.FixedSingle
         txtDocDescription.Dock = DockStyle.Fill
         txtDocDescription.Font = New Font("Segoe UI", 10.5F)
+        txtDocDescription.Location = New Point(0, 158)
         txtDocDescription.Margin = New Padding(0)
         txtDocDescription.MaxLength = 500
+        txtDocDescription.MinimumSize = New Size(0, 130)
         txtDocDescription.Multiline = True
         txtDocDescription.Name = "txtDocDescription"
         txtDocDescription.PlaceholderText = "What is this document used for? Requirements, processing notes, etc."
         txtDocDescription.ScrollBars = ScrollBars.Vertical
-        txtDocDescription.Size = New Size(400, 130)
-        txtDocDescription.MinimumSize = New Size(0, 130)
+        txtDocDescription.Size = New Size(796, 130)
+        txtDocDescription.TabIndex = 4
         ' 
         ' btnSaveEdit
         ' 
@@ -169,14 +200,17 @@ Partial Class frmEditDocument
         btnSaveEdit.FlatAppearance.BorderSize = 0
         btnSaveEdit.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(27), CByte(67), CByte(50))
         btnSaveEdit.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(45), CByte(106), CByte(79))
-        btnSaveEdit.ForeColor = Color.White
-        btnSaveEdit.Kind = ButtonKind.Primary
         btnSaveEdit.FlatStyle = FlatStyle.Flat
         btnSaveEdit.Font = New Font("Segoe UI", 10F, FontStyle.Bold)
+        btnSaveEdit.ForeColor = Color.White
+        btnSaveEdit.Kind = ButtonKind.Primary
+        btnSaveEdit.Location = New Point(140, 0)
         btnSaveEdit.Margin = New Padding(10, 0, 0, 0)
         btnSaveEdit.MinimumSize = New Size(120, 40)
         btnSaveEdit.Name = "btnSaveEdit"
         btnSaveEdit.Padding = New Padding(14, 0, 14, 0)
+        btnSaveEdit.Size = New Size(139, 40)
+        btnSaveEdit.TabIndex = 0
         btnSaveEdit.Text = "Save Changes"
         btnSaveEdit.UseVisualStyleBackColor = False
         ' 
@@ -188,31 +222,38 @@ Partial Class frmEditDocument
         btnCancel.FlatAppearance.BorderColor = Color.FromArgb(CByte(27), CByte(67), CByte(50))
         btnCancel.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(207), CByte(227), CByte(214))
         btnCancel.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(234), CByte(242), CByte(237))
-        btnCancel.ForeColor = Color.FromArgb(CByte(27), CByte(67), CByte(50))
         btnCancel.FlatStyle = FlatStyle.Flat
         btnCancel.Font = New Font("Segoe UI", 10F, FontStyle.Bold)
+        btnCancel.ForeColor = Color.FromArgb(CByte(27), CByte(67), CByte(50))
+        btnCancel.Location = New Point(10, 0)
         btnCancel.Margin = New Padding(10, 0, 0, 0)
         btnCancel.MinimumSize = New Size(120, 40)
         btnCancel.Name = "btnCancel"
         btnCancel.Padding = New Padding(14, 0, 14, 0)
+        btnCancel.Size = New Size(120, 40)
+        btnCancel.TabIndex = 1
         btnCancel.Text = "Cancel"
         btnCancel.UseVisualStyleBackColor = False
         ' 
         ' btnDeleteDocument
         ' 
+        btnDeleteDocument.Anchor = AnchorStyles.Left
         btnDeleteDocument.AutoSize = True
         btnDeleteDocument.AutoSizeMode = AutoSizeMode.GrowAndShrink
         btnDeleteDocument.BackColor = Color.White
         btnDeleteDocument.FlatAppearance.BorderColor = Color.FromArgb(CByte(220), CByte(38), CByte(38))
         btnDeleteDocument.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(254), CByte(202), CByte(202))
         btnDeleteDocument.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(254), CByte(226), CByte(226))
-        btnDeleteDocument.ForeColor = Color.FromArgb(CByte(220), CByte(38), CByte(38))
         btnDeleteDocument.FlatStyle = FlatStyle.Flat
         btnDeleteDocument.Font = New Font("Segoe UI", 10F, FontStyle.Bold)
-        btnDeleteDocument.Margin = New Padding(10, 0, 0, 0)
+        btnDeleteDocument.ForeColor = Color.FromArgb(CByte(220), CByte(38), CByte(38))
+        btnDeleteDocument.Location = New Point(0, 32)
+        btnDeleteDocument.Margin = New Padding(0)
         btnDeleteDocument.MinimumSize = New Size(120, 40)
         btnDeleteDocument.Name = "btnDeleteDocument"
         btnDeleteDocument.Padding = New Padding(14, 0, 14, 0)
+        btnDeleteDocument.Size = New Size(164, 40)
+        btnDeleteDocument.TabIndex = 0
         btnDeleteDocument.Text = "Delete Document"
         btnDeleteDocument.UseVisualStyleBackColor = False
         ' 
@@ -224,8 +265,11 @@ Partial Class frmEditDocument
         flpButtons.Controls.Add(btnCancel)
         flpButtons.Dock = DockStyle.Fill
         flpButtons.FlowDirection = FlowDirection.RightToLeft
+        flpButtons.Location = New Point(517, 0)
         flpButtons.Margin = New Padding(0)
         flpButtons.Name = "flpButtons"
+        flpButtons.Size = New Size(279, 104)
+        flpButtons.TabIndex = 1
         flpButtons.WrapContents = False
         ' 
         ' tlpButtons
@@ -238,12 +282,13 @@ Partial Class frmEditDocument
         tlpButtons.Controls.Add(btnDeleteDocument, 0, 0)
         tlpButtons.Controls.Add(flpButtons, 1, 0)
         tlpButtons.Dock = DockStyle.Fill
+        tlpButtons.Location = New Point(0, 316)
         tlpButtons.Margin = New Padding(0, 28, 0, 0)
         tlpButtons.Name = "tlpButtons"
         tlpButtons.RowCount = 1
         tlpButtons.RowStyles.Add(New RowStyle())
-        btnDeleteDocument.Anchor = AnchorStyles.Left
-        btnDeleteDocument.Margin = New Padding(0)
+        tlpButtons.Size = New Size(796, 104)
+        tlpButtons.TabIndex = 5
         ' 
         ' tlpForm
         ' 
@@ -256,6 +301,7 @@ Partial Class frmEditDocument
         tlpForm.Controls.Add(txtDocDescription, 0, 4)
         tlpForm.Controls.Add(tlpButtons, 0, 5)
         tlpForm.Dock = DockStyle.Fill
+        tlpForm.Location = New Point(32, 28)
         tlpForm.Margin = New Padding(0)
         tlpForm.Name = "tlpForm"
         tlpForm.RowCount = 6
@@ -265,6 +311,8 @@ Partial Class frmEditDocument
         tlpForm.RowStyles.Add(New RowStyle())
         tlpForm.RowStyles.Add(New RowStyle())
         tlpForm.RowStyles.Add(New RowStyle())
+        tlpForm.Size = New Size(796, 420)
+        tlpForm.TabIndex = 0
         ' 
         ' cardForm
         ' 
@@ -275,7 +323,7 @@ Partial Class frmEditDocument
         cardForm.Name = "cardForm"
         cardForm.Padding = New Padding(32, 28, 32, 32)
         cardForm.Size = New Size(860, 480)
-        tlpForm.Dock = DockStyle.Fill
+        cardForm.TabIndex = 0
         ' 
         ' frmEditDocument
         ' 

@@ -7,22 +7,224 @@ Public Class frmRequestDetails
     ' Set by frmDocumentRequest before the page is shown
     Public Property RequestID As String = ""
 
+
     ' What the database held when the page loaded (used to detect changes and to protect an issued OR number)
     Private originalStatus As String = ""
     Private originalPayment As String = ""
     Private currentOrNo As String = ""
-
+    Private currentTotal As Decimal = 0D
+    Private currentStudentName As String = ""
+    Private btnRecordPayment As ThemedButton
+    Private btnAdvance As ThemedButton
+    Private btnCancelRequest As ThemedButton
+    Private btnViewReceipt As ThemedButton
     Private Const MaxVisibleItemRows As Integer = 8
 
-    ' A request can only be cancelled within this many days of its request date; after that it is past due
-    Private Const CancelWindowDays As Integer = 7
-    Private requestDate As DateTime = DateTime.Today
-    Private ReadOnly tip As New ToolTip()
+    ' Which button is visible depends only on the request's current status and payment
+    Private Sub ConfigureActions()
+        Dim isPending As Boolean = (originalStatus = "Pending")
+        Dim isPaid As Boolean = RequestHelper.IsPaid(originalPayment)
+        Dim nextStage As String = NextStageName()
+
+        ' The dropdowns are now display-only; changes happen through the buttons
+        cboStatus.Enabled = False
+        cboPaymentStatus.Enabled = False
+        btnSave.Visible = False
+
+        btnRecordPayment.Visible = isPending AndAlso Not isPaid
+        btnAdvance.Visible = isPaid AndAlso nextStage <> ""
+        btnAdvance.Text = If(nextStage = "", "", "Move to " & nextStage)
+        btnCancelRequest.Visible = isPending   ' the only status that can be cancelled
+        btnViewReceipt.Visible = (currentOrNo <> "")   ' an OR number exists once the request was paid (also when refunded)
+        Select Case originalStatus
+            Case "Pending"
+                lblStatusHint.Text = If(isPaid,
+                    "Paid. While the request is Pending it can still be cancelled, and the payment will be refunded.",
+                    "Record the payment before processing. An unpaid Pending request can be cancelled.")
+            Case "Cancelled"
+                lblStatusHint.Text = "This request was cancelled" & If(originalPayment = "Refunded", " and its payment was refunded.", ".")
+            Case Else
+                lblStatusHint.Text = $"This request is {originalStatus}, so it can no longer be cancelled or refunded."
+        End Select
+    End Sub
+
+    Private Function NextStageName() As String
+        Select Case originalStatus
+            Case "Pending"
+                Return "Processing"
+            Case "Processing"
+                Return "Ready for Release"
+            Case "Ready for Release"
+                Return "Released"
+            Case Else
+                Return ""
+        End Select
+    End Function
+
+    ' Locks the request row and returns {Status, PaymentStatus} as they are right now in the database
+    Private Function LockRequest(c As MySqlConnection, tx As MySqlTransaction) As String()
+        Using cmd As New MySqlCommand("SELECT Status, PaymentStatus FROM tblrequest WHERE RequestID = @id FOR UPDATE", c, tx)
+            cmd.Parameters.AddWithValue("@id", RequestID)
+            Using r As MySqlDataReader = cmd.ExecuteReader()
+                If Not r.Read() Then Throw New InvalidOperationException("The request no longer exists.")
+                Return New String() {Convert.ToString(r("Status")), Convert.ToString(r("PaymentStatus"))}
+            End Using
+        End Using
+    End Function
+
+    ' ---------------------------------------------------------------
+    ' Advance one stage: Pending -> Processing -> Ready for Release -> Released
+    ' ---------------------------------------------------------------
+    Private Sub btnAdvance_Click(sender As Object, e As EventArgs)
+        Dim target As String = NextStageName()
+        If target = "" Then Return
+
+        Dim msg As String = $"Move request {lblRequestNo.Text} from {originalStatus} to {target}?"
+        If target = "Processing" Then
+            msg &= vbCrLf & vbCrLf & "Once the request is Processing it can no longer be cancelled or refunded."
+        End If
+        If MessageBox.Show(msg, "Confirm Status Change", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) <> DialogResult.Yes Then Return
+
+        ' Fixed names from our own code (never user input), so it is safe to place in the SQL text
+        Dim dateColumn As String = If(target = "Processing", "ProcessingDate", If(target = "Ready for Release", "ReadyDate", "ReleasedDate"))
+        Dim fromStage As String = originalStatus
+
+        Try
+            Using c As New MySqlConnection(connStr)
+                c.Open()
+                Using tx As MySqlTransaction = c.BeginTransaction()
+                    Dim state As String() = LockRequest(c, tx)
+                    If state(0) <> fromStage OrElse state(1) <> "Paid" Then
+                        Throw New InvalidOperationException("This request was changed by someone else. Please reopen it.")
+                    End If
+
+                    Using cmd As New MySqlCommand($"UPDATE tblrequest SET Status = @s, {dateColumn} = NOW() WHERE RequestID = @id", c, tx)
+                        cmd.Parameters.AddWithValue("@s", target)
+                        cmd.Parameters.AddWithValue("@id", RequestID)
+                        cmd.ExecuteNonQuery()
+                    End Using
+
+                    ActivityLogger.Log(c, tx, ActivityLogger.TypeTransaction, "Status Changed", lblRequestNo.Text,
+                                       $"Request {lblRequestNo.Text} moved from {fromStage} to {target}")
+                    tx.Commit()
+                End Using
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Error updating the request: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End Try
+
+        If LoadRequest() Then LoadItems()
+    End Sub
+
+    ' ---------------------------------------------------------------
+    ' Cancel: Pending only. A paid request is refunded and deducted from the payment report.
+    ' ---------------------------------------------------------------
+    Private Sub btnCancelRequest_Click(sender As Object, e As EventArgs)
+        Dim msg As String = $"Cancel request {lblRequestNo.Text}?"
+        If RequestHelper.IsPaid(originalPayment) Then
+            msg &= vbCrLf & vbCrLf & $"This request is already paid (₱{currentTotal:N2}). Cancelling it will REFUND the payment and deduct it from the payment report."
+        End If
+        msg &= vbCrLf & vbCrLf & "This cannot be undone."
+        If MessageBox.Show(msg, "Confirm Cancellation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) <> DialogResult.Yes Then Return
+
+        Dim reason As String
+        Dim details As String
+        Using dlg As New frmRemarks("Reason for Cancellation", $"Why is request {lblRequestNo.Text} being cancelled?", RemarkReasons.CancelRequest)
+            If dlg.ShowDialog(Me) <> DialogResult.OK Then Return
+            reason = dlg.Reason
+            details = dlg.Details
+        End Using
+
+        Dim refunded As Boolean = False
+        Try
+            Using c As New MySqlConnection(connStr)
+                c.Open()
+                Using tx As MySqlTransaction = c.BeginTransaction()
+                    ' Decide from what the database says right now, not from what this page showed earlier
+                    Dim state As String() = LockRequest(c, tx)
+                    If state(0) <> "Pending" Then
+                        Throw New InvalidOperationException($"Only Pending requests can be cancelled. This request is now {state(0)}.")
+                    End If
+                    refunded = (state(1) = "Paid")
+
+                    Using up As New MySqlCommand("UPDATE tblrequest SET Status = 'Cancelled', PaymentStatus = @pay, CancelReason = @reason, " &
+                                                 "CancelRemarks = @details, CancelledBy = @by, CancelledDate = NOW() WHERE RequestID = @id", c, tx)
+                        up.Parameters.AddWithValue("@pay", If(refunded, "Refunded", state(1)))
+                        up.Parameters.AddWithValue("@reason", reason)
+                        up.Parameters.AddWithValue("@details", details)
+                        up.Parameters.AddWithValue("@by", AppSession.UserID)
+                        up.Parameters.AddWithValue("@id", RequestID)
+                        up.ExecuteNonQuery()
+                    End Using
+
+                    If refunded Then
+                        Using rf As New MySqlCommand("UPDATE tblpayments SET RefundedAt = NOW(), RefundedBy = @by, RefundRemarks = @rr WHERE RequestID = @id", c, tx)
+                            rf.Parameters.AddWithValue("@by", AppSession.UserID)
+                            rf.Parameters.AddWithValue("@rr", "Refund for cancelled request: " & reason)
+                            rf.Parameters.AddWithValue("@id", RequestID)
+                            rf.ExecuteNonQuery()
+                        End Using
+                    End If
+
+                    ActivityLogger.Log(c, tx, ActivityLogger.TypeTransaction, "Request Cancelled", lblRequestNo.Text,
+                                       $"Cancelled request {lblRequestNo.Text} (was Pending, {If(refunded, "paid", "unpaid")}) - {reason}", reason & ": " & details)
+                    If refunded Then
+                        ActivityLogger.Log(c, tx, ActivityLogger.TypeTransaction, "Refund Issued", lblRequestNo.Text,
+                                           $"Refunded ₱{currentTotal:N2} for cancelled request {lblRequestNo.Text}; deducted from payment report",
+                                           "Refund for cancelled request: " & reason)
+                    End If
+                    tx.Commit()
+                End Using
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Error cancelling the request: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End Try
+
+        MessageBox.Show(If(refunded, $"Request cancelled. Refund of ₱{currentTotal:N2} issued.", "Request cancelled."),
+                        "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        If LoadRequest() Then LoadItems()
+    End Sub
 
     Private Sub frmRequestDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Keep the form card centered and sized to its content whenever the window is resized
         Theme.FitFormCard(Me, cardForm, tlpForm, 860)
         Theme.StyleGrid(dgvItems)
+
+        ' Payment is recorded with its own button (created here so no Designer work is needed)
+        btnRecordPayment = New ThemedButton() With {
+            .Text = "Record Payment", .Kind = ButtonKind.Primary, .AutoSize = True,
+            .MinimumSize = New Size(150, 40), .Margin = New Padding(10, 0, 0, 0), .Visible = False}
+        AddHandler btnRecordPayment.Click, AddressOf btnRecordPayment_Click
+        flpButtons.Controls.Add(btnRecordPayment)
+        flpButtons.Controls.SetChildIndex(btnRecordPayment, 0)   ' rightmost button
+
+        btnAdvance = New ThemedButton() With {
+            .Text = "Advance", .Kind = ButtonKind.Primary, .AutoSize = True,
+            .MinimumSize = New Size(180, 40), .Margin = New Padding(10, 0, 0, 0), .Visible = False}
+        AddHandler btnAdvance.Click, AddressOf btnAdvance_Click
+        flpButtons.Controls.Add(btnAdvance)
+
+        btnCancelRequest = New ThemedButton() With {
+            .Text = "Cancel Request", .Kind = ButtonKind.Secondary, .AutoSize = True,
+            .MinimumSize = New Size(150, 40), .Margin = New Padding(10, 0, 0, 0), .Visible = False}
+        AddHandler btnCancelRequest.Click, AddressOf btnCancelRequest_Click
+        flpButtons.Controls.Add(btnCancelRequest)
+
+        ' Rightmost first: Record Payment / Advance, then Cancel Request, then Back
+        flpButtons.Controls.SetChildIndex(btnCancelRequest, 0)
+        flpButtons.Controls.SetChildIndex(btnAdvance, 0)
+        flpButtons.Controls.SetChildIndex(btnRecordPayment, 0)
+
+        btnViewReceipt = New ThemedButton() With {
+            .Text = "View Receipt", .Kind = ButtonKind.Secondary, .AutoSize = True,
+            .MinimumSize = New Size(140, 40), .Margin = New Padding(10, 0, 0, 0), .Visible = False}
+        AddHandler btnViewReceipt.Click, Sub(s, ev) frmReceipt.ShowFor(Me, Convert.ToInt32(RequestID))
+        flpButtons.Controls.Add(btnViewReceipt)
+        flpButtons.Controls.SetChildIndex(btnViewReceipt, 3)   ' after Cancel Request, before Back
+
+        lblStatusHint.Text = "Payment is recorded with the Record Payment button, which issues the OR number."
 
         cboStatus.Items.Clear()
         cboStatus.Items.AddRange(New Object() {"Pending", "Processing", "Ready for Release", "Released", "Cancelled"})
@@ -65,12 +267,15 @@ Public Class frmRequestDetails
                         End If
 
                         lblRequestNo.Text = Convert.ToString(r("RequestNo"))
-                        If Not IsDBNull(r("RequestDate")) Then requestDate = Convert.ToDateTime(r("RequestDate"))
+
                         lblStudentNo.Text = TextOrDash(r("StudentID"))
                         lblStudentName.Text = TextOrDash(r("StudentName"))
                         lblCreatedBy.Text = TextOrDash(r("CreatedBy"))
                         lblRequestDate.Text = If(IsDBNull(r("RequestDate")), "-", Convert.ToDateTime(r("RequestDate")).ToString("MMMM dd, yyyy"))
                         lblTotalAmount.Text = "₱ " & If(IsDBNull(r("TotalAmount")), 0D, Convert.ToDecimal(r("TotalAmount"))).ToString("N2")
+
+                        currentTotal = If(IsDBNull(r("TotalAmount")), 0D, Convert.ToDecimal(r("TotalAmount")))
+                        currentStudentName = lblStudentName.Text
 
                         originalStatus = Convert.ToString(r("Status")).Trim()
                         originalPayment = Convert.ToString(r("PaymentStatus")).Trim()
@@ -84,21 +289,7 @@ Public Class frmRequestDetails
 
             SelectItem(cboStatus, originalStatus)
             SelectItem(cboPaymentStatus, originalPayment)
-
-            ' Once an OR number has been issued, the payment can no longer be switched back to Unpaid
-            cboPaymentStatus.Enabled = (currentOrNo = "")
-
-            ' Cancelled is only offered while the request can still be cancelled (see CancelBlockedReason)
-            If Not String.Equals(originalStatus, "Cancelled", StringComparison.OrdinalIgnoreCase) Then
-                Dim reason As String = CancelBlockedReason()
-                If reason <> "" Then
-                    cboStatus.Items.Remove("Cancelled")
-                    tip.SetToolTip(cboStatus, reason)
-                Else
-                    tip.SetToolTip(cboStatus, $"This request can be cancelled until {CancelDeadline():MMMM dd, yyyy} ({CancelWindowDays} days after the request date).")
-                End If
-            End If
-
+            ConfigureActions()
             ApplyBadge(originalStatus)
             Return True
         Catch ex As Exception
@@ -107,26 +298,11 @@ Public Class frmRequestDetails
         End Try
     End Function
 
-    ' Last day on which this request may still be cancelled
-    Private Function CancelDeadline() As DateTime
-        Return requestDate.Date.AddDays(CancelWindowDays)
-    End Function
 
-    Private Function IsPastCancelWindow() As Boolean
-        Return DateTime.Today > CancelDeadline()
-    End Function
 
-    ' Empty text = the request can be cancelled. Otherwise the text says why it cannot.
-    ' Ready for Release can still be cancelled (inside the window); Released cannot, the document has been handed over.
-    Private Function CancelBlockedReason() As String
-        If String.Equals(originalStatus, "Released", StringComparison.OrdinalIgnoreCase) Then
-            Return "This request has already been Released, so it can no longer be cancelled."
-        End If
-        If IsPastCancelWindow() Then
-            Return $"Past due: this request can no longer be cancelled. It was requested on {requestDate:MMMM dd, yyyy}, so the last day to cancel was {CancelDeadline():MMMM dd, yyyy} ({CancelWindowDays} days after the request date)."
-        End If
-        Return ""
-    End Function
+
+
+
 
     Private Sub LoadItems()
         Try
@@ -210,91 +386,7 @@ Public Class frmRequestDetails
         lblStatusBadge.ForeColor = If(String.Equals(status, "Pending", StringComparison.OrdinalIgnoreCase), Theme.TextMain, Color.White)
     End Sub
 
-    ' ---------------------------------------------------------------
-    ' Save
-    ' ---------------------------------------------------------------
-    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-        Dim newStatus As String = cboStatus.Text.Trim()
-        Dim newPayment As String = cboPaymentStatus.Text.Trim()
 
-        If newStatus = "" OrElse newPayment = "" Then
-            MessageBox.Show("Please choose both a payment status and a request status.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Return
-        End If
-
-        Dim statusChanged As Boolean = Not String.Equals(newStatus, originalStatus, StringComparison.OrdinalIgnoreCase)
-        Dim paymentChanged As Boolean = Not String.Equals(newPayment, originalPayment, StringComparison.OrdinalIgnoreCase)
-        If Not statusChanged AndAlso Not paymentChanged Then
-            MessageBox.Show("Nothing has changed.", "Request Details", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            Return
-        End If
-
-        ' A document can only be made ready or handed over once it is paid for
-        Dim needsPayment As Boolean = String.Equals(newStatus, "Ready for Release", StringComparison.OrdinalIgnoreCase) OrElse
-                                      String.Equals(newStatus, "Released", StringComparison.OrdinalIgnoreCase)
-        If needsPayment AndAlso Not RequestHelper.IsPaid(newPayment) Then
-            MessageBox.Show("Set the payment status to Paid before moving this request to Ready for Release or Released.",
-                            "Payment Required", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            cboPaymentStatus.Focus()
-            Return
-        End If
-
-        ' The combo already hides "Cancelled" when it is not allowed; this is the safety net
-        If statusChanged AndAlso String.Equals(newStatus, "Cancelled", StringComparison.OrdinalIgnoreCase) AndAlso CancelBlockedReason() <> "" Then
-            MessageBox.Show(CancelBlockedReason(), "Cannot Cancel", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Return
-        End If
-
-        ' Released and Cancelled are easy to click by accident, so ask first
-        If statusChanged AndAlso (String.Equals(newStatus, "Released", StringComparison.OrdinalIgnoreCase) OrElse
-                                  String.Equals(newStatus, "Cancelled", StringComparison.OrdinalIgnoreCase)) Then
-            Dim confirmText As String = $"Mark request {lblRequestNo.Text} as {newStatus}?"
-            ' A paid request that is cancelled is deducted from the Payment Report
-            If String.Equals(newStatus, "Cancelled", StringComparison.OrdinalIgnoreCase) AndAlso RequestHelper.IsPaid(originalPayment) Then
-                confirmText &= vbCrLf & vbCrLf & $"This request is already Paid ({lblTotalAmount.Text}). The amount will be deducted from the Payment Report."
-            End If
-            If MessageBox.Show(confirmText, "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) <> DialogResult.Yes Then Return
-        End If
-
-        Dim issuedOrNo As String = Nothing
-        Try
-            Using c As New MySqlConnection(connStr)
-                c.Open()
-                Using tx As MySqlTransaction = c.BeginTransaction()
-                    Try
-                        ' Paid for the first time: issue the OR number now, in the same transaction as the update
-                        Dim issuing As Boolean = RequestHelper.IsPaid(newPayment) AndAlso currentOrNo = ""
-                        If issuing Then issuedOrNo = RequestHelper.NewORNumber(c, tx)
-
-                        Dim sql As String = "UPDATE tblrequest SET Status = @status, PaymentStatus = @pay" &
-                                            If(issuing, ", ORNo = @orNo, ORDate = @orDate", "") &
-                                            " WHERE RequestID = @id"
-                        Using cmd As New MySqlCommand(sql, c, tx)
-                            cmd.Parameters.AddWithValue("@status", newStatus)
-                            cmd.Parameters.AddWithValue("@pay", newPayment)
-                            If issuing Then
-                                cmd.Parameters.AddWithValue("@orNo", issuedOrNo)
-                                cmd.Parameters.AddWithValue("@orDate", DateTime.Now.Date)
-                            End If
-                            cmd.Parameters.AddWithValue("@id", RequestID)
-                            If cmd.ExecuteNonQuery() = 0 Then Throw New InvalidOperationException("The request no longer exists.")
-                        End Using
-                        tx.Commit()
-                    Catch
-                        tx.Rollback()
-                        Throw
-                    End Try
-                End Using
-            End Using
-
-            Dim message As String = "Request updated successfully!"
-            If issuedOrNo IsNot Nothing Then message &= vbCrLf & vbCrLf & "OR Number issued: " & issuedOrNo
-            MessageBox.Show(message, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            ReturnToDocumentRequests()
-        Catch ex As Exception
-            MessageBox.Show("Error updating the request: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
 
     Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
         ReturnToDocumentRequests()
@@ -309,5 +401,75 @@ Public Class frmRequestDetails
             Me.Close()
         End If
     End Sub
+
+
+    Private Sub btnRecordPayment_Click(sender As Object, e As EventArgs)
+        Using dlg As New frmPayment(lblRequestNo.Text, currentStudentName, currentTotal)
+            If dlg.ShowDialog(Me) <> DialogResult.OK Then Return
+            Dim p As PaymentResult = dlg.Result
+            Dim orNo As String
+
+            Try
+                Using c As New MySqlConnection(connStr)
+                    c.Open()
+                    Using tx As MySqlTransaction = c.BeginTransaction()
+                        ' Lock the row and make sure nobody paid or changed it since this page was opened
+                        Using chk As New MySqlCommand("SELECT Status, PaymentStatus FROM tblrequest WHERE RequestID = @id FOR UPDATE", c, tx)
+                            chk.Parameters.AddWithValue("@id", RequestID)
+                            Using r As MySqlDataReader = chk.ExecuteReader()
+                                If Not r.Read() Then Throw New InvalidOperationException("The request no longer exists.")
+                                If Convert.ToString(r("Status")) <> "Pending" OrElse Convert.ToString(r("PaymentStatus")) <> "Unpaid" Then
+                                    Throw New InvalidOperationException("This request was already updated. Please reopen it.")
+                                End If
+                            End Using
+                        End Using
+
+                        orNo = RequestHelper.NewORNumber(c, tx)
+
+                        Using up As New MySqlCommand("UPDATE tblrequest SET PaymentStatus = 'Paid', ORNo = @or, ORDate = CURDATE(), " &
+                                                     "IsRush = @rush, RushFee = @rf, TotalAmount = @total WHERE RequestID = @id", c, tx)
+                            up.Parameters.AddWithValue("@or", orNo)
+                            up.Parameters.AddWithValue("@rush", p.IsRush)
+                            up.Parameters.AddWithValue("@rf", If(p.IsRush, RequestHelper.RushFee, 0D))
+                            up.Parameters.AddWithValue("@total", p.AmountDue)
+                            up.Parameters.AddWithValue("@id", RequestID)
+                            up.ExecuteNonQuery()
+                        End Using
+
+                        Using ins As New MySqlCommand("INSERT INTO tblpayments (RequestID, ORNo, PaymentMode, AmountDue, AmountTendered, ChangeAmount, ReferenceNo, PaymentDate, ReceivedBy) " &
+                                                      "VALUES (@id, @or, @mode, @due, @tend, @chg, @ref, NOW(), @by)", c, tx)
+                            ins.Parameters.AddWithValue("@id", RequestID)
+                            ins.Parameters.AddWithValue("@or", orNo)
+                            ins.Parameters.AddWithValue("@mode", p.Mode)
+                            ins.Parameters.AddWithValue("@due", p.AmountDue)
+                            ins.Parameters.AddWithValue("@tend", p.AmountTendered)
+                            ins.Parameters.AddWithValue("@chg", p.Change)
+                            ins.Parameters.AddWithValue("@ref", If(String.IsNullOrWhiteSpace(p.ReferenceNo), CType(DBNull.Value, Object), p.ReferenceNo))
+                            ins.Parameters.AddWithValue("@by", AppSession.UserID)
+                            ins.ExecuteNonQuery()
+                        End Using
+
+                        ActivityLogger.Log(c, tx, ActivityLogger.TypeTransaction, "Payment Recorded", lblRequestNo.Text,
+                            $"Recorded payment {orNo} of ₱{p.AmountDue:N2} via {p.Mode} for {lblRequestNo.Text} (tendered ₱{p.AmountTendered:N2}, change ₱{p.Change:N2})" &
+                            If(p.IsRush, " - rush/expedite fee included", ""))
+                        tx.Commit()
+                    End Using
+                End Using
+            Catch ex As Exception
+                MessageBox.Show("Error recording the payment: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return
+            End Try
+
+            If MessageBox.Show($"Payment recorded. OR Number: {orNo}" & vbCrLf & $"Change to give: ₱{p.Change:N2}" & vbCrLf & vbCrLf & "Open the receipt now?",
+                               "Payment Recorded", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
+                frmReceipt.ShowFor(Me, Convert.ToInt32(RequestID))
+            End If
+
+        End Using
+
+        If LoadRequest() Then LoadItems()   ' refresh the page: now Paid, still Pending
+    End Sub
+
+
 
 End Class

@@ -65,12 +65,18 @@ Public Class frmAddDocument
                 End Using
 
                 Dim query As String = "INSERT INTO tbldocuments (DocumentName, Fee, Status, Description) VALUES (@name, @fee, @status, @desc)"
-                Using cmd As New MySqlCommand(query, c)
-                    cmd.Parameters.AddWithValue("@name", txtDocName.Text.Trim())
-                    cmd.Parameters.AddWithValue("@fee", fee)
-                    cmd.Parameters.AddWithValue("@status", If(cboDocStatus.Text = "", "Active", cboDocStatus.Text))
-                    cmd.Parameters.AddWithValue("@desc", txtDocDescription.Text.Trim())
-                    cmd.ExecuteNonQuery()
+                Dim docStatus As String = If(cboDocStatus.Text = "", "Active", cboDocStatus.Text)
+                Using tx As MySqlTransaction = c.BeginTransaction()
+                    Using cmd As New MySqlCommand(query, c, tx)
+                        cmd.Parameters.AddWithValue("@name", txtDocName.Text.Trim())
+                        cmd.Parameters.AddWithValue("@fee", fee)
+                        cmd.Parameters.AddWithValue("@status", docStatus)
+                        cmd.Parameters.AddWithValue("@desc", txtDocDescription.Text.Trim())
+                        cmd.ExecuteNonQuery()
+                    End Using
+                    ActivityLogger.Log(c, tx, ActivityLogger.TypeDocument, "Document Added", txtDocName.Text.Trim(),
+                                       $"Added document '{txtDocName.Text.Trim()}' (fee {fee:N2}, {docStatus})")
+                    tx.Commit()
                 End Using
             End Using
 

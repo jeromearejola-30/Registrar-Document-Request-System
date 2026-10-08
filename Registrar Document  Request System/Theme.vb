@@ -39,6 +39,7 @@ Public Module Theme
             Case "released" : Return ColorTranslator.FromHtml("#475569")
             Case "cancelled" : Return ColorTranslator.FromHtml("#DC2626")
             Case "paid" : Return PrimaryHover
+            Case "refunded" : Return ColorTranslator.FromHtml("#2563EB")
             Case "unpaid" : Return ColorTranslator.FromHtml("#B45309")
             Case "active" : Return PrimaryHover
             Case "inactive" : Return ColorTranslator.FromHtml("#9CA3AF")

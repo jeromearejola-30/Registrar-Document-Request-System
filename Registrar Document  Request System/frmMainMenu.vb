@@ -9,7 +9,8 @@
 
     ' Nothing = layout not applied yet; True = icon-only sidebar; False = full sidebar
     Private _compact As Boolean? = Nothing
-
+    ' Created in code (see BuildAdminNav): shown to administrators only
+    Private btnActivityLogs As NavButton
     Private Sub frmMainMenu_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         If e.CloseReason = CloseReason.UserClosing Then
             If ExitApp() Then
@@ -20,10 +21,25 @@
         End If
     End Sub
 
+    ' Admin-only menu items. btnUserManagement exists in the Designer; Activity Logs is created here
+    ' and placed at the bottom of the menu (docked-Top controls stack from the highest child index
+    ' to index 0, so index 0 is the lowest button).
+    Private Sub BuildAdminNav()
+        btnActivityLogs = New NavButton() With {
+            .Dock = DockStyle.Top, .Font = btnUserManagement.Font, .Glyph = ChrW(&HE81C),
+            .Margin = New Padding(0), .Height = btnUserManagement.Height, .Text = "Activity Logs"}
+        AddHandler btnActivityLogs.Click, AddressOf btnActivityLogs_Click
+        pnlNav.Controls.Add(btnActivityLogs)
+        pnlNav.Controls.SetChildIndex(btnActivityLogs, 0)
+
+        btnUserManagement.Visible = AppSession.IsAdmin
+        btnActivityLogs.Visible = AppSession.IsAdmin
+    End Sub
+
     Private Sub frmMainMenu_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         pbSchoolLogo.Image = Theme.LoadLogo()
-        lblUserProfile.Text = $"Welcome, {UserName} - ({UserRole})"
-
+        lblUserProfile.Text = $"Welcome, {AppSession.FullName} - ({AppSession.Role})"
+        BuildAdminNav()
         ApplyResponsiveLayout()
         ShowChildForm(New frmDashboard()) ' default page
 
@@ -41,7 +57,7 @@
 
     Private Sub ApplyResponsiveLayout()
         ' SizeChanged can fire before the controls exist (during InitializeComponent)
-        If tlpRoot Is Nothing OrElse Not IsHandleCreated Then Return
+        If tlpRoot Is Nothing OrElse btnActivityLogs Is Nothing OrElse Not IsHandleCreated Then Return
 
         Dim wantCompact As Boolean = (ClientSize.Width < LogicalToDeviceUnits(1100))
         If _compact.HasValue AndAlso _compact.Value = wantCompact Then Return
@@ -84,6 +100,7 @@
             MessageBoxIcon.Question)
 
         If result = DialogResult.Yes Then
+            AppSession.SignOut()
             UserRole = String.Empty
             UserName = String.Empty
             timer1.Stop()
@@ -165,6 +182,10 @@
                 title = "Add User" : nav = btnUserManagement
             Case TypeOf page Is frmViewUser
                 title = "View User" : nav = btnUserManagement
+            Case TypeOf page Is frmActivityLogs
+                title = "Activity Logs" : nav = btnActivityLogs
+            Case TypeOf page Is frmRequestManager
+                title = "Request Manager" : nav = btnDocumentRequests
 
             Case Else
                 title = page.Text ' any other page: use the form's own Text
@@ -202,7 +223,13 @@
     End Sub
 
     Private Sub btnUserManagement_Click(sender As Object, e As EventArgs) Handles btnUserManagement.Click
+        If Not AppSession.IsAdmin Then Return
         ShowChildForm(New frmUserManagement())
+    End Sub
+
+    Private Sub btnActivityLogs_Click(sender As Object, e As EventArgs)
+        If Not AppSession.IsAdmin Then Return
+        ShowChildForm(New frmActivityLogs())
     End Sub
 
 End Class

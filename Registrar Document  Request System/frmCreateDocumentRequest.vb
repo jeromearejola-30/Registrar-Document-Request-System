@@ -19,12 +19,12 @@ Public Class frmCreateDocumentRequest
         ' Control initial values
         dtpRequestDate.Value = DateTime.Now
         numCopies.Minimum = 1
-        numCopies.Maximum = 100
+        numCopies.Maximum = 2
         numCopies.Value = 1
 
         cboPaymentStatus.Items.Clear()
-        ' Unpaid is the default: staff only switches to Paid after the student has paid at the counter
-        cboPaymentStatus.Items.AddRange(New String() {"Unpaid", "Paid"})
+        ' Payment is no longer taken here: the request starts Unpaid and is paid from the request details (Step 4B)
+        cboPaymentStatus.Visible = False
         cboPaymentStatus.SelectedIndex = 0
 
         ResetStudentCard()
@@ -68,11 +68,11 @@ Public Class frmCreateDocumentRequest
         Try
             Dim query As String = "SELECT StudentID, " &
                                   "CONCAT(FirstName, ' ', IF(MiddleName IS NULL OR MiddleName = '', '', CONCAT(LEFT(MiddleName, 1), '. ')), LastName) AS StudentName, " &
-                                  "Course, YearLevel, Section FROM tblstudents"
+                                  "Course, YearLevel, Section FROM tblstudents WHERE Status = 'Active'"
 
             If Not String.IsNullOrWhiteSpace(keyword) Then
-                query &= " WHERE StudentID LIKE @k OR FirstName LIKE @k OR LastName LIKE @k OR Course LIKE @k " &
-                         "OR CONCAT(FirstName, ' ', LastName) LIKE @k"
+                query &= " AND (StudentID LIKE @k OR FirstName LIKE @k OR LastName LIKE @k OR Course LIKE @k " &
+                         "OR CONCAT(FirstName, ' ', LastName) LIKE @k)"
             End If
             query &= " ORDER BY LastName, FirstName"
 
@@ -180,20 +180,19 @@ Public Class frmCreateDocumentRequest
         Return LoggedInUserID
     End Function
 
-    ' Builds REQ-yyyy-##### and makes sure no other request already uses it
+    ' Builds the next REQ-yyyy-##### in sequence (same idea as NewORNumber)
     Private Function NewRequestNumber(c As MySqlConnection, tx As MySqlTransaction) As String
-        Dim rnd As New Random()
-        For attempt As Integer = 1 To 50
-            Dim candidate As String = "REQ-" & DateTime.Now.ToString("yyyy") & "-" & rnd.Next(1, 100000).ToString("00000")
-            Using cmd As New MySqlCommand("SELECT COUNT(*) FROM tblrequest WHERE RequestNo = @n", c, tx)
-                cmd.Parameters.AddWithValue("@n", candidate)
-                If Convert.ToInt32(cmd.ExecuteScalar()) = 0 Then Return candidate
-            End Using
-        Next
-        Throw New InvalidOperationException("Could not generate a unique request number. Please try again.")
+        Dim prefix As String = "REQ-" & DateTime.Now.ToString("yyyy") & "-"
+        Dim sql As String = "SELECT COALESCE(MAX(CAST(SUBSTRING(RequestNo, @start) AS UNSIGNED)), 0) FROM tblrequest WHERE RequestNo LIKE @like"
+        Using cmd As New MySqlCommand(sql, c, tx)
+            cmd.Parameters.AddWithValue("@start", prefix.Length + 1)
+            cmd.Parameters.AddWithValue("@like", prefix & "%")
+            Dim last As Long = Convert.ToInt64(cmd.ExecuteScalar())
+            Return prefix & (last + 1).ToString("00000")
+        End Using
     End Function
 
-    ' Save the request (tblrequest + tblrequestdetails) in one transaction
+    ' Save the request (tblrequest + tblrequestdetails + activity log) in one transaction
     Private Sub btnSubmitRequest_Click(sender As Object, e As EventArgs) Handles btnSubmitRequest.Click
         If selectedStudentID = "" Then
             MessageBox.Show("Please select a student from the table first.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -206,43 +205,45 @@ Public Class frmCreateDocumentRequest
         End If
 
         Dim qty As Integer = Convert.ToInt32(numCopies.Value)
-        Dim totalAmount As Decimal = currentUnitFee * qty
-        Dim docId As Integer = docIdMap(cboDocumentType.Text)
-        Dim generatedOrNo As String = Nothing
-
-        ' Paid issues an OR number, so make sure the payment was really received at the counter
-        If RequestHelper.IsPaid(cboPaymentStatus.Text) Then
-            If MessageBox.Show($"Confirm that the student has paid {totalAmount.ToString("N2")} pesos at the counter?" & vbCrLf & vbCrLf &
-                               "An OR number will be issued for this request.", "Confirm Payment",
-                               MessageBoxButtons.YesNo, MessageBoxIcon.Question) <> DialogResult.Yes Then Return
+        If qty < 1 OrElse qty > 2 Then   ' safety net: the box already stops at 2
+            MessageBox.Show("A request can have at most 2 copies.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
         End If
 
+        Dim totalAmount As Decimal = currentUnitFee * qty
+        Dim docId As Integer = docIdMap(cboDocumentType.Text)
+
+        ' Mandatory reason: the request is not saved without one
+        Dim purpose As String
+        Dim remarks As String
+        Using dlg As New frmRemarks("Reason for Request",
+                                    $"Why is {lblStudentName.Text} requesting {cboDocumentType.Text}?",
+                                    RemarkReasons.RequestPurpose)
+            If dlg.ShowDialog(Me) <> DialogResult.OK Then Return
+            purpose = dlg.Reason
+            remarks = dlg.Details
+        End Using
+
         Try
+            Dim reqNo As String
             Using c As New MySqlConnection(connStr)
                 c.Open()
                 Using tx As MySqlTransaction = c.BeginTransaction()
                     Try
-                        Dim reqNo As String = NewRequestNumber(c, tx)
-                        Dim createdBy As Integer = GetCurrentUserId(c, tx)
+                        reqNo = NewRequestNumber(c, tx)
 
-                        ' An OR number is generated only when the request is created as "Paid"
-                        Dim orNo As String = Nothing
-                        If RequestHelper.IsPaid(cboPaymentStatus.Text) Then orNo = RequestHelper.NewORNumber(c, tx)
-                        generatedOrNo = orNo
-
-                        Dim insertReq As String = "INSERT INTO tblrequest (RequestNo, StudentID, RequestDate, TotalAmount, PaymentStatus, ORNo, ORDate, Status, CreatedBy) " &
-                                                  "VALUES (@reqNo, @studentID, @reqDate, @totalAmount, @paymentStatus, @orNo, @orDate, 'Pending', @createdBy); " &
+                        Dim insertReq As String = "INSERT INTO tblrequest (RequestNo, StudentID, RequestDate, Purpose, RequestRemarks, IsRush, RushFee, TotalAmount, PaymentStatus, Status, CreatedBy) " &
+                                                  "VALUES (@reqNo, @studentID, @reqDate, @purpose, @remarks, 0, 0, @totalAmount, 'Unpaid', 'Pending', @createdBy); " &
                                                   "SELECT LAST_INSERT_ID();"
                         Dim newRequestId As Long
                         Using cmdReq As New MySqlCommand(insertReq, c, tx)
                             cmdReq.Parameters.AddWithValue("@reqNo", reqNo)
                             cmdReq.Parameters.AddWithValue("@studentID", selectedStudentID)
                             cmdReq.Parameters.AddWithValue("@reqDate", dtpRequestDate.Value)
+                            cmdReq.Parameters.AddWithValue("@purpose", purpose)
+                            cmdReq.Parameters.AddWithValue("@remarks", remarks)
                             cmdReq.Parameters.AddWithValue("@totalAmount", totalAmount)
-                            cmdReq.Parameters.AddWithValue("@paymentStatus", cboPaymentStatus.Text)
-                            cmdReq.Parameters.AddWithValue("@orNo", If(orNo Is Nothing, CType(DBNull.Value, Object), orNo))
-                            cmdReq.Parameters.AddWithValue("@orDate", If(orNo Is Nothing, CType(DBNull.Value, Object), DateTime.Now.Date))
-                            cmdReq.Parameters.AddWithValue("@createdBy", createdBy)
+                            cmdReq.Parameters.AddWithValue("@createdBy", AppSession.UserID)
                             newRequestId = Convert.ToInt64(cmdReq.ExecuteScalar())
                         End Using
 
@@ -257,21 +258,21 @@ Public Class frmCreateDocumentRequest
                             cmdDetails.ExecuteNonQuery()
                         End Using
 
+                        ActivityLogger.Log(c, tx, ActivityLogger.TypeTransaction, "Request Created", reqNo,
+                            $"Created request {reqNo} for student {selectedStudentID} ({cboDocumentType.Text} x{qty}, total ₱{totalAmount:N2})",
+                            $"{purpose}: {remarks}")
+
                         tx.Commit()
                     Catch
-                        tx.Rollback()   ' never leave a request without its details
+                        tx.Rollback()   ' never leave a request without its details or its log
                         Throw
                     End Try
                 End Using
             End Using
 
-            Dim doneMessage As String = "Document request successfully submitted!"
-            If generatedOrNo IsNot Nothing Then
-                doneMessage &= vbCrLf & vbCrLf & "OR Number: " & generatedOrNo
-            Else
-                doneMessage &= vbCrLf & vbCrLf & "Payment status: Unpaid. Open the request with View / Update once the student pays."
-            End If
-            MessageBox.Show(doneMessage, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MessageBox.Show($"Document request {reqNo} successfully submitted!" & vbCrLf & vbCrLf &
+                            "Status: Pending, Unpaid. Open the request with View / Update to record the payment.",
+                            "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
             ReturnToDocumentRequests()
         Catch ex As Exception
             MessageBox.Show("Error submitting request: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)

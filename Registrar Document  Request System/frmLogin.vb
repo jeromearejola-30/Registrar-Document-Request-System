@@ -127,14 +127,18 @@ Public Class frmLogin
             Dim dbRole As String = String.Empty
             Dim dbStatus As String = String.Empty
 
+            Dim dbUserId As Integer = 0
+            Dim dbFullName As String = String.Empty
             ' The connection lives only inside this Using block, so it can never be left open
             Using c As New MySqlConnection(connStr)
                 c.Open()
-                Using cmd As New MySqlCommand("SELECT Username, Password, Role, Status FROM tblUsers WHERE Username = @u LIMIT 1", c)
+                Using cmd As New MySqlCommand("SELECT UserID, Username, Password, FullName, Role, Status FROM tblUsers WHERE Username = @u LIMIT 1", c)
                     cmd.Parameters.AddWithValue("@u", username)
                     Using r As MySqlDataReader = cmd.ExecuteReader()
                         If r.Read() Then
                             found = True
+                            dbUserId = Convert.ToInt32(r("UserID"))
+                            dbFullName = Convert.ToString(r("FullName"))
                             dbUsername = Convert.ToString(r("Username"))
                             dbPassword = Convert.ToString(r("Password"))
                             dbRole = Convert.ToString(r("Role"))
@@ -156,6 +160,8 @@ Public Class frmLogin
                 ShowError("This account is inactive. Please contact an administrator.")
                 Return
             End If
+
+            AppSession.SignIn(dbUserId, dbUsername, dbFullName, dbRole)
 
             ' Success: hand the user over to the main window
             Dim mainMenu As New frmMainMenu()

@@ -7,12 +7,21 @@ Public Class frmEditDocument
     ' Set by frmDocumentManagement before the page is shown
     Public Property DocumentID As String = ""
 
+    Private originalStatus As String = ""
+
     Private Sub frmEditDocument_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Keep the form card centered and sized to its content whenever the window is resized
         Theme.FitFormCard(Me, cardForm, tlpForm, 860)
 
         cboDocStatus.Items.Clear()
         cboDocStatus.Items.AddRange(New Object() {"Active", "Inactive"}) ' matches tbldocuments.Status
+
+        ' Name, fee and description are locked: only the Status may change
+        For Each t As TextBox In New TextBox() {txtDocName, txtDocFee, txtDocDescription}
+            t.ReadOnly = True
+            t.BackColor = Color.FromArgb(243, 244, 246)
+        Next
+        btnDeleteDocument.Visible = False   ' documents are never deleted
 
         If String.IsNullOrEmpty(DocumentID) Then
             MessageBox.Show("No document was selected.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -33,6 +42,7 @@ Public Class frmEditDocument
                             txtDocName.Text = rd("DocumentName").ToString()
                             txtDocFee.Text = Convert.ToDecimal(rd("Fee")).ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)
                             cboDocStatus.SelectedIndex = Math.Max(0, cboDocStatus.FindStringExact(rd("Status").ToString()))
+                            originalStatus = cboDocStatus.Text
                             txtDocDescription.Text = rd("Description").ToString()
                         Else
                             MessageBox.Show("Document not found.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -63,75 +73,50 @@ Public Class frmEditDocument
 
     ' Save Changes button
     Private Sub btnSaveEdit_Click(sender As Object, e As EventArgs) Handles btnSaveEdit.Click
-        If String.IsNullOrWhiteSpace(txtDocName.Text) OrElse String.IsNullOrWhiteSpace(txtDocFee.Text) Then
-            MessageBox.Show("Please fill in Document Name and Fee.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        Dim newStatus As String = cboDocStatus.Text
+        If newStatus = originalStatus Then
+            MessageBox.Show("Nothing to save. The document name, fee and description are locked; only the Status can be changed.",
+                            "No Changes", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Return
         End If
 
-        Dim fee As Decimal
-        If Not TryParseFee(txtDocFee.Text, fee) Then
-            MessageBox.Show("Fee must be a valid amount, for example 150 or 150.00.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            txtDocFee.Focus()
-            Return
-        End If
+        Dim effect As String = If(newStatus = "Inactive",
+                                  "An Inactive document cannot be selected for new requests.",
+                                  "An Active document can be selected for new requests again.")
+        Dim warning As DialogResult = MessageBox.Show(
+            $"You are about to change '{txtDocName.Text}' from {originalStatus} to {newStatus}." & vbCrLf & vbCrLf &
+            effect & vbCrLf & vbCrLf & "Are you sure?",
+            "Confirm Status Change", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+        If warning <> DialogResult.Yes Then Return
+
+        Dim remarks As String
+        Using dlg As New frmRemarks("Reason for Status Change", $"Why is '{txtDocName.Text}' being set to {newStatus}?", RemarkReasons.DocumentStatus)
+            If dlg.ShowDialog(Me) <> DialogResult.OK Then Return
+            remarks = dlg.FullText
+        End Using
 
         Try
             Using c As New MySqlConnection(connStr)
                 c.Open()
-
-                ' Another document must not already use this name
-                Using check As New MySqlCommand("SELECT COUNT(*) FROM tbldocuments WHERE DocumentName = @name AND DocumentID <> @id", c)
-                    check.Parameters.AddWithValue("@name", txtDocName.Text.Trim())
-                    check.Parameters.AddWithValue("@id", DocumentID)
-                    If Convert.ToInt32(check.ExecuteScalar()) > 0 Then
-                        MessageBox.Show("Another document already uses this name.", "Duplicate Record", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                        txtDocName.Focus()
-                        Return
-                    End If
-                End Using
-
-                Dim query As String = "UPDATE tbldocuments SET DocumentName=@name, Fee=@fee, Status=@status, Description=@desc WHERE DocumentID=@id"
-                Using cmd As New MySqlCommand(query, c)
-                    cmd.Parameters.AddWithValue("@id", DocumentID)
-                    cmd.Parameters.AddWithValue("@name", txtDocName.Text.Trim())
-                    cmd.Parameters.AddWithValue("@fee", fee)
-                    cmd.Parameters.AddWithValue("@status", cboDocStatus.Text)
-                    cmd.Parameters.AddWithValue("@desc", txtDocDescription.Text.Trim())
-                    cmd.ExecuteNonQuery()
+                Using tx As MySqlTransaction = c.BeginTransaction()
+                    Using cmd As New MySqlCommand("UPDATE tbldocuments SET Status = @status WHERE DocumentID = @id", c, tx)
+                        cmd.Parameters.AddWithValue("@status", newStatus)
+                        cmd.Parameters.AddWithValue("@id", DocumentID)
+                        cmd.ExecuteNonQuery()
+                    End Using
+                    ActivityLogger.Log(c, tx, ActivityLogger.TypeDocument, "Document Status Changed", txtDocName.Text,
+                                       $"Changed status of '{txtDocName.Text}' from {originalStatus} to {newStatus}", remarks)
+                    tx.Commit()
                 End Using
             End Using
 
-            MessageBox.Show("Document updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MessageBox.Show("Document status updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
             ReturnToDocumentManagement()
         Catch ex As Exception
             MessageBox.Show("Error updating document: " & ex.Message)
         End Try
     End Sub
 
-    ' Delete Document button
-    Private Sub btnDeleteDocument_Click(sender As Object, e As EventArgs) Handles btnDeleteDocument.Click
-        Dim confirm As DialogResult = MessageBox.Show("Are you sure you want to delete this document?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-        If confirm <> DialogResult.Yes Then Return
-
-        Try
-            Using c As New MySqlConnection(connStr)
-                c.Open()
-                Using cmd As New MySqlCommand("DELETE FROM tbldocuments WHERE DocumentID=@id", c)
-                    cmd.Parameters.AddWithValue("@id", DocumentID)
-                    cmd.ExecuteNonQuery()
-                End Using
-            End Using
-
-            MessageBox.Show("Document deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            ReturnToDocumentManagement()
-        Catch ex As MySqlException When ex.Number = 1451
-            ' 1451 = a foreign key blocks the delete (the document is used by existing requests)
-            MessageBox.Show("This document is already used by existing requests and cannot be deleted." & vbCrLf &
-                            "Set its Status to Inactive instead.", "Cannot Delete", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-        Catch ex As Exception
-            MessageBox.Show("Error deleting document: " & ex.Message)
-        End Try
-    End Sub
 
     ' Cancel button
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click

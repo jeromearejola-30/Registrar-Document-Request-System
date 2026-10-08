@@ -62,13 +62,19 @@ Public Class frmAddUser
 
                 Dim sql As String = "INSERT INTO tblUsers (FullName, Username, Password, Role, Status) " &
                                     "VALUES (@FullName, @Username, @Password, @Role, @Status)"
-                Using cmd As New MySqlCommand(sql, c)
-                    cmd.Parameters.AddWithValue("@FullName", txtFullName.Text.Trim())
-                    cmd.Parameters.AddWithValue("@Username", txtUsername.Text.Trim())
-                    cmd.Parameters.AddWithValue("@Password", txtPassword.Text)
-                    cmd.Parameters.AddWithValue("@Role", cboUserRole.SelectedItem.ToString())
-                    cmd.Parameters.AddWithValue("@Status", cboUserStatus.SelectedItem.ToString())
-                    cmd.ExecuteNonQuery()
+                Using tx As MySqlTransaction = c.BeginTransaction()
+                    Using cmd As New MySqlCommand(sql, c, tx)
+                        cmd.Parameters.AddWithValue("@FullName", txtFullName.Text.Trim())
+                        cmd.Parameters.AddWithValue("@Username", txtUsername.Text.Trim())
+                        cmd.Parameters.AddWithValue("@Password", txtPassword.Text)
+                        cmd.Parameters.AddWithValue("@Role", cboUserRole.SelectedItem.ToString())
+                        cmd.Parameters.AddWithValue("@Status", cboUserStatus.SelectedItem.ToString())
+                        cmd.ExecuteNonQuery()
+                    End Using
+                    ' The password is never written to the log
+                    ActivityLogger.Log(c, tx, ActivityLogger.TypeUser, "User Added", txtUsername.Text.Trim(),
+                        $"Added user account '{txtUsername.Text.Trim()}' ({txtFullName.Text.Trim()}) with role {cboUserRole.SelectedItem} and status {cboUserStatus.SelectedItem}")
+                    tx.Commit()
                 End Using
             End Using
 
