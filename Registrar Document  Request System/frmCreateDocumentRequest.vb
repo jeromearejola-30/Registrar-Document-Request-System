@@ -25,7 +25,7 @@ Public Class frmCreateDocumentRequest
         cboPaymentStatus.Items.Clear()
         ' Payment is no longer taken here: the request starts Unpaid and is paid from the request details (Step 4B)
         cboPaymentStatus.Visible = False
-        cboPaymentStatus.SelectedIndex = 0
+
 
         ResetStudentCard()
         LoadDocumentTypesAndFees()
