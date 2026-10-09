@@ -57,9 +57,9 @@ Public Class frmPaymentReport
                 "       (SELECT GROUP_CONCAT(d.DocumentName SEPARATOR ', ') FROM tblrequestdetails rd " &
                 "        JOIN tbldocuments d ON d.DocumentID = rd.DocumentID WHERE rd.RequestID = r.RequestID) AS Document, " &
                 "       r.Status AS Status, " &
-                "       IF(r.Status = 'Cancelled', -r.TotalAmount, r.TotalAmount) AS Amount " &
+                "       IF(r.PaymentStatus = 'Refunded', -r.TotalAmount, r.TotalAmount) AS Amount " &
                 "FROM tblrequest r LEFT JOIN tblstudents s ON s.StudentID = r.StudentID " &
-                "WHERE r.PaymentStatus = 'Paid' AND COALESCE(r.ORDate, DATE(r.RequestDate)) BETWEEN @dateFrom AND @dateTo " &
+                "WHERE r.PaymentStatus IN ('Paid', 'Refunded') AND COALESCE(r.ORDate, DATE(r.RequestDate)) BETWEEN @dateFrom AND @dateTo " &
                 "ORDER BY PaidOn DESC, r.ORNo DESC"
 
             Dim unpaidQuery As String =
@@ -297,31 +297,12 @@ Public Class frmPaymentReport
             Return
         End If
 
-        printRowIndex = 0
-        printPageNumber = 0
-
-        Using printDoc As New Printing.PrintDocument()
-            printDoc.DefaultPageSettings.Landscape = True
-            AddHandler printDoc.PrintPage, AddressOf PrintReportPage
-
-            ' Pre-check: ensure there are installed printers before attempting preview
-            If System.Drawing.Printing.PrinterSettings.InstalledPrinters.Count = 0 Then
-                MessageBox.Show("No printers are installed. Please install a printer or start the Print Spooler service.", "Printing Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Return
-            End If
-
-            Using preview As New PrintPreviewDialog()
-                preview.Document = printDoc
-                preview.WindowState = FormWindowState.Maximized
-                Try
-                    preview.ShowDialog()
-                Catch ex As System.Drawing.Printing.InvalidPrinterException
-                    MessageBox.Show("No printers are installed or the printer configuration is invalid. Please install a printer or start the Print Spooler service.", "Printing Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Catch ex As Exception
-                    MessageBox.Show($"An error occurred while preparing the print preview: {ex.Message}", "Printing Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End Try
-            End Using
-        End Using
+        ReportOutput.Run(Me, "Payment Report", True,
+                         Sub()
+                             printRowIndex = 0
+                             printPageNumber = 0
+                         End Sub,
+                         AddressOf PrintReportPage)
     End Sub
 
     Private Sub PrintReportPage(sender As Object, e As Printing.PrintPageEventArgs)
@@ -340,6 +321,7 @@ Public Class frmPaymentReport
             y += fontTitle.GetHeight(e.Graphics) + 4
             e.Graphics.DrawString(PeriodText() & "   |   Based on Official Receipt date", fontSmall, Brushes.DimGray, m.Left, y)
             y += fontSmall.GetHeight(e.Graphics) + 12
+            y = ReportOutput.DrawPurpose(e.Graphics, fontSmall, m, y)
 
             ' Column x-positions as fractions of the printable width (the last column is right-aligned)
             Dim fr As Single() = {0, 0.11, 0.2, 0.34, 0.52, 0.76, 0.86, 1.0}
@@ -350,7 +332,7 @@ Public Class frmPaymentReport
             y += rowH
             e.Graphics.DrawLine(Pens.Black, m.Left, y - 3, m.Right, y - 3)
 
-            Dim footerReserve As Single = rowH * 6
+            Dim footerReserve As Single = rowH * 6 + 100
             While printRowIndex < dgvReport.Rows.Count
                 Dim row As DataGridViewRow = dgvReport.Rows(printRowIndex)
                 If Not row.IsNewRow Then
@@ -398,6 +380,8 @@ Public Class frmPaymentReport
             e.Graphics.DrawString("Net collections: ₱ " & reportNet.ToString("N2"), fontHead, Brushes.Black, tx, y)
             y += rowH
             e.Graphics.DrawString("Unpaid (not yet collected): ₱ " & reportUnpaid.ToString("N2"), fontBody, Brushes.DimGray, tx, y)
+            y += rowH + 12
+            ReportOutput.DrawSignature(e.Graphics, fontHead, fontSmall, m, y)
             e.HasMorePages = False
         End Using
     End Sub

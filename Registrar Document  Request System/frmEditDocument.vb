@@ -90,8 +90,9 @@ Public Class frmEditDocument
         If warning <> DialogResult.Yes Then Return
 
         Dim remarks As String
-        Using dlg As New frmRemarks("Reason for Status Change", $"Why is '{txtDocName.Text}' being set to {newStatus}?", RemarkReasons.DocumentStatus)
-            If dlg.ShowDialog(Me) <> DialogResult.OK Then Return
+        Using dlg As New frmRemarks("Reason for Status Change", $"Why is '{txtDocName.Text}' being set to {newStatus}?",
+        If(newStatus = "Inactive", RemarkReasons.DocumentDeactivate, RemarkReasons.DocumentActivate))
+            If dlg.ShowDialog(Me) <> DialogResult.OK Then Return   ' <- this line was missing
             remarks = dlg.FullText
         End Using
 

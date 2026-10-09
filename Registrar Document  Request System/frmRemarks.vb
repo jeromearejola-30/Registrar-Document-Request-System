@@ -21,14 +21,27 @@ Public Class frmRemarks
     Private _reason As String = ""
     Private _details As String = ""
 
+
+    Private _confirmed As Boolean = False
+
+    ' Fail loudly if code reads the remarks without the user having confirmed the dialog
+    Private Sub RequireConfirmed()
+        If Not _confirmed Then
+            Throw New InvalidOperationException(
+                "The remarks dialog was not confirmed. Show it with ShowDialog and check DialogResult.OK before reading Reason, Details or FullText.")
+        End If
+    End Sub
+
     Public ReadOnly Property Reason As String
         Get
+            RequireConfirmed()
             Return _reason
         End Get
     End Property
 
     Public ReadOnly Property Details As String
         Get
+            RequireConfirmed()
             Return _details
         End Get
     End Property
@@ -36,6 +49,7 @@ Public Class frmRemarks
     ''' <summary>Reason and details together, e.g. for the activity log's Remarks column.</summary>
     Public ReadOnly Property FullText As String
         Get
+            RequireConfirmed()
             Return $"{_reason}: {_details}"
         End Get
     End Property
@@ -126,7 +140,9 @@ Public Class frmRemarks
 
         _reason = cboReason.SelectedItem.ToString()
         _details = d
+        _confirmed = True
         DialogResult = DialogResult.OK   ' this also closes the dialog
+
     End Sub
 
 End Class
@@ -141,19 +157,28 @@ Public Module RemarkReasons
         "Transferred to another school", "Dropped out", "On leave of absence",
         "Returned from leave of absence", "Other"}
 
-    Public ReadOnly DocumentStatus As String() = {
+    Public ReadOnly DocumentDeactivate As String() = {
         "Template under revision", "Fee or policy under review", "Service temporarily suspended",
-        "Revision completed; service resumed", "Other"}
+        "Signatory or approval pending", "Other"}
+
+    Public ReadOnly DocumentActivate As String() = {
+        "Revision completed; service resumed", "Fee or policy review completed", "Service restored",
+        "Signatory or approval received", "Other"}
 
     Public ReadOnly CancelRequest As String() = {
         "Student no longer needs the document", "Wrong document selected", "Duplicate request",
         "Student did not proceed with payment", "Other"}
 
     Public ReadOnly RequestPurpose As String() = {
-    "Employment", "Transfer to Another School", "Scholarship Application", "Further Studies",
-    "Board Exam / Licensure", "Personal Copy", "Other"}
+        "Employment", "Transfer to Another School", "Scholarship Application", "Further Studies",
+        "Board Exam / Licensure", "Personal Copy", "Other"}
 
     Public ReadOnly UserChange As String() = {
-    "Account deactivated: staff left or transferred", "Account reactivated",
-    "Role change approved", "Name or username corrected", "Other"}
+        "Account deactivated: staff left or transferred", "Account reactivated",
+        "Role change approved", "Name or username corrected", "Other"}
+
+    Public ReadOnly ReportPurpose As String() = {
+        "Periodic report (daily / weekly / monthly)", "Instructor or adviser request",
+        "Audit or reconciliation", "Management review", "Personal reference", "Other"}
+
 End Module

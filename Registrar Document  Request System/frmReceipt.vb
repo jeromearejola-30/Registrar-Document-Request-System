@@ -80,7 +80,9 @@ Public Class frmReceipt
     ' ---------------------------------------------------------------
     Public Shared Function HasPrinter() As Boolean
         Try
-            Return PrinterSettings.InstalledPrinters.Count > 0
+            ' IsValid is False when Windows has no usable default printer
+            Dim ps As New PrinterSettings()
+            Return ps.IsValid
         Catch
             Return False
         End Try

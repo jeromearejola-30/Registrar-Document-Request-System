@@ -20,6 +20,24 @@ Public Class frmRequestDetails
     Private btnViewReceipt As ThemedButton
     Private Const MaxVisibleItemRows As Integer = 8
 
+
+    ' Names of the documents on this request that are not Active right now ("" = all available)
+    Private Function InactiveDocuments(c As MySqlConnection, tx As MySqlTransaction) As String
+        Dim names As New List(Of String)()
+        Using q As New MySqlCommand("SELECT d.DocumentName FROM tblrequestdetails rd " &
+                                    "JOIN tbldocuments d ON d.DocumentID = rd.DocumentID " &
+                                    "WHERE rd.RequestID = @id AND d.Status <> 'Active'", c, tx)
+            q.Parameters.AddWithValue("@id", RequestID)
+            Using r As MySqlDataReader = q.ExecuteReader()
+                While r.Read()
+                    names.Add(Convert.ToString(r("DocumentName")))
+                End While
+            End Using
+        End Using
+        Return String.Join(", ", names)
+    End Function
+
+
     ' Which button is visible depends only on the request's current status and payment
     Private Sub ConfigureActions()
         Dim isPending As Boolean = (originalStatus = "Pending")
@@ -404,6 +422,26 @@ Public Class frmRequestDetails
 
 
     Private Sub btnRecordPayment_Click(sender As Object, e As EventArgs)
+
+        ' Do not take money for a document the office cannot issue right now
+        Try
+            Using c As New MySqlConnection(connStr)
+                c.Open()
+                Dim unavailable As String = InactiveDocuments(c, Nothing)
+                If unavailable <> "" Then
+                    MessageBox.Show($"'{unavailable}' is currently Inactive (not available), so the payment cannot be recorded for this request." &
+                                    vbCrLf & vbCrLf &
+                                    "You can cancel this request (no refund is needed because it is unpaid), or wait until the document is set to Active again.",
+                                    "Document Unavailable", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                    Return
+                End If
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Error checking the document: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End Try
+
+
         Using dlg As New frmPayment(lblRequestNo.Text, currentStudentName, currentTotal)
             If dlg.ShowDialog(Me) <> DialogResult.OK Then Return
             Dim p As PaymentResult = dlg.Result
@@ -423,6 +461,11 @@ Public Class frmRequestDetails
                                 End If
                             End Using
                         End Using
+
+                        Dim unavailable As String = InactiveDocuments(c, tx)
+                        If unavailable <> "" Then
+                            Throw New InvalidOperationException($"'{unavailable}' became unavailable (Inactive). Payment was not recorded.")
+                        End If
 
                         orNo = RequestHelper.NewORNumber(c, tx)
 

@@ -250,19 +250,12 @@ Public Class frmReport
             Return
         End If
 
-
-        printRowIndex = 0
-        printPageNumber = 0
-
-        Using printDoc As New Printing.PrintDocument()
-            AddHandler printDoc.PrintPage, AddressOf PrintReportPage
-            Using preview As New PrintPreviewDialog()
-                preview.Document = printDoc
-                preview.WindowState = FormWindowState.Maximized
-                preview.ShowDialog()
-
-            End Using
-        End Using
+        ReportOutput.Run(Me, "Document Requests Report", False,
+                         Sub()
+                             printRowIndex = 0
+                             printPageNumber = 0
+                         End Sub,
+                         AddressOf PrintReportPage)
     End Sub
 
     ' Prints as many rows as fit on the page, then asks for another page; columns scale to the page width
@@ -283,6 +276,7 @@ Public Class frmReport
             e.Graphics.DrawString($"Period: {dtpDateFrom.Value:MM/dd/yyyy} to {dtpDateTo.Value:MM/dd/yyyy}   |   Status: {cboStatus.Text}   |   Document: {cboDocumentType.Text}",
                                   fontSmall, Brushes.DimGray, m.Left, y)
             y += fontSmall.GetHeight(e.Graphics) + 12
+            y = ReportOutput.DrawPurpose(e.Graphics, fontSmall, m, y)
 
             ' Column x-positions as fractions of the printable width
             Dim fr As Single() = {0, 0.2, 0.42, 0.7, 0.84}
@@ -293,7 +287,7 @@ Public Class frmReport
             y += rowH
             e.Graphics.DrawLine(Pens.Black, m.Left, y - 3, m.Right, y - 3)
 
-            Dim footerReserve As Single = rowH * 5   ' room for the totals on the last page
+            Dim footerReserve As Single = rowH * 5 + 100   ' totals + the signature block
             While printRowIndex < dgvReport.Rows.Count
                 Dim row As DataGridViewRow = dgvReport.Rows(printRowIndex)
                 If Not row.IsNewRow Then
@@ -339,6 +333,8 @@ Public Class frmReport
             e.Graphics.DrawString("Tax / Fees: ₱ " & reportTaxFees.ToString("N2"), fontHead, Brushes.Black, tx, y)
             y += rowH
             e.Graphics.DrawString("Total: ₱ " & reportTotal.ToString("N2"), fontHead, Brushes.Black, tx, y)
+            y += rowH + 12
+            ReportOutput.DrawSignature(e.Graphics, fontHead, fontSmall, m, y)
             e.HasMorePages = False
         End Using
     End Sub
